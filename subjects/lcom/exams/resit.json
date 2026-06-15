@@ -138,8 +138,8 @@
         "C": "4 bytes",
         "D": "8 bytes"
       },
-      "answer": "A",
-      "explanation": "A union's size equals the size of its largest member. The largest member is char[10] = 10 bytes. (Note: alignment may round up to 12 on some compilers, but the minimum guaranteed size is 10.)"
+      "answer": "B",
+      "explanation": "A union's size = size of its largest member, then padded to a multiple of the largest member's alignment. Largest member is char[10] = 10 bytes, but the largest alignment requirement comes from int (4 bytes). 10 rounded up to the next multiple of 4 = 12. So sizeof(union) = 12 bytes. This padding ensures the union is always correctly aligned when used inside arrays or structs."
     },
     {
       "id": 10,
