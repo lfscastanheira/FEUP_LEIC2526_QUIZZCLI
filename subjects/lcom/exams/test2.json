@@ -303,8 +303,8 @@
         "C": "buffer[47] = 0x2;",
         "D": "buffer[2][3][1] = 0x2;"
       },
-      "answer": "C",
-      "explanation": "With 2 channels and 1 byte each, bytes-per-pixel=2. Offset = x*bytes_per_pixel + y*width*bytes_per_pixel + channel_index = 2*2 + 3*10*2 + 1 = 4 + 60 + 1 = 65. Wait \u2014 recalculate: Green is channel index 1 (Red=0, Green=1). Offset = (y * width + x) * channels + channel = (3*10 + 2)*2 + 1 = 32*2 + 1 = 65. The exam answer key gives C (47) \u2014 some interpretations count x/y differently. Based on the official answer: buffer[47] with x*channels + y*width*channels+1."
+      "answer": "B",
+      "explanation": "Formula: offset = (y * width + x) * bytes_per_pixel + channel_index. Here y=3 (row), x=2 (column), width=10, bytes_per_pixel=2, Green channel index=1. So: (3*10 + 2)*2 + 1 = 32*2 + 1 = 65 → buffer[65]. Common mistake: swapping x and y gives (2*10 + 3)*2 + 1 = 47, which is WRONG. Remember: y is the row (multiplied by width), x is the column. This is the standard row-major linear layout used in all graphics buffers."
     },
     {
       "id": 22,
