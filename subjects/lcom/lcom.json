@@ -558,8 +558,8 @@
         "C": "It allows scan codes to map to different keyboard language mappings.",
         "D": "For direct mapping to ASCII."
       },
-      "answer": "A",
-      "explanation": "The original PC had a limited scancode set. Extended keys (arrow keys, numpad, etc.) were added later for backward compatibility using the escape byte 0xE0 followed by a second byte."
+      "answer": "B",
+      "explanation": "A single byte can encode at most 128 keys (bit 7 distinguishes make from break codes). The complete set of keys on a modern keyboard exceeds this limit, so the 0xE0 escape prefix was introduced to create a second byte of codes for extended keys (arrow keys, Insert, Delete, Home, End, etc.)."
     },
     {
       "id": 40,
