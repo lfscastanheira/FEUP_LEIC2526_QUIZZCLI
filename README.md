@@ -1,105 +1,114 @@
 # 🎓 Universal CLI Quiz Tool
 
-A flexible, colourful command-line quiz tool that loads question banks from JSON
-files and randomises exam-style multiple-choice quizzes.
+A lightweight, terminal-based quiz engine written in Python. Supports multiple subjects, topic filtering, past-exam simulations, and persistent score tracking.
 
 ---
 
-## Quick Start
-
-```bash
-# Run interactively (auto-discovers all *.json banks in this folder)
-python3 quiz.py
-
-# Jump straight to LCOM
-python3 quiz.py --subject lcom
-```
-
----
-
-## File Structure
+## Project Structure
 
 ```
 Test_CLI/
-├── quiz.py          ← The quiz engine (never needs editing)
-├── lcom.json        ← LCOM question bank (300 questions)
-├── quiz_history.json← Auto-created; stores your session scores
-└── README.md        ← This file
+├── quiz.py                  ← Quiz engine
+├── quiz_history.json        ← Auto-generated score history (gitignored)
+├── README.md
+├── .gitignore
+│
+├── subjects/                ← Question banks (one folder per subject)
+│   └── lcom/
+│       ├── lcom.json        ← 300-question LCOM practice bank
+│       └── exams/           ← Past-exam simulations (fixed order)
+│           ├── test1.json   ← Test 1  — 4 Apr 2025  (20 Qs)
+│           ├── test2.json   ← Test 2  — 29 Apr 2025 (25 Qs)
+│           └── resit.json   ← Resit   — 27 Jun 2025 (30 Qs)
+│
+└── info/                    ← Study material (one folder per subject)
+    └── lcom/
+        ├── lectures.md      ← LCOM lecture notes
+        └── exams.md         ← Past exam papers (source)
 ```
 
 ---
 
-## Features
+## Usage
 
-| Feature | Detail |
-|---|---|
-| 📦 Multi-subject | Drop any `<name>.json` in this folder — it appears in the menu |
-| 🔀 Randomised | Questions AND answer order are shuffled every run |
-| 🎯 Topic filter | Quiz only the topics you want to drill |
-| 📖 Explanations | Wrong answers show an explanation immediately |
-| 📈 History | Every session is logged; view anytime from the menu |
-| 🔢 Custom size | Choose how many questions per session |
+```bash
+# Interactive menu
+python3 quiz.py
+
+# Jump directly to a subject
+python3 quiz.py --subject lcom
+
+# Help
+python3 quiz.py --help
+```
 
 ---
 
-## LCOM Question Bank (`lcom.json`)
+## Subject Menu Options
 
-**300 questions** across 12 topics:
-
-| Topic | Questions |
-|---|---|
-| C Programming | 73 |
-| Interrupts and PIC | 29 |
-| Keyboard and KBC | 29 |
-| Video and VBE | 35 |
-| i8254 Timer | 23 |
-| OOP in C | 23 |
-| PS/2 Mouse | 21 |
-| RTC | 18 |
-| Event-Driven Design | 16 |
-| Graphics Buffering | 11 |
-| XPM and Sprites | 12 |
-| I/O and Device Drivers | 10 |
-
-Difficulty levels: **easy / medium / hard** — mirroring past exam style.
+| # | Option | Description |
+|---|--------|-------------|
+| 1 | Practice quiz — default size | Random sample of ~20 questions |
+| 2 | Practice quiz — custom size | You choose how many questions |
+| 3 | Filter by topic | Pick specific topics to drill |
+| 4 | View score history | See your last 20 results |
+| 5 | 📝 Exam Simulations | Past papers in original order |
 
 ---
 
 ## Adding a New Subject
 
-Create `<slug>.json` in this folder with the structure:
+1. Create `subjects/<subject>/` directory.
+2. Add a `<subject>.json` file with the schema below.
+3. Optionally add `subjects/<subject>/exams/*.json` for past-exam simulations.
+4. Optionally add study notes to `info/<subject>/`.
+
+### Practice Bank Schema
 
 ```json
 {
-  "subject": "My Course Name",
+  "subject": "Subject Display Name",
   "topics": ["Topic A", "Topic B"],
   "questions": [
     {
       "id": 1,
       "topic": "Topic A",
-      "difficulty": "medium",
-      "question": "What is the answer to everything?",
+      "difficulty": "easy",
+      "question": "Question text?",
       "options": {
-        "A": "41",
-        "B": "42",
-        "C": "43",
-        "D": "44"
+        "A": "Option A",
+        "B": "Option B",
+        "C": "Option C",
+        "D": "Option D"
       },
-      "answer": "B",
-      "explanation": "Douglas Adams, The Hitchhiker's Guide to the Galaxy."
+      "answer": "A",
+      "explanation": "Why A is correct."
     }
   ]
 }
 ```
 
-The tool discovers it automatically on the next run — no code changes needed.
+### Exam Simulation Schema
+
+Same as above, with three extra top-level fields:
+
+```json
+{
+  "exam_mode": true,
+  "exam_title": "Test 1 – Date",
+  "exam_questions": 20,
+  ...
+}
+```
 
 ---
 
-## Tips for Exam Prep
+## Score History
 
-1. **Run 3–4 short sessions per day** rather than one long cramming session.
-2. **Use topic filter** to focus on your weakest areas first.
-3. **Read every explanation** — even for correct answers.
-4. **Target ≥80% consistently** before the exam.
-5. **Hard questions** are marked — if you get those right, you're in great shape.
+Results are saved automatically to `quiz_history.json` at the project root after every session (both practice and exam simulation). The history view shows the last 20 entries.
+
+---
+
+## Requirements
+
+Python 3.7+ — no third-party packages needed.

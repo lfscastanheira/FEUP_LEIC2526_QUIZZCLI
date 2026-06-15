@@ -8,8 +8,19 @@
     python3 quiz.py --help           # Help text
     python3 quiz.py --subject lcom   # Jump straight to a subject
 
-  To add a new subject just drop a new <subject>.json file
-  in the same directory as this script.
+  Directory layout:
+    subjects/
+      <subject>/
+        <subject>.json               # Practice question bank
+        exams/
+          *.json                     # Past-exam simulations
+
+    info/
+      <subject>/
+        *.md                         # Study notes / past papers
+
+  To add a new subject, drop a new folder under subjects/ with
+  a <subject>.json file that has "subject" and "questions" keys.
 =============================================================
 """
 
@@ -24,16 +35,16 @@ from pathlib import Path
 
 # ─── ANSI colours ────────────────────────────────────────────────────────────
 
-RESET  = "\033[0m"
-BOLD   = "\033[1m"
-DIM    = "\033[2m"
-RED    = "\033[91m"
-GREEN  = "\033[92m"
-YELLOW = "\033[93m"
-CYAN   = "\033[96m"
-BLUE   = "\033[94m"
-MAGENTA= "\033[95m"
-WHITE  = "\033[97m"
+RESET   = "\033[0m"
+BOLD    = "\033[1m"
+DIM     = "\033[2m"
+RED     = "\033[91m"
+GREEN   = "\033[92m"
+YELLOW  = "\033[93m"
+CYAN    = "\033[96m"
+BLUE    = "\033[94m"
+MAGENTA = "\033[95m"
+WHITE   = "\033[97m"
 
 def c(text, color):
     return f"{color}{text}{RESET}"
@@ -58,45 +69,116 @@ BANNER = f"""
 ╚══════════════════════════════════════════════════════════════╝{RESET}
 """
 
+# ─── Paths ───────────────────────────────────────────────────────────────────
+
+SCRIPT_DIR   = Path(__file__).parent
+SUBJECTS_DIR = SCRIPT_DIR / "subjects"
+HISTORY_FILE = SCRIPT_DIR / "quiz_history.json"
+
 # ─── Discover question banks ─────────────────────────────────────────────────
 
-SCRIPT_DIR = Path(__file__).parent
-
 def discover_subjects():
-    """Return dict  {slug: path}  for every .json bank found."""
-    banks = {}
-    for p in sorted(SCRIPT_DIR.glob("*.json")):
-        try:
-            with open(p) as f:
-                data = json.load(f)
-            if "subject" in data and "questions" in data:
-                slug = p.stem
-                banks[slug] = p
-        except Exception:
-            pass
-    return banks
+    """
+    Scan subjects/<slug>/<slug>.json for practice banks.
 
-# ─── Load & validate questions ───────────────────────────────────────────────
+    Returns:
+        dict: {slug: {"name": str, "path": Path, "exams": [(title, path), ...]}}
+    """
+    result = {}
+
+    if not SUBJECTS_DIR.exists():
+        return result
+
+    for subject_dir in sorted(SUBJECTS_DIR.iterdir()):
+        if not subject_dir.is_dir():
+            continue
+
+        slug = subject_dir.name
+        bank_path = subject_dir / f"{slug}.json"
+
+        if not bank_path.exists():
+            # Try any single *.json at this level
+            candidates = list(subject_dir.glob("*.json"))
+            if len(candidates) == 1:
+                bank_path = candidates[0]
+            else:
+                continue
+
+        try:
+            with open(bank_path) as f:
+                data = json.load(f)
+            if "subject" not in data or "questions" not in data:
+                continue
+        except Exception:
+            continue
+
+        # Discover exam simulations under subjects/<slug>/exams/
+        exams = []
+        exams_dir = subject_dir / "exams"
+        if exams_dir.is_dir():
+            for exam_path in sorted(exams_dir.glob("*.json")):
+                try:
+                    with open(exam_path) as f:
+                        edata = json.load(f)
+                    if edata.get("exam_mode") and "questions" in edata:
+                        title = edata.get("exam_title", exam_path.stem)
+                        exams.append((title, exam_path))
+                except Exception:
+                    pass
+
+        result[slug] = {
+            "name": data.get("subject", slug),
+            "path": bank_path,
+            "exams": exams,
+        }
+
+    return result
+
+# ─── Load & validate a bank ──────────────────────────────────────────────────
 
 def load_bank(path):
+    """
+    Load and validate a question bank JSON file.
+
+    Returns:
+        tuple: (subject_name: str, topics: list, questions: list)
+    """
     with open(path) as f:
         data = json.load(f)
+
     qs = []
-    for i, q in enumerate(data["questions"]):
-        if not all(k in q for k in ("id", "question", "options", "answer", "explanation")):
+    for i, q in enumerate(data.get("questions", [])):
+        required = ("id", "question", "options", "answer", "explanation")
+        if not all(k in q for k in required):
             print(c(f"  ⚠  Question #{i} is malformed – skipping.", YELLOW))
             continue
         if q["answer"] not in q["options"]:
             print(c(f"  ⚠  Question id={q['id']} answer key not in options – skipping.", YELLOW))
             continue
         qs.append(q)
-    return data.get("subject", "Unknown"), data.get("topics", []), qs
+
+    subject_name = data.get("subject", "Unknown")
+    topics = data.get("topics", [])
+    return subject_name, topics, qs
 
 # ─── Quiz session ────────────────────────────────────────────────────────────
 
-def run_quiz(subject_name, all_questions, n_questions, topics_filter=None):
-    """Run one quiz session. Returns (score, total, wrong_questions)."""
+def run_quiz(subject_name, all_questions, n_questions,
+             topics_filter=None, fixed_order=False):
+    """
+    Run one quiz session.
 
+    Args:
+        subject_name:   Display name for the subject.
+        all_questions:  Full list of question dicts.
+        n_questions:    Max number of questions to ask.
+        topics_filter:  Optional list of topic strings to restrict to.
+        fixed_order:    If True, use questions in their existing order
+                        (exam simulation mode) rather than random sampling.
+
+    Returns:
+        tuple: (score: int, total: int, wrong_questions: list)
+    """
     pool = all_questions
     if topics_filter:
         pool = [q for q in pool if q.get("topic", "") in topics_filter]
@@ -104,22 +186,28 @@ def run_quiz(subject_name, all_questions, n_questions, topics_filter=None):
         print(c("  No questions match the selected topic(s).", RED))
         return 0, 0, []
 
-    sample = random.sample(pool, min(n_questions, len(pool)))
-    total  = len(sample)
-    score  = 0
-    wrong  = []
+    if fixed_order:
+        sample = pool[:n_questions]
+    else:
+        sample = random.sample(pool, min(n_questions, len(pool)))
+
+    total = len(sample)
+    score = 0
+    wrong = []
 
     clear()
     print(BANNER)
     hr()
-    print(c(f"  Subject : {subject_name}", BOLD + WHITE))
+    print(c(f"  Subject  : {subject_name}", BOLD + WHITE))
+    mode_label = "Exam Simulation – fixed order" if fixed_order else "Practice – random order"
+    print(c(f"  Mode     : {mode_label}", DIM))
     print(c(f"  Questions: {total}  |  No negative marking", DIM))
     hr()
     print()
 
     for idx, q in enumerate(sample, 1):
         # ── Print question ─────────────────────────────────────────────
-        tag = f"[{idx}/{total}]"
+        tag   = f"[{idx}/{total}]"
         topic = q.get("topic", "")
         diff  = q.get("difficulty", "")
         meta  = f"  {c(tag, CYAN)}  {c(topic, MAGENTA)}"
@@ -131,10 +219,10 @@ def run_quiz(subject_name, all_questions, n_questions, topics_filter=None):
         print(wrap(q["question"], indent=2))
         print()
 
-        # Shuffle option letters
+        # Shuffle option letters so you can't memorise positions
         opts = list(q["options"].items())
         random.shuffle(opts)
-        letter_map = {}  # letter shown → original key
+        letter_map = {}  # displayed letter → original option key
         display_letters = "ABCD"
         for i, (orig_key, opt_text) in enumerate(opts):
             letter = display_letters[i]
@@ -163,7 +251,6 @@ def run_quiz(subject_name, all_questions, n_questions, topics_filter=None):
             score += 1
             print(c("  ✔  Correct!\n", GREEN + BOLD))
         else:
-            # Find the display letter for the correct answer
             correct_letter = next(l for l, k in letter_map.items() if k == correct_key)
             print(c(f"  ✗  Wrong.  Correct answer: {correct_letter}. {correct_text}\n", RED + BOLD))
             print(c("  📖  Explanation:", YELLOW))
@@ -201,17 +288,18 @@ def show_results(score, total, wrong, subject_name):
         print(c(f"\n  ❌  Questions you got wrong ({len(wrong)}):\n", RED + BOLD))
         for i, q in enumerate(wrong, 1):
             topic = q.get("topic", "")
-            print(c(f"  {i}. [{topic}]", MAGENTA), wrap(q["question"], width=60, indent=5).lstrip())
+            print(c(f"  {i}. [{topic}]", MAGENTA),
+                  wrap(q["question"], width=60, indent=5).lstrip())
             print(c("     ✔ Correct:", GREEN), q["options"][q["answer"]])
-            print(c("     💡 Tip:", YELLOW), wrap(q["explanation"], width=58, indent=8).lstrip())
+            print(c("     💡 Tip:", YELLOW),
+                  wrap(q["explanation"], width=58, indent=8).lstrip())
             print()
     hr()
 
 # ─── Score history ───────────────────────────────────────────────────────────
 
-HISTORY_FILE = SCRIPT_DIR / "quiz_history.json"
-
 def save_history(subject, score, total):
+    """Append a quiz result to the persistent history file."""
     history = []
     if HISTORY_FILE.exists():
         try:
@@ -220,11 +308,11 @@ def save_history(subject, score, total):
         except Exception:
             history = []
     history.append({
-        "subject": subject,
-        "score": score,
-        "total": total,
-        "pct": round(score / total * 100) if total else 0,
-        "timestamp": time.strftime("%Y-%m-%d %H:%M")
+        "subject":   subject,
+        "score":     score,
+        "total":     total,
+        "pct":       round(score / total * 100) if total else 0,
+        "timestamp": time.strftime("%Y-%m-%d %H:%M"),
     })
     with open(HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=2)
@@ -240,12 +328,12 @@ def show_history():
         return
     print(c("\n  📈  Quiz History\n", BOLD + WHITE))
     hr()
-    print(f"  {'Date/Time':<18} {'Subject':<20} {'Score':<10} {'%':>5}")
+    print(f"  {'Date/Time':<18} {'Subject':<26} {'Score':<10} {'%':>5}")
     hr(char="─")
-    for entry in history[-20:]:  # last 20
+    for entry in history[-20:]:  # show last 20
         pct = entry.get("pct", 0)
         col = GREEN if pct >= 75 else (YELLOW if pct >= 50 else RED)
-        print(f"  {entry['timestamp']:<18} {entry['subject']:<20} "
+        print(f"  {entry['timestamp']:<18} {entry['subject']:<26} "
               f"{entry['score']}/{entry['total']:<8} {c(str(pct)+'%', col):>10}")
     hr()
 
@@ -274,37 +362,105 @@ def choose_topics(topics):
             pass
         print(c("  Invalid input, try again.", RED))
 
-# ─── Main menu ───────────────────────────────────────────────────────────────
+# ─── Exam simulation sub-menu ─────────────────────────────────────────────────
 
-def subject_menu(slug, path):
-    """Inner menu for a selected subject."""
-    subject_name, topics, all_qs = load_bank(path)
-    if not all_qs:
-        print(c("  No valid questions found in this bank.", RED))
-        input(c("\n  Press Enter to go back...", DIM))
-        return
+def exam_simulation_menu(exams):
+    """
+    Display past-exam simulations for a subject and run the selected one.
 
-    default_n = 20  # same as exam
-
+    Args:
+        exams: list of (title: str, path: Path) tuples.
+    """
     while True:
         clear()
         print(BANNER)
         hr()
-        print(c(f"  Subject : {subject_name}", BOLD + WHITE))
-        print(c(f"  Questions in bank: {len(all_qs)}", DIM))
-        hr()
+        print(c("  📝  Exam Simulations\n", BOLD + WHITE))
+        print(c("  Select a past exam to simulate:\n", DIM))
+
+        for i, (title, _path) in enumerate(exams, 1):
+            print(f"  {c(str(i)+'.', YELLOW)} {title}")
         print()
-        print(c("  1.", YELLOW), "Start quiz (default exam size)")
-        print(c("  2.", YELLOW), "Start quiz (custom number of questions)")
-        print(c("  3.", YELLOW), "Filter by topic")
-        print(c("  4.", YELLOW), "View score history")
-        print(c("  5.", YELLOW), "Back to main menu")
+        print(f"  {c(str(len(exams)+1)+'.', YELLOW)} Back")
         print()
 
         try:
             choice = input(c("  Choose: ", CYAN)).strip()
         except (EOFError, KeyboardInterrupt):
             return
+
+        if not choice.isdigit():
+            continue
+        n = int(choice)
+
+        if n == len(exams) + 1:
+            return
+
+        if 1 <= n <= len(exams):
+            title, exam_path = exams[n - 1]
+            subject_name, _topics, all_qs = load_bank(exam_path)
+            if not all_qs:
+                print(c("  No valid questions found.", RED))
+                input(c("\n  Press Enter to go back...", DIM))
+                continue
+
+            # Exam simulations: fixed question order, shuffle option letters only
+            score, total, wrong = run_quiz(
+                subject_name=f"{subject_name} \u2013 {title}",
+                all_questions=all_qs,
+                n_questions=len(all_qs),
+                fixed_order=True,
+            )
+            show_results(score, total, wrong, f"{subject_name} \u2013 {title}")
+            if total > 0:
+                save_history(f"{subject_name} \u2013 {title}", score, total)
+            input(c("\n  Press Enter to continue...", DIM))
+
+# ─── Subject menu ─────────────────────────────────────────────────────────────
+
+def subject_menu(slug, subject_info):
+    """Inner menu for a selected subject."""
+    path         = subject_info["path"]
+    subject_name = subject_info["name"]
+    exams        = subject_info["exams"]
+
+    subject_name_loaded, topics, all_qs = load_bank(path)
+    subject_name = subject_name_loaded  # use the name from the bank itself
+
+    if not all_qs:
+        print(c("  No valid questions found in this bank.", RED))
+        input(c("\n  Press Enter to go back...", DIM))
+        return
+
+    default_n = 20  # matches typical exam length
+
+    while True:
+        clear()
+        print(BANNER)
+        hr()
+        print(c(f"  Subject : {subject_name}", BOLD + WHITE))
+        print(c(f"  Practice bank: {len(all_qs)} questions", DIM))
+        if exams:
+            print(c(f"  Exam simulations available: {len(exams)}", DIM))
+        hr()
+        print()
+        print(c("  1.", YELLOW), "Start practice quiz (default exam size)")
+        print(c("  2.", YELLOW), "Start practice quiz (custom number of questions)")
+        print(c("  3.", YELLOW), "Filter practice by topic")
+        print(c("  4.", YELLOW), "View score history")
+        if exams:
+            print(c("  5.", YELLOW), "📝  Exam Simulations (past papers)")
+            print(c("  6.", YELLOW), "Back to main menu")
+        else:
+            print(c("  5.", YELLOW), "Back to main menu")
+        print()
+
+        try:
+            choice = input(c("  Choose: ", CYAN)).strip()
+        except (EOFError, KeyboardInterrupt):
+            return
+
+        back_option = "6" if exams else "5"
 
         if choice == "1":
             score, total, wrong = run_quiz(subject_name, all_qs, default_n)
@@ -339,42 +495,49 @@ def subject_menu(slug, path):
             show_history()
             input(c("\n  Press Enter to continue...", DIM))
 
-        elif choice == "5":
+        elif choice == "5" and exams:
+            exam_simulation_menu(exams)
+
+        elif choice == back_option:
             return
+
+# ─── Main ────────────────────────────────────────────────────────────────────
 
 def main():
     parser = argparse.ArgumentParser(description="Universal CLI Quiz Tool")
     parser.add_argument("--subject", help="Subject slug to jump directly to (e.g. lcom)")
     args = parser.parse_args()
 
-    banks = discover_subjects()
+    subjects = discover_subjects()
 
-    # Direct jump
+    # Direct jump via CLI flag
     if args.subject:
-        if args.subject in banks:
-            subject_menu(args.subject, banks[args.subject])
+        if args.subject in subjects:
+            subject_menu(args.subject, subjects[args.subject])
             return
         else:
-            print(c(f"  Subject '{args.subject}' not found. Available: {list(banks.keys())}", RED))
+            print(c(f"  Subject '{args.subject}' not found. Available: {list(subjects.keys())}", RED))
             sys.exit(1)
 
-    # Main menu
+    # Main interactive menu
     while True:
         clear()
         print(BANNER)
         hr()
 
-        if not banks:
+        if not subjects:
             print(c("  ⚠  No question banks found!", RED))
-            print(c("  Place a <subject>.json file in the same directory.", DIM))
+            print(c("  Place a subjects/<name>/<name>.json file with 'subject' and 'questions' keys.", DIM))
             input(c("\n  Press Enter to exit...", DIM))
             return
 
         print(c("  Available subjects:\n", BOLD + WHITE))
-        items = list(banks.items())
-        for i, (slug, path) in enumerate(items, 1):
-            sname, _, qs = load_bank(path)
-            print(f"  {c(str(i)+'.', YELLOW)} {c(sname, BOLD)}  {c(f'({len(qs)} questions)', DIM)}")
+        items = list(subjects.items())
+        for i, (slug, info) in enumerate(items, 1):
+            _sname, _topics, qs = load_bank(info["path"])
+            exam_badge = f"  {c('[+exams]', CYAN)}" if info["exams"] else ""
+            print(f"  {c(str(i)+'.', YELLOW)} {c(info['name'], BOLD)}"
+                  f"  {c(f'({len(qs)} questions)', DIM)}{exam_badge}")
 
         print()
         print(c(f"  {len(items)+1}.", YELLOW), "View score history")
@@ -390,8 +553,8 @@ def main():
         if choice.isdigit():
             n = int(choice)
             if 1 <= n <= len(items):
-                slug, path = items[n - 1]
-                subject_menu(slug, path)
+                slug, info = items[n - 1]
+                subject_menu(slug, info)
             elif n == len(items) + 1:
                 clear()
                 show_history()

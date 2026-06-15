@@ -1,0 +1,439 @@
+{
+  "subject": "LCOM \u2013 Computer Labs",
+  "exam_mode": true,
+  "exam_title": "Resit \u2013 27 Jun 2025",
+  "exam_questions": 30,
+  "topics": [
+    "Keyboard and KBC",
+    "Video and VBE",
+    "PS/2 Mouse",
+    "C Programming",
+    "Interrupts and PIC",
+    "Graphics Buffering",
+    "I/O and Device Drivers",
+    "XPM and Sprites",
+    "RTC"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "topic": "Keyboard and KBC",
+      "difficulty": "easy",
+      "question": "O que representa um break code no protocolo do teclado PS/2? (What does a break code represent in the PS/2 keyboard protocol?)",
+      "options": {
+        "A": "A libertação de uma tecla (Key release)",
+        "B": "Código de tecla pressionada (Key press code)",
+        "C": "O início de um novo scan code (Start of a new scan code)",
+        "D": "Um erro de paridade (A parity error)"
+      },
+      "answer": "A",
+      "explanation": "A break code is generated when a key is RELEASED. It is typically the make code (press code) with bit 7 set to 1. For example, ESC make=0x01, break=0x81."
+    },
+    {
+      "id": 2,
+      "topic": "Video and VBE",
+      "difficulty": "hard",
+      "question": "Queremos definir um pixel com uma cor RGB, usando o modo VBE 0x115, na posição (x,y). Como deve proceder o driver de dispositivo (DD)? (We want to set an RGB pixel using VBE mode 0x115 at position (x,y). How should the DD proceed?)",
+      "options": {
+        "A": "Fazer memcpy dos 3 bytes para a memória gráfica mapeada com offset x*3 + y*BytesPerScanLine. (memcpy 3 bytes to graphics memory with offset x*3 + y*BytesPerScanLine.)",
+        "B": "Copiar os 3 bytes, um de cada vez, com offset x + y*BytesPerColumn. (Copy 3 bytes, one at a time, with offset x + y*BytesPerColumn.)",
+        "C": "Copiar os 3 bytes, um de cada vez, com offset x*3 + y*BytesPerScanLine. (Copy 3 bytes, one at a time, with offset x*3 + y*BytesPerScanLine.)",
+        "D": "Fazer memcpy dos 3 bytes com offset x + y*BytesPerColumn. (memcpy 3 bytes with offset x + y*BytesPerColumn.)"
+      },
+      "answer": "A",
+      "explanation": "VBE mode 0x115 is 800\u00d7600 24-bit (3 bytes/pixel). Correct VRAM offset = x*3 + y*BytesPerScanLine. memcpy is preferred over byte-by-byte copies for 3-byte writes."
+    },
+    {
+      "id": 3,
+      "topic": "PS/2 Mouse",
+      "difficulty": "medium",
+      "question": "Supondo que um rato inclui todas as funcionalidades do laboratório 4 \u2014 como movimento, botões esquerdo, direito e do meio, mas agora também com suporte para a roda \u2014 qual é o número mínimo de bytes necessário para tal protocolo? (Assuming a mouse with Lab 4 features plus scroll wheel support, what is the minimum number of bytes per packet?)",
+      "options": {
+        "A": "5",
+        "B": "4",
+        "C": "3",
+        "D": "6"
+      },
+      "answer": "B",
+      "explanation": "Standard PS/2 mouse = 3 bytes (buttons + X + Y). Adding a scroll wheel requires a 4th byte for the Z (wheel) displacement. This is the IntelliMouse extension, which sends 4-byte packets."
+    },
+    {
+      "id": 4,
+      "topic": "C Programming",
+      "difficulty": "medium",
+      "question": "Qual é o significado da palavra-chave 'static' quando usada na declaração de uma variável local a determinada função? (What is the meaning of 'static' on a local variable declaration inside a function?)",
+      "options": {
+        "A": "Torna a variável thread-safe. (Makes the variable thread-safe.)",
+        "B": "Torna a função privada. (Makes the function private.)",
+        "C": "Permite partilhar estado entre invocações da função. (Allows state to be shared across function invocations.)",
+        "D": "Torna a variável privada em relação ao uso externo do ficheiro. (Makes the variable private to the file.)"
+      },
+      "answer": "C",
+      "explanation": "A static local variable is allocated in the data segment (not the stack) and retains its value between calls to the function. It is initialised only once (to 0 by default). This is different from a static global, which restricts visibility to the translation unit."
+    },
+    {
+      "id": 5,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "Qual é a forma mais correta de lidar com múltiplos tipos de interrupções? Suponha que está subscrito às interrupções do temporizador (Timer) e do teclado (Keyboard). (What is the most correct way to handle multiple interrupt types when subscribed to both Timer and Keyboard interrupts?)",
+      "options": {
+        "A": "Ignorar as interrupções de um dos dispositivos para tratar convenientemente as do outro. (Ignore one device's interrupts to conveniently handle the other's.)",
+        "B": "Realizar polling e, cada vez que ocorre um dos dois tipos de evento, tratá-lo separadamente. (Use polling and handle each event type separately.)",
+        "C": "Executar uma cadeia de if-else verificando quais interrupções ocorreram e tratar cada uma separadamente. (Run an if-else chain checking which interrupts occurred and handling each separately.)",
+        "D": "Quando ocorre um evento do temporizador, verificar se também ocorreu um evento do teclado. (When a timer event occurs, also check for a keyboard event.)"
+      },
+      "answer": "C",
+      "explanation": "The correct event-driven approach: after driver_receive() returns a notification, use an if-else (or switch) on the bitmask to determine which device triggered it, then call the appropriate handler. This handles all interrupt sources fairly and independently."
+    },
+    {
+      "id": 6,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "Para ler scancodes do teclado pode escolher entre polling ou usar interrupções. Qual dos dois espera que faça mais chamadas 'sys_inb()' ao kernel? (To read keyboard scancodes you can choose between polling or interrupts. Which one do you expect to make more sys_inb() kernel calls?)",
+      "options": {
+        "A": "Fazem sempre o mesmo número de chamadas. (They always make the same number.)",
+        "B": "O número de chamadas é aleatório. (The number is random.)",
+        "C": "Polling.",
+        "D": "Interrupções. (Interrupts.)"
+      },
+      "answer": "C",
+      "explanation": "Polling continuously calls sys_inb() on the status register regardless of whether a key was pressed, resulting in many more kernel calls than interrupts, which only call sys_inb() when data is actually ready."
+    },
+    {
+      "id": 7,
+      "topic": "Graphics Buffering",
+      "difficulty": "easy",
+      "question": "O que é o double buffering em programação gráfica? (What is double buffering in graphics programming?)",
+      "options": {
+        "A": "Uma técnica para desenhar diretamente no ecrã para maior desempenho. (A technique to draw directly to the screen for better performance.)",
+        "B": "Uma funcionalidade do hardware que duplica a resolução da imagem. (A hardware feature that doubles image resolution.)",
+        "C": "Um método que utiliza dois buffers para evitar flickering, desenhando numa imagem oculta antes de a apresentar. (A method using two buffers to avoid flickering by drawing to a hidden image before displaying it.)",
+        "D": "Um modo de compressão de dados que utiliza dois buffers para maior eficiência. (A data compression mode using two buffers for efficiency.)"
+      },
+      "answer": "C",
+      "explanation": "Double buffering maintains a back buffer (off-screen) where the next frame is composed. Once complete, it is swapped (or copied) atomically to the display buffer, eliminating tearing and flickering."
+    },
+    {
+      "id": 8,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "medium",
+      "question": "Para que serve a porta de série? (What is the serial port for?)",
+      "options": {
+        "A": "Para substituir o teclado e rato em sistemas modernos. (To replace keyboard and mouse in modern systems.)",
+        "B": "Para permitir comunicação assíncrona entre o sistema e dispositivos externos, como outros terminais. (To enable asynchronous communication between the system and external devices such as other terminals.)",
+        "C": "Para serializar dados em memória. (To serialize data in memory.)",
+        "D": "Para enviar dados gráficos diretamente para o ecrã sem passar pelo sistema operativo. (To send graphics data directly to the screen without going through the OS.)"
+      },
+      "answer": "B",
+      "explanation": "The serial port (UART) enables asynchronous serial communication with external devices — historically used for modems, terminals, and debugging. It sends/receives one bit at a time over a wire."
+    },
+    {
+      "id": 9,
+      "topic": "C Programming",
+      "difficulty": "hard",
+      "question": "Considera-se um tipo union que contém um campo char[10], um campo int e um campo short numa arquitetura de 32 bits. Qual é o tamanho em memória de uma variável deste tipo union? (A union contains char[10], int, and short on a 32-bit architecture. What is its size in memory?)",
+      "options": {
+        "A": "10 bytes",
+        "B": "12 bytes",
+        "C": "4 bytes",
+        "D": "8 bytes"
+      },
+      "answer": "A",
+      "explanation": "A union's size equals the size of its largest member. The largest member is char[10] = 10 bytes. (Note: alignment may round up to 12 on some compilers, but the minimum guaranteed size is 10.)"
+    },
+    {
+      "id": 10,
+      "topic": "PS/2 Mouse",
+      "difficulty": "medium",
+      "question": "Os deslocamentos do rato são representados em quantos bits? (Mouse displacements are represented in how many bits?)",
+      "options": {
+        "A": "9",
+        "B": "4",
+        "C": "8",
+        "D": "16"
+      },
+      "answer": "A",
+      "explanation": "PS/2 mouse X and Y displacements are 9-bit 2's complement values. Byte 2/3 contains the 8 LSBs, and bits 4/5 of byte 1 contain the MSB (sign bit). This allows values from -256 to +255."
+    },
+    {
+      "id": 11,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "medium",
+      "question": "Qual o comportamento da chamada ao sistema 'driver_receive' no Minix? (What is the behaviour of the 'driver_receive' system call in Minix?)",
+      "options": {
+        "A": "Bloqueia até receber uma mensagem 'service request', permitindo trocas de contexto. (Blocks until a service request message is received, allowing context switches.)",
+        "B": "Emite um erro se não existirem notificações pendentes. (Errors if there are no pending notifications.)",
+        "C": "Faz polling ao PIC para obter interrupções de periféricos relevantes. (Polls the PIC for interruptions of relevant peripherals.)",
+        "D": "Bloqueia até receber uma interrupção de software, permitindo trocas de contexto. (Blocks until a software interrupt is received, allowing context switches.)"
+      },
+      "answer": "A",
+      "explanation": "driver_receive() blocks the driver process until either an interrupt notification or a service-request message arrives, freeing the CPU (via context switch) for other processes in the meantime."
+    },
+    {
+      "id": 12,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "Qual o significado da flag 'IRQ_REENABLE', no contexto de subscrição a notificações de interrupção no Minix? (What does the IRQ_REENABLE flag mean in the context of interrupt notification subscriptions in Minix?)",
+      "options": {
+        "A": "Permite remover a subscrição correspondente mais tarde. (Allows removing the subscription later.)",
+        "B": "Permite ao Device Driver incluído no Minix tratar interrupções da linha de IRQ correspondente, assim que a subscrição é removida. (Allows Minix's bundled DD to handle IRQ line interrupts once the subscription is removed.)",
+        "C": "Eleva a prioridade do handler de interrupção, impedindo que o kernel a trate primeiro. (Raises the interrupt handler priority, preventing the kernel from handling it first.)",
+        "D": "Permite ao kernel desmascarar automaticamente interrupções na linha de IRQ associada ao hook_id especificado. (Allows the kernel to automatically unmask interrupts on the IRQ line associated with the specified hook_id.)"
+      },
+      "answer": "D",
+      "explanation": "IRQ_REENABLE causes the kernel's Generic Interrupt Handler to automatically unmask the IRQ line in the PIC after notifying the subscribed driver, ensuring subsequent interrupts from that line are not lost."
+    },
+    {
+      "id": 13,
+      "topic": "Keyboard and KBC",
+      "difficulty": "medium",
+      "question": "Qual é o principal objetivo de verificar o bit KBC_OBF no registo de estado do KBC ao ler dados/valores devolvidos pelo KBC? (What is the main purpose of checking the KBC_OBF bit in the KBC status register when reading data returned by the KBC?)",
+      "options": {
+        "A": "Reiniciar o sinalizador OBF do estado do KBC. (Reset the OBF flag of the KBC status.)",
+        "B": "Verificar se o buffer de saída contém dados para serem lidos. (Verify the output buffer contains data to be read.)",
+        "C": "Reiniciar a porta KBC_OUT_BUF. (Reset the KBC_OUT_BUF port.)",
+        "D": "Determinar se o buffer de entrada do KBC está pronto para aceitar novos dados. (Determine if the KBC input buffer is ready for new data.)"
+      },
+      "answer": "B",
+      "explanation": "The OBF (Output Buffer Full) bit in the status register indicates that the KBC has data ready in its output buffer (port 0x60). You must check OBF before reading to avoid reading stale or invalid data."
+    },
+    {
+      "id": 14,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "Um DD quer subscrever as interrupções do Timer e deseja ser notificado pelo kernel através de um payload com o bit 5 ativado. Qual deve ser o valor do argumento 'hook_id' usado pelo DD? (A DD wants to subscribe Timer interrupts and be notified via a payload with bit 5 set. What should hook_id be?)",
+      "options": {
+        "A": "5",
+        "B": "1",
+        "C": "0",
+        "D": "8"
+      },
+      "answer": "A",
+      "explanation": "The hook_id specifies the bit number in the notification payload. hook_id=5 makes the kernel set bit 5 (BIT(5)) of msg.m_notify.interrupts when the timer interrupt fires, so the DD checks 'interrupts & BIT(5)'."
+    },
+    {
+      "id": 15,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "easy",
+      "question": "O que é o POSIX? (What is POSIX?)",
+      "options": {
+        "A": "Um conjunto de normas que define interfaces para compatibilidade entre sistemas operativos Unix-like. (A set of standards defining interfaces for compatibility among Unix-like OSes.)",
+        "B": "Um sistema operativo baseado em Unix. (A Unix-based operating system.)",
+        "C": "Um compilador específico para C em sistemas Unix. (A specific C compiler for Unix systems.)",
+        "D": "Um protocolo de comunicação entre processos em rede. (A network inter-process communication protocol.)"
+      },
+      "answer": "A",
+      "explanation": "POSIX (Portable Operating System Interface) is a family of IEEE standards defining APIs, command-line shells, and utilities interfaces for compatibility between Unix-like operating systems."
+    },
+    {
+      "id": 16,
+      "topic": "Video and VBE",
+      "difficulty": "medium",
+      "question": "Quanta memória é ocupada por 700x800 pixels com 4 canais de 2 Bytes? (How much memory does a 700x800 frame with 4 channels of 2 bytes each occupy?)",
+      "options": {
+        "A": "560000 bytes",
+        "B": "800kB",
+        "C": "4480KB",
+        "D": "4.48MB"
+      },
+      "answer": "D",
+      "explanation": "700 \u00d7 800 \u00d7 4 channels \u00d7 2 bytes = 4 480 000 bytes = 4480 KB \u2248 4.48 MB. (Using 1 MB = 1,000,000 bytes: 4,480,000 / 1,000,000 = 4.48 MB.)"
+    },
+    {
+      "id": 17,
+      "topic": "XPM and Sprites",
+      "difficulty": "easy",
+      "question": "Qual das seguintes afirmações descreve melhor o formato XPM? (Which of the following best describes the XPM format?)",
+      "options": {
+        "A": "É um formato textual que representa imagens como arrays de strings em C. (It is a textual format that represents images as C string arrays.)",
+        "B": "É um formato binário de imagem usado em sistemas Minix. (It is a binary image format used in Minix systems.)",
+        "C": "É um formato comprimido usado para otimizar armazenamento de imagens bitmap. (It is a compressed format to optimize bitmap storage.)",
+        "D": "É um formato vetorial usado para representar gráficos dimensionáveis. (It is a vector format for scalable graphics.)"
+      },
+      "answer": "A",
+      "explanation": "XPM (X PixMap) is a text-based image format stored as a C array of strings. The first string is the header, the next strings define the color table, and the remaining strings are pixel rows."
+    },
+    {
+      "id": 18,
+      "topic": "C Programming",
+      "difficulty": "medium",
+      "question": "Qual é o propósito dos ficheiros .o gerados como artefactos da compilação? (What is the purpose of .o files generated as compilation artifacts?)",
+      "options": {
+        "A": "São ficheiros temporários usados pelo compilador para otimização do uso de memória. (Temporary files used by the compiler for memory optimization.)",
+        "B": "São artefactos de código compilado para posterior operação de ligação com outros artefactos semelhantes. (Compiled code artifacts for subsequent linking with other similar artifacts.)",
+        "C": "Acompanham dependências entre ficheiros fonte e de cabeçalho, permitindo compilação incremental. (Track dependencies between source and header files, enabling incremental compilation.)",
+        "D": "Contêm código compilado otimizado para a máquina em que foram gerados. (Contain compiled code optimized for the machine where they were generated.)"
+      },
+      "answer": "B",
+      "explanation": ".o (object) files contain compiled machine code (not yet linked). They are input to the linker (ld), which resolves external symbol references and produces the final executable or library."
+    },
+    {
+      "id": 19,
+      "topic": "RTC",
+      "difficulty": "easy",
+      "question": "Qual das seguintes funções pode ser oferecida pelo RTC (Real Time Clock)? (Which of the following functions can be offered by the RTC?)",
+      "options": {
+        "A": "Gerar interrupções periódicas. (Generate periodic interrupts.)",
+        "B": "Armazenar informação sobre o Timer do PC. (Store information about the PC Timer.)",
+        "C": "Monitorização em tempo real do barramento PCI. (Real-time monitoring of the PCI bus.)",
+        "D": "Reiniciar automaticamente o sistema após falha de energia. (Automatically restart the system after a power failure.)"
+      },
+      "answer": "A",
+      "explanation": "The RTC can generate periodic interrupts (at configurable rates from 2 Hz to 8192 Hz via Register A). It also keeps the current date/time and can generate alarm interrupts. It connects to IRQ 8."
+    },
+    {
+      "id": 20,
+      "topic": "PS/2 Mouse",
+      "difficulty": "easy",
+      "question": "Quantos bytes compõem o pacote padrão do rato PS/2? (How many bytes make up the standard PS/2 mouse packet?)",
+      "options": {
+        "A": "2",
+        "B": "3",
+        "C": "6",
+        "D": "4"
+      },
+      "answer": "B",
+      "explanation": "A standard PS/2 mouse packet is 3 bytes: byte 1 (button states + sign bits + overflow bits), byte 2 (X displacement), byte 3 (Y displacement)."
+    },
+    {
+      "id": 21,
+      "topic": "Interrupts and PIC",
+      "difficulty": "easy",
+      "question": "Qual syscall Minix deve ser usada para registar um handler de interrupção? (Which Minix syscall should be used to register an interrupt handler?)",
+      "options": {
+        "A": "sys_alarm",
+        "B": "sys_enable",
+        "C": "sys_irqsetpolicy",
+        "D": "sys_outb"
+      },
+      "answer": "C",
+      "explanation": "sys_irqsetpolicy(int irq, int policy, int *hook_id) registers the calling process's interest in interrupts from a given IRQ line. It returns a hook_id used for sys_irqenable() and sys_irqrmpolicy()."
+    },
+    {
+      "id": 22,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "medium",
+      "question": "Qual é a principal vantagem de utilizar um design orientado a eventos na programação de device drivers em Minix? (What is the main advantage of event-driven design in Minix device driver programming?)",
+      "options": {
+        "A": "Reduz a necessidade de interrupções, simplificando o sistema operativo. (Reduces the need for interrupts, simplifying the OS.)",
+        "B": "Permite reagir eficientemente a eventos assíncronos, melhorando o desempenho e o consumo de CPU. (Allows efficient reaction to asynchronous events, improving performance and CPU usage.)",
+        "C": "Garante que todos os dispositivos são tratados em ordem de chegada. (Ensures all devices are handled in arrival order.)",
+        "D": "Permite que o driver use pooling de forma mais intensiva para obter dados em tempo real. (Allows the driver to use polling more intensively for real-time data.)"
+      },
+      "answer": "B",
+      "explanation": "Event-driven design lets a driver sleep (block on driver_receive) and only wake up when an event actually occurs, avoiding wasted CPU cycles from polling and enabling efficient handling of multiple asynchronous sources."
+    },
+    {
+      "id": 23,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "Qual é a principal vantagem de utilizar interrupções em vez de polling em Minix? (What is the main advantage of using interrupts instead of polling in Minix?)",
+      "options": {
+        "A": "As interrupções permitem que o processador responda mais rapidamente ao utilizador, sem overhead adicional. (Interrupts allow the processor to respond faster without additional overhead.)",
+        "B": "As interrupções permitem uma utilização mais eficiente do CPU, evitando a verificação constante de eventos. (Interrupts allow more efficient CPU usage by avoiding constant event checking.)",
+        "C": "As interrupções garantem que todos os dispositivos recebem prioridade máxima em tempo real. (Interrupts ensure all devices receive maximum priority in real-time.)",
+        "D": "As interrupções reduzem a complexidade do código ao eliminar a necessidade de sincronização. (Interrupts reduce code complexity by eliminating synchronization needs.)"
+      },
+      "answer": "B",
+      "explanation": "Interrupts free the CPU from constantly checking device status (polling). The CPU can perform other work and is only interrupted when an event actually occurs, leading to better overall CPU utilization."
+    },
+    {
+      "id": 24,
+      "topic": "PS/2 Mouse",
+      "difficulty": "easy",
+      "question": "Qual bit é utilizado para sincronizar os pacotes do rato? (Which bit is used to synchronise mouse packets?)",
+      "options": {
+        "A": "Bit 0 do primeiro byte = 1 (Bit 0 of first byte = 1)",
+        "B": "Bit 3 do primeiro byte = 1 (Bit 3 of first byte = 1)",
+        "C": "Bit 7 do segundo byte = 1 (Bit 7 of second byte = 1)",
+        "D": "Bit 5 do terceiro byte = 0 (Bit 5 of third byte = 0)"
+      },
+      "answer": "B",
+      "explanation": "Bit 3 of the first byte in a PS/2 mouse packet is always set to 1. This invariant is used for packet synchronisation: discard bytes until one arrives with bit 3 set, then treat it as the start of a new packet."
+    },
+    {
+      "id": 25,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "easy",
+      "question": "O que é um Device Driver (DD)? (What is a Device Driver?)",
+      "options": {
+        "A": "É um componente de hardware de um dispositivo externo que recebe pedidos do processador. (It is a hardware component of an external device that receives requests from the processor.)",
+        "B": "É uma classe de software especificamente desenhada para configurar o temporizador do processador. (It is software specifically designed to configure the processor timer.)",
+        "C": "É um software que permite interagir com um componente de hardware. (It is software that allows interaction with a hardware component.)",
+        "D": "É um componente de software que permite interacção com hardware sem involver o sistema operativo. (It is software that enables hardware interaction without involving the OS.)"
+      },
+      "answer": "C",
+      "explanation": "A Device Driver is software that abstracts hardware details and provides a standard interface for the OS or applications to interact with a specific hardware component."
+    },
+    {
+      "id": 26,
+      "topic": "Video and VBE",
+      "difficulty": "medium",
+      "question": "O que é mapeado com vm_map_phys() em Minix? (What is mapped with vm_map_phys() in Minix?)",
+      "options": {
+        "A": "Endereço virtual do processo. (Process virtual address.)",
+        "B": "Região de memória de vídeo. (Video memory region.)",
+        "C": "Área da BIOS. (BIOS area.)",
+        "D": "Ficheiros XPM. (XPM files.)"
+      },
+      "answer": "B",
+      "explanation": "vm_map_phys() maps a physical memory region (specified by physical address and size) into the calling process's virtual address space. In Lab 5, it is used to map the VRAM physical address so the DD can write pixels directly."
+    },
+    {
+      "id": 27,
+      "topic": "Video and VBE",
+      "difficulty": "medium",
+      "question": "Que afirmação diz respeito ao modo cor indexado? (Which statement describes indexed color mode?)",
+      "options": {
+        "A": "Representamos os canais RGB e o canal alfa. (We represent RGB channels and the alpha channel.)",
+        "B": "Cada cor é representada pelo seu complemento para 2 em 8 bits por canal. (Each color is represented by its 2's complement in 8 bits per channel.)",
+        "C": "Representamos os índices de uma tabela de cores. (We represent indices into a color table.)",
+        "D": "Representamos cada canal de cor com um valor de 8 bits. (We represent each color channel with an 8-bit value.)"
+      },
+      "answer": "C",
+      "explanation": "In indexed color mode (e.g., 8-bit/256-color), each pixel value is an index into a palette (color lookup table). The palette maps indices to actual RGB values. This differs from direct/true-color where RGB is encoded directly."
+    },
+    {
+      "id": 28,
+      "topic": "PS/2 Mouse",
+      "difficulty": "easy",
+      "question": "O que significa um movimento negativo no eixo X do rato? (What does a negative X-axis movement of the mouse mean?)",
+      "options": {
+        "A": "Movimento para a direita. (Movement to the right.)",
+        "B": "Movimento para cima. (Movement upward.)",
+        "C": "Movimento para a esquerda. (Movement to the left.)",
+        "D": "Movimento para baixo. (Movement downward.)"
+      },
+      "answer": "C",
+      "explanation": "In PS/2 mouse protocol, a negative X displacement means the mouse moved to the LEFT. Positive X = right, positive Y = up, negative Y = down. The Y axis is inverted in screen coordinates (screen Y grows downward)."
+    },
+    {
+      "id": 29,
+      "topic": "C Programming",
+      "difficulty": "easy",
+      "question": "Qual o valor de 'i' após a expressão 'int i = 12 & 12' em C? (What is the value of 'i' after 'int i = 12 & 12' in C?)",
+      "options": {
+        "A": "12",
+        "B": "10",
+        "C": "2",
+        "D": "8"
+      },
+      "answer": "A",
+      "explanation": "12 & 12 = 1100 & 1100 = 1100 = 12. Bitwise AND of a number with itself always returns the same number, because each bit ANDed with itself is unchanged."
+    },
+    {
+      "id": 30,
+      "topic": "PS/2 Mouse",
+      "difficulty": "easy",
+      "question": "Que valor retorna o rato como ACK após comando bem-sucedido? (What value does the mouse return as ACK after a successful command?)",
+      "options": {
+        "A": "0xFE",
+        "B": "0xFF",
+        "C": "0xFA",
+        "D": "0x00"
+      },
+      "answer": "C",
+      "explanation": "The PS/2 mouse returns 0xFA as ACK (acknowledgement) after successfully receiving and processing a command. 0xFE is NACK (resend request). 0xFC is an error (command cannot be processed)."
+    }
+  ]
+}

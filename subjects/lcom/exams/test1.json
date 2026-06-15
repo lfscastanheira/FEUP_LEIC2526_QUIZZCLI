@@ -1,0 +1,294 @@
+{
+  "subject": "LCOM \u2013 Computer Labs",
+  "exam_mode": true,
+  "exam_title": "Test 1 \u2013 4 Apr 2025",
+  "exam_questions": 20,
+  "topics": [
+    "I/O and Device Drivers",
+    "i8254 Timer",
+    "Interrupts and PIC",
+    "Keyboard and KBC"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "easy",
+      "question": "What is the main function of I/O devices in a computer system?",
+      "options": {
+        "A": "To provide an interface between the computer and its environment.",
+        "B": "To execute software programs.",
+        "C": "To increase the processing speed of the CPU.",
+        "D": "To store data permanently."
+      },
+      "answer": "A",
+      "explanation": "I/O devices are the interface between the computer and its environment; they handle communication between the machine and external entities (keyboard, mouse, display, etc.)."
+    },
+    {
+      "id": 2,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "easy",
+      "question": "In POSIX system calls, what is typically the semantic behind the return values?",
+      "options": {
+        "A": "1 implies success and others error.",
+        "B": "0 implies error and others success.",
+        "C": "1 implies error and others success.",
+        "D": "0 implies success and others error."
+      },
+      "answer": "D",
+      "explanation": "POSIX convention: 0 means success, any non-zero value indicates an error. This is the opposite of the 'boolean success' convention used in some other languages."
+    },
+    {
+      "id": 3,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "easy",
+      "question": "What is a Device Driver?",
+      "options": {
+        "A": "It is a software that allows the interaction with a hardware component.",
+        "B": "It is a hardware component of an external device that receives requests from the processor.",
+        "C": "It is a class of software specifically tailored to configure the processor timer.",
+        "D": "It is a software component that enables direct interaction with hardware without the involvement of the operating system."
+      },
+      "answer": "A",
+      "explanation": "A Device Driver (DD) is software that enables higher-level code (OS or applications) to interact with a hardware component without knowing its low-level details."
+    },
+    {
+      "id": 4,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "medium",
+      "question": "What is the behavior of the driver_receive system call in Minix?",
+      "options": {
+        "A": "It blocks until a software interrupt is received, allowing for context switches.",
+        "B": "It errors if there are no notifications pending for the calling process.",
+        "C": "It polls the PIC for interruptions of relevant peripherals.",
+        "D": "It blocks until a service request message is received, allowing for context switches."
+      },
+      "answer": "D",
+      "explanation": "driver_receive() is a blocking call: the driver process suspends until either an interrupt notification or a service-request message arrives, freeing the CPU for other tasks in the meantime."
+    },
+    {
+      "id": 5,
+      "topic": "i8254 Timer",
+      "difficulty": "medium",
+      "question": "For the function timer_set_frequency, a frequency divisor d was required. Which formula correctly expresses its calculation? In this context, freq is the desired frequency, TIMER_FREQ is the clock frequency for the timer in the PC, and USHRT_MAX is the maximum value of an unsigned short.",
+      "options": {
+        "A": "d = TIMER_FREQ / freq",
+        "B": "d = TIMER_FREQ / USHRT_MAX * freq",
+        "C": "d = TIMER_FREQ * freq",
+        "D": "d = freq / USHRT_MAX"
+      },
+      "answer": "A",
+      "explanation": "The divisor d = TIMER_FREQ / freq, where TIMER_FREQ = 1 193 181 Hz. Loading d into the i8254 counter makes the timer interrupt at the desired frequency."
+    },
+    {
+      "id": 6,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "A Device Driver wants to subscribe to timer interrupts to be notified by the kernel via a payload with bit 7 set. What should be the value of the hook_id argument passed to the sys_irqsetpolicy function?",
+      "options": {
+        "A": "BIT(7)",
+        "B": "0",
+        "C": "7",
+        "D": "1"
+      },
+      "answer": "C",
+      "explanation": "The hook_id input value is the bit number. If hook_id=7, the kernel sets bit 7 (BIT(7)) of msg.m_notify.interrupts when the interrupt fires. So hook_id=7 produces a notification with bit 7 set."
+    },
+    {
+      "id": 7,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "easy",
+      "question": "During class you have studied and used the sys_inb(int port, uint8_t *value) function. What does it do?",
+      "options": {
+        "A": "Reads a word value from the port register, and returns 0 in case of success.",
+        "B": "Writes a word value to the port register, and returns 0 in case of success.",
+        "C": "Reads a word port from the value register, and returns 0 in case of success.",
+        "D": "Writes a word port to the value register, and returns 0 in case of success."
+      },
+      "answer": "A",
+      "explanation": "sys_inb(int port, uint32_t *val) reads a byte from the specified I/O port and returns 0 on success. It wraps the IN x86 assembly instruction and requires kernel privilege."
+    },
+    {
+      "id": 8,
+      "topic": "Keyboard and KBC",
+      "difficulty": "medium",
+      "question": "Which would be a valid makecode and breakcode combination?",
+      "options": {
+        "A": "Makecode: 0xC2, Breakcode: 0xCA",
+        "B": "Makecode: 0x9E, Breakcode: 0x1E",
+        "C": "Makecode: 0x1E, Breakcode: 0x9E",
+        "D": "Makecode: 0xCA, Breakcode: 0xC2"
+      },
+      "answer": "C",
+      "explanation": "The breakcode is the makecode with bit 7 set. 0x1E = 0001 1110; setting bit 7 gives 0x9E = 1001 1110. The other options have the make/break relationship reversed."
+    },
+    {
+      "id": 9,
+      "topic": "Keyboard and KBC",
+      "difficulty": "easy",
+      "question": "In the KBC, why are there scancodes with two bytes?",
+      "options": {
+        "A": "For retrocompatibility purposes.",
+        "B": "We could not fit the entire set of scan codes in one byte.",
+        "C": "It allows the scan codes to map to different keyboard language mappings.",
+        "D": "For direct mapping to ASCII."
+      },
+      "answer": "A",
+      "explanation": "The original PC had a limited scancode set. Extended keys (arrow keys, numpad, etc.) were added later for backward compatibility using the escape byte 0xE0 followed by a second byte."
+    },
+    {
+      "id": 10,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "To read keyboard scancodes you can choose between polling and using interrupts. Which one do you expect to perform the least amount of sys_inb() kernel calls?",
+      "options": {
+        "A": "Interrupts.",
+        "B": "Polling.",
+        "C": "The number of calls is random.",
+        "D": "They always perform the same number of calls."
+      },
+      "answer": "A",
+      "explanation": "With interrupts, sys_inb() is called only when the KBC has data ready. With polling, sys_inb() is called continuously on the status register even when no key is pressed, resulting in far more kernel calls."
+    },
+    {
+      "id": 11,
+      "topic": "Interrupts and PIC",
+      "difficulty": "easy",
+      "question": "Choose the right statement.",
+      "options": {
+        "A": "The interrupt mechanism allows for more CPU useful time.",
+        "B": "The polling mechanism allows for more CPU useful time.",
+        "C": "The polling mechanism is always more efficient than the interrupt mechanism.",
+        "D": "The interrupt mechanism implies active await by the CPU."
+      },
+      "answer": "A",
+      "explanation": "Interrupts allow the CPU to execute other code while waiting for an I/O event. Polling burns CPU cycles checking for events. So interrupts free the CPU for useful work, unlike active polling (busy-waiting)."
+    },
+    {
+      "id": 12,
+      "topic": "Keyboard and KBC",
+      "difficulty": "easy",
+      "question": "What is the primary purpose of the Status Register in the KBC?",
+      "options": {
+        "A": "To store the last typed character inside KBC.",
+        "B": "To display keyboard input on the screen.",
+        "C": "To store the state of the KBC.",
+        "D": "To store user passwords."
+      },
+      "answer": "C",
+      "explanation": "The KBC Status Register (port 0x64) reflects the current state of the controller: whether the output buffer is full (OBF), input buffer is full (IBF), parity errors, and other flags."
+    },
+    {
+      "id": 13,
+      "topic": "Interrupts and PIC",
+      "difficulty": "medium",
+      "question": "What does the IRQ_REENABLE flag do in the context of interrupt notification subscriptions in Minix?",
+      "options": {
+        "A": "It makes it so one can later remove the respective subscription.",
+        "B": "It raises the priority of the installed interrupt handler, preventing the kernel from handling it first.",
+        "C": "It allows the bundled Device Driver in Minix to handle interrupts from the respective IRQ line once the subscription is removed.",
+        "D": "It makes it so the kernel unmasks interrupts on the IRQ line associated with the specified hook_id automatically."
+      },
+      "answer": "D",
+      "explanation": "When IRQ_REENABLE is set in sys_irqsetpolicy(), the kernel's Generic Interrupt Handler automatically unmasks the IRQ line in the PIC after notifying the driver, so subsequent interrupts are not lost."
+    },
+    {
+      "id": 14,
+      "topic": "i8254 Timer",
+      "difficulty": "easy",
+      "question": "What is the function of the control register at port 0x43 in the i8254?",
+      "options": {
+        "A": "Stores the current time.",
+        "B": "Controls data transfer between CPU and memory.",
+        "C": "Stores user configuration settings.",
+        "D": "Programs the timers and selects counting modes."
+      },
+      "answer": "D",
+      "explanation": "Port 0x43 is the i8254 Control Register. Writing a control word to it configures one of the three timers (counter select, read/write mode, counting mode). Then the initial count is written to the timer's own port."
+    },
+    {
+      "id": 15,
+      "topic": "i8254 Timer",
+      "difficulty": "medium",
+      "question": "What does the Read-Back command in the i8254 allow?",
+      "options": {
+        "A": "Increasing the processing speed of the timer.",
+        "B": "Changing the interrupt vector.",
+        "C": "Reading the current counter value and programmed configuration.",
+        "D": "Resetting the timer to its default settings."
+      },
+      "answer": "C",
+      "explanation": "The Read-Back command (written to 0x43) allows reading the current count value and/or the programmed configuration (status) of one or more timers without disturbing their operation."
+    },
+    {
+      "id": 16,
+      "topic": "Interrupts and PIC",
+      "difficulty": "easy",
+      "question": "The PIC (Priority Interrupt Controller) is responsible for:",
+      "options": {
+        "A": "Warning the CPU of a new interrupt.",
+        "B": "Warning the I/O device of interrupts by the correct order.",
+        "C": "Executing the respective interrupt handler for each interrupt.",
+        "D": "Warning the CPU that the interrupt handler stopped executing."
+      },
+      "answer": "A",
+      "explanation": "The PIC collects interrupt requests from multiple devices, applies a priority scheme, and raises the CPU's INT line to signal that a device needs attention. The CPU then acknowledges and processes the interrupt."
+    },
+    {
+      "id": 17,
+      "topic": "i8254 Timer",
+      "difficulty": "medium",
+      "question": "In Lab 2, how was time measured and a message printed every second?",
+      "options": {
+        "A": "Using the Read-Back command every second.",
+        "B": "By subscribing the timer interrupts and using the 60Hz Minix setting.",
+        "C": "By setting the timer with a 120Hz frequency.",
+        "D": "By subscribing the timer interrupts and using the 120Hz Minix setting."
+      },
+      "answer": "B",
+      "explanation": "Minix programs Timer 0 at 60 Hz by default. Subscribing to timer interrupts and counting 60 ticks gives exactly one second. Using 120 Hz would be incorrect because Minix's default is 60 Hz."
+    },
+    {
+      "id": 18,
+      "topic": "i8254 Timer",
+      "difficulty": "easy",
+      "question": "What is the primary function of the i8254 timer / counter on a PC?",
+      "options": {
+        "A": "To generate random numbers.",
+        "B": "To measure time intervals and generate clock signals.",
+        "C": "To store data permanently.",
+        "D": "To increase CPU processing speed."
+      },
+      "answer": "B",
+      "explanation": "The i8254 is a programmable timer/counter that measures time precisely and can generate periodic interrupts and square waves, independently of the processor speed."
+    },
+    {
+      "id": 19,
+      "topic": "I/O and Device Drivers",
+      "difficulty": "easy",
+      "question": "What will be the output of (12 & 10)?",
+      "options": {
+        "A": "8",
+        "B": "12",
+        "C": "2",
+        "D": "10"
+      },
+      "answer": "A",
+      "explanation": "12 = 1100, 10 = 1010. Bitwise AND: 1100 & 1010 = 1000 = 8. Only the bit that is 1 in BOTH numbers survives the AND."
+    },
+    {
+      "id": 20,
+      "topic": "Keyboard and KBC",
+      "difficulty": "easy",
+      "question": "When a key is pressed, how is the scancode sent to the PC?",
+      "options": {
+        "A": "The keyboard controller generates a scancode and sends it to the PC via a buffer.",
+        "B": "The keyboard directly modifies memory.",
+        "C": "The CPU manually checks each key for its state.",
+        "D": "The keyboard sends an electrical pulse to the CPU."
+      },
+      "answer": "A",
+      "explanation": "When a key is pressed, the controller at the keyboard generates a scancode (makecode) and places it in a serial buffer for transmission to the PC's KBC (i8042), which then signals the CPU via IRQ 1."
+    }
+  ]
+}
