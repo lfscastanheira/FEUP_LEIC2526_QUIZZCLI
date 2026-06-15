@@ -107,8 +107,8 @@
         "C": "0x030",
         "D": "0x105"
       },
-      "answer": "D",
-      "explanation": "Minix (in the LCOM labs) defaults to VBE mode 0x105, which is 1024\u00d7768 pixels with 8 bits per pixel (indexed/palette mode). Mode 0x115 is 24-bit true color at 800\u00d7600."
+      "answer": "B",
+      "explanation": "Although the question asks for the default 'graphics' mode, Minix actually boots into standard VGA text mode 0x03 (80x25 characters, 16 colors) by default. In Lab 5, we reset the video card back to this mode (0x03) when exiting using vg_exit()."
     },
     {
       "id": 8,
