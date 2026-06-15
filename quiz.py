@@ -64,7 +64,7 @@ def wrap(text, width=70, indent=0):
 
 BANNER = f"""
 {CYAN}╔══════════════════════════════════════════════════════════════╗
-║  {BOLD}{WHITE}🎓  Universal CLI Quiz Tool{RESET}{CYAN}                                  ║
+║  {BOLD}{WHITE}🎓  Universal CLI Quiz Tool{RESET}{CYAN}                                 ║
 ║  {DIM}Randomised multiple-choice quizzes from question banks{RESET}{CYAN}      ║
 ╚══════════════════════════════════════════════════════════════╝{RESET}
 """
