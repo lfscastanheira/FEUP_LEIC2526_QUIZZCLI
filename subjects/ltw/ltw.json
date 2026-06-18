@@ -1,0 +1,716 @@
+{
+  "subject": "LTW \u2013 Web Technologies Lab",
+  "topics": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "JavaScript DOM",
+    "PHP",
+    "HTTP e Web",
+    "Express\u00f5es Regulares",
+    "Seguran\u00e7a Web",
+    "Web Development"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual \u00e9 o elemento raiz de qualquer documento HTML5?",
+      "options": {
+        "A": "<body>",
+        "B": "<head>",
+        "C": "<html>",
+        "D": "<document>"
+      },
+      "answer": "C",
+      "explanation": "O elemento <html> \u00e9 o elemento raiz de todo o documento HTML. Todos os outros elementos s\u00e3o descendentes dele, incluindo <head> e <body>."
+    },
+    {
+      "id": 2,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual \u00e9 a declara\u00e7\u00e3o DOCTYPE correta para HTML5?",
+      "options": {
+        "A": "<!DOCTYPE html PUBLIC '-//W3C'>",
+        "B": "<!DOCTYPE html>",
+        "C": "<?xml version='1.0'?>",
+        "D": "<!DOCTYPE HTML5>"
+      },
+      "answer": "B",
+      "explanation": "Em HTML5, a declara\u00e7\u00e3o DOCTYPE simplificou-se para <!DOCTYPE html>. As vers\u00f5es anteriores (HTML 4, XHTML) tinham declarações muito mais longas e complexas."
+    },
+    {
+      "id": 3,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual \u00e9 a diferen\u00e7a entre os atributos id e class?",
+      "options": {
+        "A": "id \u00e9 \u00fanico na p\u00e1gina; class pode ser reutilizada.",
+        "B": "class \u00e9 \u00fanica na p\u00e1gina; id pode ser reutilizado.",
+        "C": "id \u00e9 usado em CSS; class \u00e9 usada em JavaScript.",
+        "D": "N\u00e3o h\u00e1 diferen\u00e7a entre os dois atributos."
+      },
+      "answer": "A",
+      "explanation": "O atributo id deve ser \u00fanico em todo o documento HTML — n\u00e3o pode existir dois elementos com o mesmo id. A class pode ser partilhada por v\u00e1rios elementos e um elemento pode ter v\u00e1rias classes."
+    },
+    {
+      "id": 4,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Num documento HTML5, qual dos seguintes fragmentos \u00e9 INV\u00c1LIDO?",
+      "options": {
+        "A": "<p class=\"intro\"><p class=\"intro\">",
+        "B": "<div id=\"box1\"><div id=\"box2\">",
+        "C": "<span id=\"x\"><span id=\"x\">",
+        "D": "<p class=\"a b\"><p class=\"c d\">"
+      },
+      "answer": "C",
+      "explanation": "O atributo id tem de ser \u00fanico em todo o documento. Ter dois elementos com id=\"x\" \u00e9 inválido. Os atributos class, ao contr\u00e1rio, podem ser repetidos livremente."
+    },
+    {
+      "id": 5,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "O que faz o elemento <br>?",
+      "options": {
+        "A": "Insere uma separa\u00e7\u00e3o horizontal.",
+        "B": "Cria um parágrafo novo.",
+        "C": "Insere uma quebra de linha.",
+        "D": "Marca texto como bold."
+      },
+      "answer": "C",
+      "explanation": "<br> insere uma quebra de linha sem iniciar um novo parágrafo. Deve ser usado em contextos como endereços ou poesia, onde a quebra faz parte do conteúdo. N\u00e3o deve ser usado para espa\u00e7amento — para isso usa-se CSS."
+    },
+    {
+      "id": 6,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual \u00e9 o elemento correto para criar uma hiperliga\u00e7\u00e3o?",
+      "options": {
+        "A": "<link href=\"pagina.html\">",
+        "B": "<a href=\"pagina.html\">",
+        "C": "<url href=\"pagina.html\">",
+        "D": "<ref src=\"pagina.html\">"
+      },
+      "answer": "B",
+      "explanation": "O elemento <a> (anchor) cria hiperliga\u00e7\u00f5es. O atributo href especifica o destino. O elemento <link> existe mas \u00e9 usado no <head> para ligar folhas de estilo, n\u00e3o para criar liga\u00e7\u00f5es de navega\u00e7\u00e3o."
+    },
+    {
+      "id": 7,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual atributo \u00e9 obrigat\u00f3rio no elemento <img>?",
+      "options": {
+        "A": "title",
+        "B": "width",
+        "C": "src",
+        "D": "id"
+      },
+      "answer": "C",
+      "explanation": "O atributo src \u00e9 obrigat\u00f3rio em <img> pois especifica o caminho para a imagem. O atributo alt \u00e9 fortemente recomendado para acessibilidade, mas tecnicamente opcional na especifica\u00e7\u00e3o."
+    },
+    {
+      "id": 8,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a diferen\u00e7a sem\u00e2ntica entre <strong> e <b>?",
+      "options": {
+        "A": "<strong> apenas aplica negrito visual.",
+        "B": "<b> indica import\u00e2ncia; <strong> \u00e9 decorativo.",
+        "C": "<strong> indica import\u00e2ncia; <b> \u00e9 apenas visual.",
+        "D": "N\u00e3o h\u00e1 diferen\u00e7a — ambos s\u00e3o equivalentes."
+      },
+      "answer": "C",
+      "explanation": "<strong> transmite import\u00e2ncia sem\u00e2ntica — leitores de ecr\u00e3 enfatizam o conte\u00fado. <b> \u00e9 puramente est\u00e9tico (bold visual) sem significado extra. A mesma rela\u00e7\u00e3o existe entre <em> e <i>."
+    },
+    {
+      "id": 9,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 o elemento HTML mais semanticamente correto para conter links de navega\u00e7\u00e3o principal?",
+      "options": {
+        "A": "<div id=\"nav\">",
+        "B": "<menu>",
+        "C": "<nav>",
+        "D": "<ul class=\"nav\">"
+      },
+      "answer": "C",
+      "explanation": "<nav> \u00e9 o elemento criado especificamente para agrupar links de navega\u00e7\u00e3o. Comunica a sua finalidade a browsers, motores de busca e tecnologias assistivas. Usar <div> com id ou class funciona mas n\u00e3o \u00e9 sem\u00e2ntico."
+    },
+    {
+      "id": 10,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "O que representa o elemento <aside>?",
+      "options": {
+        "A": "Conteúdo principal da página.",
+        "B": "Conteúdo tangencial ao conteúdo principal.",
+        "C": "Um rodapé de página ou seção.",
+        "D": "Uma barra de navegação lateral."
+      },
+      "answer": "B",
+      "explanation": "<aside> representa conte\u00fado tangencialmente relacionado com o conte\u00fado \u00e0 sua volta — como uma barra lateral, caixa de publicidade, biografia do autor, ou glossário. N\u00e3o deve conter o conte\u00fado principal da p\u00e1gina."
+    },
+    {
+      "id": 11,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Analise este c\u00f3digo HTML. Qual \u00e9 o problema sem\u00e2ntico?\n\n<div class=\"artigo\">\n  <div class=\"titulo\">Not\u00edcia</div>\n  <div class=\"texto\">Conte\u00fado...</div>\n</div>",
+      "options": {
+        "A": "Deveria usar <article>, <h2> e <p>.",
+        "B": "Deveria usar <section>, <h1> e <span>.",
+        "C": "Deveria usar <main>, <title> e <p>.",
+        "D": "N\u00e3o h\u00e1 nenhum problema sem\u00e2ntico."
+      },
+      "answer": "A",
+      "explanation": "O c\u00f3digo usa <div> para tudo, o que \u00e9 sem\u00e2ntico vazio (\"div soup\"). O correto seria <article> para o artigo, um elemento de heading (<h1>-<h6>) para o t\u00edtulo, e <p> para o par\u00e1grafo de texto."
+    },
+    {
+      "id": 12,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Qual das seguintes afirma\u00e7\u00f5es sobre o elemento <header> \u00e9 CORRETA?",
+      "options": {
+        "A": "S\u00f3 pode existir um <header> por p\u00e1gina.",
+        "B": "Substitui o elemento <head> do documento.",
+        "C": "Pode existir dentro de <article> e <section>.",
+        "D": "Deve conter apenas logos e imagens."
+      },
+      "answer": "C",
+      "explanation": "<header> n\u00e3o \u00e9 \u00fanico na p\u00e1gina — pode existir dentro de <body>, <article>, <section>, <aside>, etc. Cada elemento sectional pode ter o seu pr\u00f3prio <header> com material introdut\u00f3rio. N\u00e3o deve ser confundido com <head>."
+    },
+    {
+      "id": 13,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Para que serve o elemento <form>?",
+      "options": {
+        "A": "Para agrupar elementos visuais.",
+        "B": "Para recolher informa\u00e7\u00e3o do utilizador.",
+        "C": "Para criar uma tabela de dados.",
+        "D": "Para inserir c\u00f3digo JavaScript."
+      },
+      "answer": "B",
+      "explanation": "<form> agrupa controlos de formul\u00e1rio (inputs, selects, botões) que permitem ao utilizador inserir e submeter dados. O atributo action define para onde os dados s\u00e3o enviados e method define o m\u00e9todo HTTP (GET ou POST)."
+    },
+    {
+      "id": 14,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a diferen\u00e7a entre os m\u00e9todos GET e POST num formul\u00e1rio HTML?",
+      "options": {
+        "A": "GET envia dados no body; POST na URL.",
+        "B": "GET envia dados na URL; POST envia no body.",
+        "C": "GET \u00e9 s\u00f3 para ficheiros; POST para texto.",
+        "D": "N\u00e3o h\u00e1 diferen\u00e7a pr\u00e1tica entre os dois."
+      },
+      "answer": "B",
+      "explanation": "Com GET, os dados do formul\u00e1rio s\u00e3o codificados na query string da URL (vis\u00edveis, limit\u00e3o de tamanho). Com POST, os dados v\u00e3o no corpo do pedido HTTP (n\u00e3o vis\u00edveis na URL, sem limite de tamanho, adequado para dados sens\u00edveis)."
+    },
+    {
+      "id": 15,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Analise este formul\u00e1rio HTML:\n\n<form action=\"/login\" method=\"post\">\n  <input type=\"text\" name=\"user\">\n  <input type=\"password\" name=\"pw\">\n  <button>Entrar</button>\n</form>\n\nO que acontece quando o bot\u00e3o \u00e9 clicado?",
+      "options": {
+        "A": "Faz GET para /login com os dados na URL.",
+        "B": "Faz POST para /login com os dados no body.",
+        "C": "Abre uma janela de di\u00e1logo de login.",
+        "D": "N\u00e3o faz nada sem um evento JavaScript."
+      },
+      "answer": "B",
+      "explanation": "Um bot\u00e3o dentro de um <form> \u00e9 do tipo 'submit' por omiss\u00e3o. Ao clicar, o browser serializa os inputs com name e envia um pedido POST para /login com os dados no corpo do pedido, conforme definido pelo atributo method=\"post\"."
+    },
+    {
+      "id": 16,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual \u00e9 o atributo que associa um <label> ao respetivo <input>?",
+      "options": {
+        "A": "name",
+        "B": "for",
+        "C": "link",
+        "D": "target"
+      },
+      "answer": "B",
+      "explanation": "O atributo for no <label> deve corresponder ao atributo id do <input> associado. Isto melhora a acessibilidade — clicar no label foca o input — e \u00e9 especialmente importante para checkboxes e radio buttons."
+    },
+    {
+      "id": 17,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual dos seguintes tipos de <input> valida automaticamente se o valor \u00e9 um endere\u00e7o de email?",
+      "options": {
+        "A": "<input type=\"mail\">",
+        "B": "<input type=\"email\">",
+        "C": "<input type=\"text\" validate=\"email\">",
+        "D": "<input type=\"address\">"
+      },
+      "answer": "B",
+      "explanation": "O tipo email faz o browser validar automaticamente o formato antes do formul\u00e1rio ser submetido. Outros tipos \u00fateis: number, url, date, tel, range, color. Esta valida\u00e7\u00e3o \u00e9 client-side e deve sempre ser complementada com valida\u00e7\u00e3o server-side."
+    },
+    {
+      "id": 18,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a fun\u00e7\u00e3o do atributo required num elemento <input>?",
+      "options": {
+        "A": "Torna o campo somente de leitura.",
+        "B": "Impede a submiss\u00e3o se o campo estiver vazio.",
+        "C": "Marca o campo com um asterisco visual.",
+        "D": "Torna o campo obrigat\u00f3rio apenas em mobile."
+      },
+      "answer": "B",
+      "explanation": "O atributo required \u00e9 um atributo booleano que impede a submiss\u00e3o do formul\u00e1rio se o campo estiver vazio, mostrando uma mensagem de erro nativa do browser. N\u00e3o adiciona estilos visuais por si s\u00f3 — isso \u00e9 feito com CSS (ex: input:required)."
+    },
+    {
+      "id": 19,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Analise este c\u00f3digo HTML. Qual \u00e9 o comportamento do bot\u00e3o?\n\n<form action=\"/enviar\" method=\"post\">\n  <input type=\"text\" name=\"msg\">\n  <button type=\"button\" onclick=\"validar()\">Enviar</button>\n</form>",
+      "options": {
+        "A": "Submete o formul\u00e1rio e chama validar().",
+        "B": "Chama validar() mas n\u00e3o submete o formul\u00e1rio.",
+        "C": "Submete o formul\u00e1rio sem chamar validar().",
+        "D": "N\u00e3o faz nada sem JavaScript ativo."
+      },
+      "answer": "B",
+      "explanation": "type=\"button\" impede o comportamento padr\u00e3o de submiss\u00e3o do formul\u00e1rio. O bot\u00e3o apenas executa o handler JavaScript onclick. Para submeter o formul\u00e1rio tamb\u00e9m, validar() teria de chamar o m\u00e9todo form.submit() ou o bot\u00e3o ter type=\"submit\"."
+    },
+    {
+      "id": 20,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual elemento HTML \u00e9 usado para criar uma lista n\u00e3o ordenada?",
+      "options": {
+        "A": "<ol>",
+        "B": "<list>",
+        "C": "<ul>",
+        "D": "<dl>"
+      },
+      "answer": "C",
+      "explanation": "<ul> cria uma lista n\u00e3o ordenada (com marcadores). <ol> cria uma lista ordenada (numerada). <dl> \u00e9 uma lista de defini\u00e7\u00f5es. Ambas <ul> e <ol> devem conter elementos <li> como filhos diretos."
+    },
+    {
+      "id": 21,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a estrutura correta de uma tabela HTML com cabe\u00e7alho e dados?",
+      "options": {
+        "A": "<table><th>Nome</th><td>Ana</td></table>",
+        "B": "<table><tr><th>Nome</th></tr><tr><td>Ana</td></tr></table>",
+        "C": "<table><thead>Nome</thead><tbody>Ana</tbody></table>",
+        "D": "<table><row><cell>Nome</cell><cell>Ana</cell></row></table>"
+      },
+      "answer": "B",
+      "explanation": "Em HTML, as c\u00e9lulas de tabela (<th> e <td>) devem estar dentro de linhas (<tr>). A estrutura correta \u00e9 table > tr > th/td. Os elementos <thead>, <tbody> e <tfoot> s\u00e3o opcionais mas recomendados para sem\u00e2ntica."
+    },
+    {
+      "id": 22,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "O que faz o atributo colspan numa c\u00e9lula de tabela?",
+      "options": {
+        "A": "Define a largura da c\u00e9lula em colunas.",
+        "B": "Faz a c\u00e9lula ocupar v\u00e1rias colunas.",
+        "C": "Define quantas linhas a c\u00e9lula ocupa.",
+        "D": "Agrupa c\u00e9lulas em grupos de colunas."
+      },
+      "answer": "B",
+      "explanation": "O atributo colspan faz uma c\u00e9lula (<td> ou <th>) ocupar o espa\u00e7o de v\u00e1rias colunas. Por exemplo, colspan=\"3\" faz a c\u00e9lula ter a largura de 3 colunas. O atributo equivalente para linhas \u00e9 rowspan."
+    },
+    {
+      "id": 23,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual \u00e9 o elemento correto para incluir uma folha de estilos CSS externa?",
+      "options": {
+        "A": "<style src=\"estilos.css\">",
+        "B": "<css href=\"estilos.css\">",
+        "C": "<link rel=\"stylesheet\" href=\"estilos.css\">",
+        "D": "<import url=\"estilos.css\">"
+      },
+      "answer": "C",
+      "explanation": "O elemento <link> com atributo rel=\"stylesheet\" e href apontando para o ficheiro CSS \u00e9 a forma correta de incluir estilos externos. Deve ser colocado dentro do <head>. O elemento <style> \u00e9 para CSS inline no documento."
+    },
+    {
+      "id": 24,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Para que serve o elemento <meta charset=\"UTF-8\">?",
+      "options": {
+        "A": "Define o t\u00edtulo da p\u00e1gina nos motores de busca.",
+        "B": "Define a codifica\u00e7\u00e3o de caracteres do documento.",
+        "C": "Define o idioma do conte\u00fado da p\u00e1gina.",
+        "D": "Importa uma folha de estilos do servidor."
+      },
+      "answer": "B",
+      "explanation": "O elemento <meta charset> declara a codifica\u00e7\u00e3o de caracteres usada no documento. UTF-8 \u00e9 a codifica\u00e7\u00e3o recomendada pois suporta praticamente todos os caracteres e s\u00edmbolos do mundo. Deve ser o primeiro elemento dentro de <head>."
+    },
+    {
+      "id": 25,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a diferen\u00e7a sem\u00e2ntica entre <article> e <section>?",
+      "options": {
+        "A": "<article> é independente e reutilizável.",
+        "B": "<section> é independente; <article> agrupa.",
+        "C": "<article> é para texto; <section> para imagens.",
+        "D": "Não há diferença semântica entre eles."
+      },
+      "answer": "A",
+      "explanation": "<article> representa conte\u00fado independente e reutiliz\u00e1vel (post de blog, notícia, coment\u00e1rio) que faz sentido fora do contexto da p\u00e1gina. <section> agrupa conte\u00fado relacionado tematicamente dentro de um contexto maior."
+    },
+    {
+      "id": 26,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Analise este c\u00f3digo. Qual elemento est\u00e1 mal posicionado?\n\n<html>\n  <body>\n    <p>Ol\u00e1 mundo</p>\n  </body>\n  <head>\n    <title>P\u00e1gina</title>\n  </head>\n</html>",
+      "options": {
+        "A": "O elemento <p> devia estar no <head>.",
+        "B": "O <head> devia vir antes do <body>.",
+        "C": "O <title> devia estar no <body>.",
+        "D": "N\u00e3o h\u00e1 nenhum problema neste c\u00f3digo."
+      },
+      "answer": "B",
+      "explanation": "A ordem correta num documento HTML \u00e9: <html> > <head> > <body>. O <head> deve sempre preceder o <body>. Embora os browsers possam tolerar esta ordem err\u00f3nea com heurísticas de parsing, \u00e9 c\u00f3digo inv\u00e1lido."
+    },
+    {
+      "id": 27,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "O que \u00e9 uma entidade HTML? Qual destes \u00e9 um exemplo?",
+      "options": {
+        "A": "Uma tag especial; exemplo: <special>",
+        "B": "Uma sequência de escape; exemplo: &amp;",
+        "C": "Um atributo global; exemplo: data-id",
+        "D": "Um comentário HTML; exemplo: <!-- -->"
+      },
+      "answer": "B",
+      "explanation": "Entidades HTML s\u00e3o sequências de escape que representam caracteres especiais: &amp; (&), &lt; (<), &gt; (>), &nbsp; (espa\u00e7o não quebrável), &copy; (©), etc. S\u00e3o necess\u00e1rias quando o caracter tem significado especial em HTML."
+    },
+    {
+      "id": 28,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Analise este c\u00f3digo HTML. O que ser\u00e1 apresentado visualmente ao utilizador?\n\n<p>Um    espa\u00e7o\n    longo</p>",
+      "options": {
+        "A": "\"Um    espa\u00e7o\\n    longo\" com todos os espa\u00e7os.",
+        "B": "\"Um espa\u00e7o longo\" com um \u00fanico espa\u00e7o.",
+        "C": "\"Umespa\u00e7olongo\" sem nenhum espa\u00e7o.",
+        "D": "Nada — o c\u00f3digo \u00e9 inv\u00e1lido."
+      },
+      "answer": "B",
+      "explanation": "Em HTML, espa\u00e7os em branco m\u00faltiplos (espa\u00e7os, tabs, newlines) dentro de elementos de texto s\u00e3o colapsados num \u00fanico espa\u00e7o. Para preservar espa\u00e7amento, usa-se o elemento <pre> ou a propriedade CSS white-space."
+    },
+    {
+      "id": 29,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a fun\u00e7\u00e3o do elemento <figure> e <figcaption>?",
+      "options": {
+        "A": "<figure> é exclusivamente para imagens.",
+        "B": "<figure> agrupa conteúdo ilustrativo com legenda.",
+        "C": "<figcaption> define o título da página.",
+        "D": "<figure> substitui o elemento <img>."
+      },
+      "answer": "B",
+      "explanation": "<figure> agrupa conte\u00fado ilustrativo (imagens, diagramas, c\u00f3digo, cita\u00e7\u00f5es) que \u00e9 referenciado no texto principal mas que poderia ser removido sem quebrar o fluxo. <figcaption> fornece uma legenda opcional para o conte\u00fado dentro de <figure>."
+    },
+    {
+      "id": 30,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual dos seguintes elementos \u00e9 void (self-closing) em HTML5?",
+      "options": {
+        "A": "<div>",
+        "B": "<span>",
+        "C": "<input>",
+        "D": "<p>"
+      },
+      "answer": "C",
+      "explanation": "Elementos void n\u00e3o podem ter conte\u00fado e n\u00e3o t\u00eam tag de fecho. Exemplos: <input>, <img>, <br>, <hr>, <meta>, <link>. Em HTML5, a barra de fecho opcional do XHTML (<input />) \u00e9 permitida mas desnecess\u00e1ria."
+    },
+    {
+      "id": 31,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Analise os seguintes fragmentos. Qual usa sem\u00e2ntica HTML5 INCORRETA?\n\nA: <nav><ul><li><a href=\"/\">In\u00edcio</a></li></ul></nav>\nB: <main><article><h1>T\u00edtulo</h1><p>Texto</p></article></main>\nC: <header><footer>Rodap\u00e9</footer></header>\nD: <footer><p>&copy; 2024 Empresa</p></footer>",
+      "options": {
+        "A": "Fragmento A",
+        "B": "Fragmento B",
+        "C": "Fragmento C",
+        "D": "Fragmento D"
+      },
+      "answer": "C",
+      "explanation": "Colocar <footer> dentro de <header> \u00e9 inv\u00e1lido segundo a especifica\u00e7\u00e3o HTML5. O elemento <footer> n\u00e3o pode ser descendente de <header> nem de outro <footer>. Os fragmentos A, B e D s\u00e3o todos v\u00e1lidos e sem\u00e2nticos."
+    },
+    {
+      "id": 32,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Para que serve o atributo alt numa imagem?",
+      "options": {
+        "A": "Título que aparece ao passar o rato.",
+        "B": "Texto alternativo para acessibilidade.",
+        "C": "Define a legenda da imagem na página.",
+        "D": "Substitui a imagem por outra alternativa."
+      },
+      "answer": "B",
+      "explanation": "O atributo alt fornece texto alternativo quando a imagem n\u00e3o carrega e \u00e9 lido pelos leitores de ecr\u00e3 para usu\u00e1rios com defici\u00eancia visual. Para imagens decorativas, alt=\"\" (string vazia) indica que a imagem pode ser ignorada por tecnologias assistivas."
+    },
+    {
+      "id": 33,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a diferen\u00e7a entre os atributos disabled e readonly num input?",
+      "options": {
+        "A": "disabled impede edi\u00e7\u00e3o; readonly impede submiss\u00e3o.",
+        "B": "readonly impede edi\u00e7\u00e3o mas envia o valor; disabled n\u00e3o envia.",
+        "C": "S\u00e3o equivalentes — produzem o mesmo efeito.",
+        "D": "disabled \u00e9 s\u00f3 para checkboxes; readonly para text inputs."
+      },
+      "answer": "B",
+      "explanation": "readonly impede o utilizador de modificar o valor mas o campo \u00e9 focusable e o valor \u00e9 submetido com o formul\u00e1rio. disabled impede intera\u00e7\u00e3o, o campo n\u00e3o \u00e9 focusable e o valor N\u00c3O \u00e9 inclu\u00eddo na submiss\u00e3o do formul\u00e1rio."
+    },
+    {
+      "id": 34,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "O que faz o atributo target=\"_blank\" num elemento <a>?",
+      "options": {
+        "A": "Abre o link na mesma janela/tab.",
+        "B": "Abre o link numa nova janela/tab.",
+        "C": "Abre o link num iframe embutido.",
+        "D": "Desativa o link para clicar."
+      },
+      "answer": "B",
+      "explanation": "target=\"_blank\" abre o link numa nova aba ou janela. Para seguran\u00e7a, deve ser combinado com rel=\"noopener noreferrer\" para prevenir ataques de \"reverse tabnapping\", onde a nova p\u00e1gina pode aceder \u00e0 p\u00e1gina original via window.opener."
+    },
+    {
+      "id": 35,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Analise este HTML. Qual elemento ser\u00e1 acessível ao clicar no label?\n\n<label for=\"email\">Email:</label>\n<input type=\"text\" id=\"user-email\" name=\"email\">\n<input type=\"email\" id=\"email\" name=\"email2\">",
+      "options": {
+        "A": "O primeiro input (id=\"user-email\").",
+        "B": "O segundo input (id=\"email\").",
+        "C": "Ambos os inputs ser\u00e3o focados.",
+        "D": "Nenhum — o c\u00f3digo \u00e9 inv\u00e1lido."
+      },
+      "answer": "B",
+      "explanation": "O atributo for no label associa-o ao elemento com id correspondente. for=\"email\" aponta para o segundo input (id=\"email\"). O primeiro input tem id=\"user-email\" que n\u00e3o corresponde. O atributo name \u00e9 irrelevante para esta associa\u00e7\u00e3o."
+    },
+    {
+      "id": 36,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual elemento HTML \u00e9 usado para criar um menu dropdown (lista de sele\u00e7\u00e3o)?",
+      "options": {
+        "A": "<dropdown>",
+        "B": "<input type=\"dropdown\">",
+        "C": "<select>",
+        "D": "<choose>"
+      },
+      "answer": "C",
+      "explanation": "O elemento <select> cria um menu dropdown. Cont\u00e9m elementos <option> como filhos. O atributo multiple permite sele\u00e7\u00e3o de v\u00e1rias op\u00e7\u00e3es, e size define quantas op\u00e7\u00e3es s\u00e3o vis\u00edveis sem scroll."
+    },
+    {
+      "id": 37,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Qual \u00e9 a diferen\u00e7a entre as tags <script> com atributo defer e async?",
+      "options": {
+        "A": "defer executa ao receber; async executa no final.",
+        "B": "async executa ao receber; defer executa ap\u00f3s o parse do HTML.",
+        "C": "S\u00e3o id\u00eanticos — apenas o nome \u00e9 diferente.",
+        "D": "defer \u00e9 s\u00f3 para CSS; async \u00e9 s\u00f3 para JavaScript."
+      },
+      "answer": "B",
+      "explanation": "Com async, o script \u00e9 descarregado em paralelo e executado imediatamente ao terminar (pode interromper o parse). Com defer, o script \u00e9 descarregado em paralelo mas s\u00f3 \u00e9 executado depois de todo o HTML estar processado, na ordem em que aparece."
+    },
+    {
+      "id": 38,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "O que faz o elemento <details> e <summary> em HTML5?",
+      "options": {
+        "A": "Cria um tooltip ao passar o rato.",
+        "B": "Cria um widget de acordeão expansível nativamente.",
+        "C": "Define metadados de descri\u00e7\u00e3o da p\u00e1gina.",
+        "D": "Agrupa conteúdo com um título de tabela."
+      },
+      "answer": "B",
+      "explanation": "<details> cria um widget nativo que pode ser aberto e fechado. <summary> \u00e9 o cabe\u00e7alho visível que o utilizador clica para expandir/colapsar o conte\u00fado. N\u00e3o requer JavaScript — funciona com HTML puro, sendo um excelente exemplo de funcionalidade nativa do browser."
+    },
+    {
+      "id": 39,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Qual das seguintes afirma\u00e7\u00f5es sobre o elemento <canvas> \u00e9 VERDADEIRA?",
+      "options": {
+        "A": "Renderiza conte\u00fado vetorial SVG diretamente.",
+        "B": "\u00c9 um contexto de desenho bitmap via JavaScript.",
+        "C": "Suporta apenas imagens PNG e JPEG.",
+        "D": "Substitui o elemento <img> com anima\u00e7\u00f5es."
+      },
+      "answer": "B",
+      "explanation": "<canvas> fornece uma \u00e1rea de desenho bitmap que \u00e9 manipulada via JavaScript (getContext('2d') ou getContext('webgl')). Ao contr\u00e1rio do SVG (que \u00e9 vetorial e faz parte do DOM), o canvas \u00e9 raster e o seu conte\u00fado n\u00e3o \u00e9 acess\u00edvel sem c\u00f3digo adicional."
+    },
+    {
+      "id": 40,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Analise este c\u00f3digo. Qual \u00e9 o problema?\n\n<input type=\"checkbox\" id=\"aceito\">\n<label>Li e aceito os termos</label>",
+      "options": {
+        "A": "Checkboxes não podem ter labels.",
+        "B": "O label não está associado (falta for).",
+        "C": "O input devia ter um atributo value.",
+        "D": "Não há nenhum problema neste código."
+      },
+      "answer": "B",
+      "explanation": "O label n\u00e3o est\u00e1 associado ao checkbox porque falta o atributo for=\"aceito\" no <label>. Sem esta associa\u00e7\u00e3o, clicar no texto do label n\u00e3o ativa o checkbox. Para funcionar, o label devia ter for=\"aceito\" ou o input devia estar dentro do label."
+    },
+    {
+      "id": 41,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "O que faz o atributo placeholder num <input>?",
+      "options": {
+        "A": "Define o valor padr\u00e3o submetido com o formul\u00e1rio.",
+        "B": "Mostra texto de dica que desaparece ao escrever.",
+        "C": "Substitui o elemento <label> visualmente.",
+        "D": "Define o texto do bot\u00e3o de submiss\u00e3o."
+      },
+      "answer": "B",
+      "explanation": "placeholder mostra uma dica de texto dentro do campo de input que desaparece quando o utilizador come\u00e7a a escrever. N\u00e3o substitui o <label> — \u00e9 acessibilidade m\u00e1 usar s\u00f3 o placeholder como label pois desaparece e pode causar confus\u00e3o."
+    },
+    {
+      "id": 42,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Qual \u00e9 a diferen\u00e7a entre os elementos <th> e <td> numa tabela?",
+      "options": {
+        "A": "<th> \u00e9 para cabe\u00e7alhos sem\u00e2nticos; <td> para dados.",
+        "B": "<td> \u00e9 para cabe\u00e7alhos; <th> \u00e9 para dados.",
+        "C": "<th> s\u00f3 pode ser usado no <thead>.",
+        "D": "S\u00e3o intercambi\u00e1veis — apenas o estilo muda."
+      },
+      "answer": "A",
+      "explanation": "<th> (table header) tem sem\u00e2ntica de cabe\u00e7alho — implica que \u00e9 um r\u00f3tulo para linhas ou colunas. O atributo scope (row/col/rowgroup/colgroup) melhora a acessibilidade. <th> pode aparecer em qualquer linha, n\u00e3o apenas no <thead>. Visualmente fica bold e centrado por defeito."
+    },
+    {
+      "id": 43,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Para que serve o elemento <datalist> em HTML5?",
+      "options": {
+        "A": "Cria uma lista de dados para CSS usar.",
+        "B": "Fornece sugest\u00f5es autocompletar para um <input>.",
+        "C": "Define a lista de op\u00e7\u00f5es de um <select>.",
+        "D": "Cria uma tabela de dados din\u00e2mica."
+      },
+      "answer": "B",
+      "explanation": "<datalist> cont\u00e9m uma lista de <option> que s\u00e3o sugeridas como autocomplete num <input> associado via atributo list. Diferente do <select>, o utilizador pode escrever qualquer valor — as op\u00e7\u00f5es s\u00e3o apenas sugest\u00f5es, n\u00e3o obrigat\u00f3rias."
+    },
+    {
+      "id": 44,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "O que faz o atributo enctype=\"multipart/form-data\" num formul\u00e1rio?",
+      "options": {
+        "A": "Encripta os dados antes de os enviar.",
+        "B": "Permite o envio de ficheiros no formul\u00e1rio.",
+        "C": "Divide o formul\u00e1rio em m\u00faltiplas p\u00e1ginas.",
+        "D": "Usa JSON para serializar os dados."
+      },
+      "answer": "B",
+      "explanation": "enctype=\"multipart/form-data\" \u00e9 obrigat\u00f3rio quando o formul\u00e1rio inclui um <input type=\"file\"> para upload de ficheiros. Este encoding divide o body do pedido em partes, uma por campo. O default application/x-www-form-urlencoded n\u00e3o suporta bin\u00e1rios."
+    },
+    {
+      "id": 45,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Analise este c\u00f3digo. O que \u00e9 submetido ao servidor quando o bot\u00e3o \u00e9 clicado?\n\n<form method=\"get\" action=\"/busca\">\n  <input type=\"hidden\" name=\"v\" value=\"2\">\n  <input type=\"text\" name=\"q\" value=\"html\">\n  <button type=\"submit\">Pesquisar</button>\n</form>",
+      "options": {
+        "A": "GET /busca apenas (campos hidden n\u00e3o s\u00e3o enviados).",
+        "B": "GET /busca?q=html (hidden fields n\u00e3o s\u00e3o enviados).",
+        "C": "GET /busca?v=2&q=html (ambos os campos).",
+        "D": "GET /busca?v=2 (s\u00f3 o campo hidden \u00e9 enviado)."
+      },
+      "answer": "C",
+      "explanation": "Campos <input type=\"hidden\"> s\u00e3o inclu\u00eddos normalmente na submiss\u00e3o — s\u00e3o apenas inv\u00eds\u00edveis para o utilizador. Com method=\"get\", todos os campos com name s\u00e3o codificados na URL. O resultado \u00e9 GET /busca?v=2&q=html."
+    },
+    {
+      "id": 46,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "O que \u00e9 e para que serve o atributo data-* em HTML5?",
+      "options": {
+        "A": "Define dados de configura\u00e7\u00e3o para o servidor.",
+        "B": "Armazena dados personalizados acess\u00edveis via JavaScript.",
+        "C": "Associa dados de uma base de dados ao elemento.",
+        "D": "Substitui o atributo id para identifica\u00e7\u00e3o."
+      },
+      "answer": "B",
+      "explanation": "Os atributos data-* permitem armazenar informa\u00e7\u00e3o personalizada diretamente nos elementos HTML, acess\u00edvel via JavaScript atrav\u00e9s de element.dataset. Por exemplo, data-user-id=\"42\" fica acess\u00edvel como element.dataset.userId (com convers\u00e3o de kebab-case para camelCase)."
+    },
+    {
+      "id": 47,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual \u00e9 o significado sem\u00e2ntico do elemento <address>?",
+      "options": {
+        "A": "Define um endere\u00e7o de email no documento.",
+        "B": "Informa\u00e7\u00f5es de contacto do autor ou empresa.",
+        "C": "Um endere\u00e7o de URL para um recurso.",
+        "D": "A morada fisica de um servidor web."
+      },
+      "answer": "B",
+      "explanation": "<address> representa informa\u00e7\u00f5es de contacto para o seu ancestor <article> ou <body> mais pr\u00f3ximo. Pode conter endere\u00e7os, emails, números de telefone, etc. N\u00e3o deve ser usado para endere\u00e7os postais genéricos sem rela\u00e7\u00e3o com o documento."
+    },
+    {
+      "id": 48,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Qual das seguintes \u00e9 a estrutura HTML5 MAIS sem\u00e2ntica para um blog post?",
+      "options": {
+        "A": "<div><div>T\u00edtulo</div><div>Texto</div></div>",
+        "B": "<section><h1>T\u00edtulo</h1><div>Texto</div></section>",
+        "C": "<article><header><h1>T\u00edtulo</h1></header><p>Texto</p></article>",
+        "D": "<main><h2>T\u00edtulo</h2><p>Texto</p><footer></footer></main>"
+      },
+      "answer": "C",
+      "explanation": "<article> indica que o conte\u00fado \u00e9 independente e distribu\u00edvel. <header> dentro do article agrupa o material introdut\u00f3rio. <h1> d\u00e1 o t\u00edtulo do artigo. <p> para o par\u00e1grafo de texto. Esta estrutura comunica claramente a natureza do conte\u00fado a browsers, SEO e tecnologias assistivas."
+    },
+    {
+      "id": 49,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Para que serve a meta tag viewport?\n\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+      "options": {
+        "A": "Define a resolu\u00e7\u00e3o m\u00e1xima da imagem da p\u00e1gina.",
+        "B": "Instrui o browser a adaptar a escala ao dispositivo.",
+        "C": "Ativa o modo escuro autom\u00e1tico na p\u00e1gina.",
+        "D": "Define o idioma e regi\u00e3o da p\u00e1gina."
+      },
+      "answer": "B",
+      "explanation": "A meta viewport instrui o browser m\u00f3vel a usar a largura real do dispositivo (width=device-width) e a n\u00e3o fazer zoom inicial (initial-scale=1.0). Sem esta tag, os browsers m\u00f3veis simulam um viewport de ~980px, tornando p\u00e1ginas responsive n\u00e3o-responsivas."
+    },
+    {
+      "id": 50,
+      "topic": "HTML",
+      "difficulty": "hard",
+      "question": "Analise estes quatro fragmentos. Qual usa CORRETAMENTE o elemento <time>?\n\nA: <time>14 de junho de 2024</time>\nB: <time datetime=\"2024-06-14\">14 de junho</time>\nC: <time datetime=\"sexta\">Esta sexta-feira</time>\nD: <time value=\"2024\">Este ano</time>",
+      "options": {
+        "A": "Apenas o fragmento A",
+        "B": "Fragmentos A e B",
+        "C": "Fragmento B",
+        "D": "Fragmentos A, B e C"
+      },
+      "answer": "B",
+      "explanation": "O elemento <time> pode ter ou n\u00e3o o atributo datetime. Sem datetime, o conte\u00fado deve ser uma data m\u00e1quina-leg\u00edvel (A \u00e9 aceite por alguns parsers, mas B \u00e9 o mais correto). C usa 'sexta' que n\u00e3o \u00e9 um valor datetime v\u00e1lido. D usa value, que n\u00e3o existe em <time> — o atributo correto \u00e9 datetime."
+    }
+  ]
+}

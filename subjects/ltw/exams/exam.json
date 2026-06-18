@@ -1,0 +1,323 @@
+{
+  "subject": "LTW \u2013 Web Technologies Lab",
+  "exam_mode": true,
+  "exam_title": "LTW Exam \u2013 Partial Transcript",
+  "exam_questions": 22,
+  "topics": [
+    "HTML",
+    "PHP",
+    "JavaScript",
+    "HTTP and REST",
+    "Web Security"
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Num documento HTML5, qual dos seguintes NÃO é válido?",
+      "options": {
+        "A": "<article class=\"A\"></article> <article class=\"A\"></article>",
+        "B": "<article class=\"A\"></article> <article class=\"B\"></article>",
+        "C": "<article id=\"A\"></article> <article id=\"A\"></article>",
+        "D": "<article class=\"A B\"></article> <article class=\"C D\"></article>"
+      },
+      "answer": "C",
+      "explanation": "Num documento HTML, o atributo id deve ser estritamente único — não pode ser repetido em múltiplos elementos. Os atributos class, ao contrário, podem ser reutilizados e combinados livremente."
+    },
+    {
+      "id": 2,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual dos seguintes elementos é OBRIGATÓRIO num documento HTML5 válido?",
+      "options": {
+        "A": "<h1> (heading principal)",
+        "B": "<head> (com <title> obrigatório)",
+        "C": "<section> (secção de conteúdo)",
+        "D": "<header> (cabeçalho da página)"
+      },
+      "answer": "B",
+      "explanation": "A especificação HTML5 exige um elemento <title> não vazio dentro do <head>. O <head> é, portanto, obrigatório para conter esse metadado. Elementos como <h1>, <section> e <header> são opcionais."
+    },
+    {
+      "id": 3,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Em HTML5, qual é a forma mais semanticamente correta de marcar uma secção da página que contém links de navegação?",
+      "options": {
+        "A": "<section id=\"links\">",
+        "B": "<menu>",
+        "C": "<nav>",
+        "D": "<section class=\"links\">"
+      },
+      "answer": "C",
+      "explanation": "O elemento <nav> foi criado especificamente para agrupar links de navegação principal. Usar <section> com um id ou class é funcional mas não é semanticamente correto, pois não comunica a intenção de navegação a browsers, leitores de ecrã e motores de busca."
+    },
+    {
+      "id": 4,
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Em HTML5, qual é o significado semântico do elemento <header>?",
+      "options": {
+        "A": "A primeira parte visual de um website.",
+        "B": "A primeira linha de uma tabela HTML.",
+        "C": "Um local para especificar ficheiros CSS e JS a carregar.",
+        "D": "Um local para colocar material introdutório de um elemento estruturante."
+      },
+      "answer": "D",
+      "explanation": "<header> representa material introdutório do seu elemento pai (pode ser o <body>, um <article>, uma <section>, etc.) e tipicamente contém um título, logo ou navegação relacionada. Não deve ser confundido com <head>, que contém os metadados do documento."
+    },
+    {
+      "id": 5,
+      "topic": "PHP",
+      "difficulty": "easy",
+      "question": "Em PHP, como se define e inicializa um array com os elementos 1, 2 e 3?",
+      "options": {
+        "A": "$foo = array.init(1, 2, 3);",
+        "B": "$foo = array(1, 2, 3);",
+        "C": "$foo = []; $foo.push(1); ...",
+        "D": "$foo = Array.init(1, 2, 3);"
+      },
+      "answer": "B",
+      "explanation": "Em PHP, um array é criado com array(1, 2, 3) ou com a sintaxe curta equivalente [1, 2, 3]. A notação .push() é de JavaScript; Array.init() não existe em PHP."
+    },
+    {
+      "id": 6,
+      "topic": "PHP",
+      "difficulty": "hard",
+      "question": "Considere o seguinte código PHP:\n\nfunction foo() {\n  $x = 1;\n  function bar() {\n    global $x;\n    $x = 5;\n  }\n}\n$x = 10;\nfoo();\nbar();\necho $x;\n\nQue valor será impresso?",
+      "options": {
+        "A": "10",
+        "B": "9",
+        "C": "5",
+        "D": "1"
+      },
+      "answer": "C",
+      "explanation": "A chamada a foo() define a função bar() (mas não a executa). A chamada a bar() executa o corpo de bar(), onde 'global $x' faz $x referenciar a variável global, e '$x = 5' altera-a para 5. Por isso echo $x imprime 5."
+    },
+    {
+      "id": 7,
+      "topic": "JavaScript",
+      "difficulty": "easy",
+      "question": "Em JavaScript, qual destas NÃO é uma forma correta de declarar uma função chamada foo?",
+      "options": {
+        "A": "const foo = () => { ... }",
+        "B": "const foo = function() { ... }",
+        "C": "function foo() { ... }",
+        "D": "$Foo() = (...) $"
+      },
+      "answer": "D",
+      "explanation": "As opções A (arrow function), B (function expression) e C (function declaration) são todas formas válidas de definir uma função em JavaScript. A opção D é sintaxe inválida — não existe em JavaScript."
+    },
+    {
+      "id": 8,
+      "topic": "JavaScript",
+      "difficulty": "easy",
+      "question": "Qual a forma correta de declarar um array vazio em JavaScript?",
+      "options": {
+        "A": "const arr = []",
+        "B": "const arr = array()",
+        "C": "const arr = new Array[]",
+        "D": "const arr = Array{}"
+      },
+      "answer": "A",
+      "explanation": "Em JavaScript, a forma mais comum e recomendada de declarar um array vazio é com a sintaxe literal []. A função array() não existe em JavaScript (existe em PHP). new Array() também é válido mas não é preferido."
+    },
+    {
+      "id": 9,
+      "topic": "JavaScript",
+      "difficulty": "medium",
+      "question": "Em JavaScript, o que significa a keyword async numa declaração de função?",
+      "options": {
+        "A": "A função corre numa thread separada.",
+        "B": "A função retorna sempre uma Promise.",
+        "C": "A função ignora erros e exceções.",
+        "D": "A função só pode ser chamada dentro de outra função async."
+      },
+      "answer": "B",
+      "explanation": "Uma função marcada com async retorna sempre uma Promise, mesmo que o seu corpo retorne um valor primitivo (esse valor é automaticamente embrulhado numa Promise resolvida). A keyword não cria uma nova thread — JavaScript é single-threaded."
+    },
+    {
+      "id": 10,
+      "topic": "JavaScript",
+      "difficulty": "medium",
+      "question": "Como funciona o mecanismo de herança em JavaScript?",
+      "options": {
+        "A": "Através de uma tabela de métodos virtuais.",
+        "B": "Através da cadeia de protótipos (prototype chain).",
+        "C": "Não existe herança em JavaScript.",
+        "D": "Através de herança clássica entre classes."
+      },
+      "answer": "B",
+      "explanation": "JavaScript usa herança baseada em protótipos. Cada objeto tem uma referência interna ao seu protótipo. Quando uma propriedade não é encontrada num objeto, o motor procura-a na cadeia de protótipos. A sintaxe de 'class' em ES6 é apenas açúcar sintático sobre este mecanismo."
+    },
+    {
+      "id": 11,
+      "topic": "JavaScript",
+      "difficulty": "hard",
+      "question": "Considere o seguinte código JavaScript:\n\nfunction createCounter() {\n  let counter = 0;\n  function count(x) {\n    counter += x;\n    return counter;\n  }\n  return count;\n}\n\nconst f1 = createCounter();\nconst f2 = createCounter();\nconsole.log(f1(2), f1(2), f2(2));\n\nQual é o output?",
+      "options": {
+        "A": "2 4 2",
+        "B": "2 2 2",
+        "C": "2 4 6",
+        "D": "0 0 0"
+      },
+      "answer": "A",
+      "explanation": "Cada chamada a createCounter() cria um closure independente com o seu próprio counter. f1 e f2 têm contadores separados. f1(2) → counter=2, f1(2) → counter=4, f2(2) → counter=2 (f2 começa do zero). Output: 2 4 2."
+    },
+    {
+      "id": 12,
+      "topic": "JavaScript",
+      "difficulty": "medium",
+      "question": "Em JavaScript, o que representa 'this' neste contexto:\nlink.addEventListener('click', function() { console.log(this) })?",
+      "options": {
+        "A": "O objeto onde este código foi definido.",
+        "B": "O elemento que provocou o evento (o link).",
+        "C": "O objeto Event que foi disparado.",
+        "D": "O objeto global window."
+      },
+      "answer": "B",
+      "explanation": "Dentro de uma function() regular usada como event listener, 'this' é automaticamente vinculado ao elemento DOM que disparou o evento. Em arrow functions o comportamento seria diferente (this herdado do contexto exterior)."
+    },
+    {
+      "id": 13,
+      "topic": "JavaScript",
+      "difficulty": "easy",
+      "question": "No contexto de JavaScript a correr no browser, o que é o DOM?",
+      "options": {
+        "A": "Uma extensão à linguagem JavaScript.",
+        "B": "Uma linguagem de programação embebida em JavaScript.",
+        "C": "Um sistema de gestão de bases de dados documentais.",
+        "D": "Uma representação em objetos da estrutura de uma página Web."
+      },
+      "answer": "D",
+      "explanation": "O DOM (Document Object Model) é uma representação em árvore de objetos que representa a estrutura do documento HTML. Permite que JavaScript leia e manipule os elementos, atributos e conteúdo da página."
+    },
+    {
+      "id": 14,
+      "topic": "JavaScript",
+      "difficulty": "medium",
+      "question": "Considere o seguinte código HTML:\n<script src=\"script.js\" async></script>\nO que acontece quando o browser faz parse deste elemento?",
+      "options": {
+        "A": "Vai buscar o script em paralelo e executa-o mal o recebe.",
+        "B": "Para o parse, vai buscar o script e executa-o antes de continuar.",
+        "C": "Vai buscar o script em paralelo mas só executa no final do parse.",
+        "D": "Continua o parse e só vai buscar o script no final."
+      },
+      "answer": "A",
+      "explanation": "O atributo 'async' faz com que o script seja descarregado em paralelo com o parse do HTML. Assim que o download termina, o parse é interrompido para executar o script. Difere de 'defer', que adia a execução para depois do parse estar completo."
+    },
+    {
+      "id": 15,
+      "topic": "JavaScript",
+      "difficulty": "hard",
+      "question": "Considere a função:\nfunction changeFontSize(e, size) { e.style.fontSize = size; }\ne o elemento:\nconst p = document.querySelector('p');\nQual é a forma correta de alterar o tamanho da fonte do parágrafo para '2em' quando o utilizador clica nele?",
+      "options": {
+        "A": "p.addEventListener(\"click\", changeFontSize.bind(null, p, \"2em\"))",
+        "B": "p.addEventListener(\"click\", changeFontSize.bind(p, \"1em\"))",
+        "C": "p.addEventListener(\"click\", changeFontSize.bind(\"2em\"))",
+        "D": "p.addEventListener(\"click\", changeFontSize(\"2em\"))"
+      },
+      "answer": "A",
+      "explanation": "bind(thisArg, arg1, arg2, ...) retorna uma nova função com 'this' e argumentos pré-aplicados. Como changeFontSize não usa 'this', o primeiro argumento pode ser null. Os argumentos parciais p e '2em' são passados na posição certa. A opção D invoca a função imediatamente em vez de a passar como callback."
+    },
+    {
+      "id": 16,
+      "topic": "JavaScript",
+      "difficulty": "easy",
+      "question": "Em JavaScript, ao usar o comando fetch() no browser, que métodos HTTP se podem usar?",
+      "options": {
+        "A": "Apenas métodos seguros (GET e HEAD).",
+        "B": "Apenas GET.",
+        "C": "Qualquer método HTTP, incluindo personalizados.",
+        "D": "Apenas GET e POST."
+      },
+      "answer": "C",
+      "explanation": "A API fetch() aceita qualquer string como método HTTP através da opção 'method'. Embora na prática se usem os métodos standard (GET, POST, PUT, DELETE, PATCH, etc.), tecnicamente qualquer string é aceite — o servidor é que decide o que suporta."
+    },
+    {
+      "id": 17,
+      "topic": "HTTP and REST",
+      "difficulty": "medium",
+      "question": "Que método HTTP é usado num pedido preflight do mecanismo CORS?",
+      "options": {
+        "A": "POST",
+        "B": "GET",
+        "C": "PRE",
+        "D": "OPTIONS"
+      },
+      "answer": "D",
+      "explanation": "O browser envia automaticamente um pedido preflight com o método OPTIONS antes de pedidos cross-origin que possam ter side effects. O servidor responde com os cabeçalhos Access-Control-Allow-* para indicar se permite o pedido real."
+    },
+    {
+      "id": 18,
+      "topic": "HTTP and REST",
+      "difficulty": "medium",
+      "question": "Ao definir uma API REST, os developers devem escolher o método HTTP a usar baseando-se:",
+      "options": {
+        "A": "Nos tipos de dados que cada método permite enviar.",
+        "B": "Na performance — alguns métodos precisam menos recursos.",
+        "C": "Na segurança — alguns métodos são mais seguros.",
+        "D": "Na semântica — cada método tem um significado diferente."
+      },
+      "answer": "D",
+      "explanation": "REST baseia-se na semântica dos métodos HTTP: GET para ler, POST para criar, PUT para substituir, PATCH para atualizar parcialmente, DELETE para apagar. A escolha correta do método torna a API previsível, auto-documentada e mais fácil de usar por outros developers."
+    },
+    {
+      "id": 19,
+      "topic": "Web Security",
+      "difficulty": "easy",
+      "question": "O que é um ataque do tipo XSS (Cross-Site Scripting)?",
+      "options": {
+        "A": "Um ataque que permite alterar os dados de uma página web.",
+        "B": "Um ataque que desativa a criptografia de uma página web.",
+        "C": "Um ataque que permite obter dados confidenciais do servidor.",
+        "D": "Um ataque que insere scripts maliciosos numa página web."
+      },
+      "answer": "D",
+      "explanation": "XSS consiste em injetar código JavaScript malicioso numa página web que é depois executado no browser de outras vítimas. Pode ser usado para roubar cookies/sessões, redirecionar utilizadores, ou realizar ações em nome da vítima."
+    },
+    {
+      "id": 20,
+      "topic": "Web Security",
+      "difficulty": "medium",
+      "question": "Qual destas É uma forma de prevenir ataques do tipo CSRF (Cross-Site Request Forgery)?",
+      "options": {
+        "A": "Utilizar sempre o protocolo HTTPS.",
+        "B": "Nunca usar formulários com method GET.",
+        "C": "Ter sempre uma página de confirmação antes de qualquer ação.",
+        "D": "Usar um token verificado em pedidos que alteram o estado do servidor."
+      },
+      "answer": "D",
+      "explanation": "Anti-CSRF tokens são a defesa principal contra CSRF. O servidor gera um token secreto por sessão, inclui-o nos formulários/pedidos, e verifica-o antes de processar qualquer ação que altere estado. Um atacante num site externo não consegue obter este token."
+    },
+    {
+      "id": 21,
+      "topic": "Web Security",
+      "difficulty": "medium",
+      "question": "No protocolo HTTPS, o que é um certificado SSL/TLS?",
+      "options": {
+        "A": "Um ficheiro que certifica a qualidade do conteúdo do website.",
+        "B": "Um ficheiro assinado por uma CA com o domínio e chave pública.",
+        "C": "Um ficheiro com informações geográficas do servidor.",
+        "D": "Um ficheiro criptográfico com a chave privada de acesso."
+      },
+      "answer": "B",
+      "explanation": "Um certificado SSL/TLS é um ficheiro digital emitido por uma Certificate Authority (CA) confiável. Contém o nome de domínio do servidor, a sua chave pública, e a assinatura da CA. Permite ao browser verificar a identidade do servidor e estabelecer uma ligação cifrada."
+    },
+    {
+      "id": 22,
+      "topic": "Web Security",
+      "difficulty": "medium",
+      "question": "Qual a forma mais correta de cifrar uma password em PHP?",
+      "options": {
+        "A": "Usando a função sha256()",
+        "B": "Usando a função md5()",
+        "C": "Usando a função sha1()",
+        "D": "Usando a função password_hash()"
+      },
+      "answer": "D",
+      "explanation": "password_hash() usa por omissão o algoritmo bcrypt (ou argon2 em versões mais recentes), que é um slow hash pensado para passwords — resistente a ataques de força bruta. Gera e armazena automaticamente um salt único. md5, sha1 e sha256 são funções de hash genéricas, rápidas, e inadequadas para passwords."
+    }
+  ]
+}
