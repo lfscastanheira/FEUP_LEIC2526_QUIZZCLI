@@ -711,6 +711,706 @@
       },
       "answer": "B",
       "explanation": "O elemento <time> pode ter ou n\u00e3o o atributo datetime. Sem datetime, o conte\u00fado deve ser uma data m\u00e1quina-leg\u00edvel (A \u00e9 aceite por alguns parsers, mas B \u00e9 o mais correto). C usa 'sexta' que n\u00e3o \u00e9 um valor datetime v\u00e1lido. D usa value, que n\u00e3o existe em <time> — o atributo correto \u00e9 datetime."
+    },
+    {
+      "id": 51,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que significa CSS?",
+      "options": {
+        "A": "Creative Style Sheets",
+        "B": "Cascading Style Sheets",
+        "C": "Computer Style Syntax",
+        "D": "Coded Style Sheets"
+      },
+      "answer": "B",
+      "explanation": "CSS significa Cascading Style Sheets (Folhas de Estilo em Cascata). O termo 'cascading' refere-se à forma como múltiplas regras são aplicadas — em cascata — com base em especificidade, ordem de aparição e herança."
+    },
+    {
+      "id": 52,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "Qual dos seguintes é um seletor de classe em CSS?",
+      "options": {
+        "A": "#menu",
+        "B": ".menu",
+        "C": "menu",
+        "D": "*menu"
+      },
+      "answer": "B",
+      "explanation": ".menu seleciona todos os elementos com class=\"menu\". #menu seleciona o elemento com id=\"menu\". menu (sem prefixo) seleciona todas as tags <menu>. O seletor universal * seleciona todos os elementos."
+    },
+    {
+      "id": 53,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "Qual propriedade CSS define a cor do texto?",
+      "options": {
+        "A": "text-color",
+        "B": "font-color",
+        "C": "color",
+        "D": "foreground"
+      },
+      "answer": "C",
+      "explanation": "A propriedade color define a cor do texto de um elemento. Aceita nomes de cor (red), hexadecimal (#ff0000), rgb(255,0,0) ou hsl(0,100%,50%). text-color e font-color não existem em CSS."
+    },
+    {
+      "id": 54,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "Qual propriedade CSS define a cor de fundo de um elemento?",
+      "options": {
+        "A": "color",
+        "B": "background",
+        "C": "bg-color",
+        "D": "fill"
+      },
+      "answer": "B",
+      "explanation": "background (ou background-color) define a cor de fundo. background é na verdade uma shorthand que inclui background-color, background-image, background-position, etc. A propriedade fill é usada em SVG, não em CSS geral."
+    },
+    {
+      "id": 55,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este CSS. Qual cor terá o parágrafo?\n\np { color: blue; }\np { color: red; }",
+      "options": {
+        "A": "Azul (primeira regra ganha).",
+        "B": "Roxo (mistura de azul e vermelho).",
+        "C": "Vermelho (última regra ganha).",
+        "D": "Nenhuma — as regras cancelam-se."
+      },
+      "answer": "C",
+      "explanation": "Quando dois seletores têm a mesma especificidade, a última declaração no ficheiro CSS prevalece (cascata por ordem de aparição). Por isso, color: red sobrepõe-se a color: blue e o texto fica vermelho."
+    },
+    {
+      "id": 56,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que representa o modelo de caixa (box model) do CSS?",
+      "options": {
+        "A": "Content + Padding + Border + Margin",
+        "B": "Content + Margin + Outline + Shadow",
+        "C": "Width + Height + Color + Border",
+        "D": "Text + Image + Border + Background"
+      },
+      "answer": "A",
+      "explanation": "O box model CSS define que cada elemento é composto por: Content (conteúdo), Padding (espaço interior entre conteúdo e borda), Border (borda ao redor), e Margin (espaço exterior entre o elemento e os vizinhos). Todos têm topo, direita, baixo e esquerda."
+    },
+    {
+      "id": 57,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Qual é a diferença entre margin e padding?",
+      "options": {
+        "A": "margin é exterior ao border; padding é interior.",
+        "B": "padding é exterior ao border; margin é interior.",
+        "C": "margin afeta o texto; padding afeta imagens.",
+        "D": "São equivalentes — apenas os nomes diferem."
+      },
+      "answer": "A",
+      "explanation": "Padding é o espaço entre o conteúdo e a borda do elemento (interior). Margin é o espaço entre a borda do elemento e os elementos vizinhos (exterior). O background-color preenche o padding mas não a margin."
+    },
+    {
+      "id": 58,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este CSS. Qual é a largura total ocupada pelo elemento?\n\ndiv {\n  width: 200px;\n  padding: 10px;\n  border: 5px solid;\n  box-sizing: content-box;\n}",
+      "options": {
+        "A": "200px",
+        "B": "220px",
+        "C": "230px",
+        "D": "215px"
+      },
+      "answer": "C",
+      "explanation": "Com box-sizing: content-box (padrão), width define apenas o conteúdo. A largura total = width + padding-esquerda + padding-direita + border-esquerda + border-direita = 200 + 10 + 10 + 5 + 5 = 230px."
+    },
+    {
+      "id": 59,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz box-sizing: border-box?",
+      "options": {
+        "A": "Inclui margin na largura definida.",
+        "B": "Inclui padding e border na largura definida.",
+        "C": "Exclui padding da largura do elemento.",
+        "D": "Remove a border do modelo de caixa."
+      },
+      "answer": "B",
+      "explanation": "Com border-box, a propriedade width inclui o conteúdo, padding e border. Se um elemento tem width:200px e padding:10px, o conteúdo fica com 180px. Isto torna o dimensionamento muito mais intuitivo e é a configuração mais usada modernamente."
+    },
+    {
+      "id": 60,
+      "topic": "CSS",
+      "difficulty": "hard",
+      "question": "Analise este CSS. Qual regra tem maior especificidade?\n\nA: p.intro { color: blue; }\nB: #main p { color: red; }\nC: p[class] { color: green; }\nD: body p { color: orange; }",
+      "options": {
+        "A": "Regra A (0,1,1)",
+        "B": "Regra B (1,0,1)",
+        "C": "Regra C (0,1,1)",
+        "D": "Regra D (0,0,2)"
+      },
+      "answer": "B",
+      "explanation": "Especificidade: IDs=100, Classes/atributos/pseudo-classes=10, Elementos=1. A: p.intro = 0+10+1=11. B: #main p = 100+0+1=101. C: p[class] = 0+10+1=11. D: body p = 0+0+2=2. A regra B com #main vence claramente."
+    },
+    {
+      "id": 61,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz o combinador de descendente (espaço) em CSS?",
+      "options": {
+        "A": "Seleciona apenas filhos diretos.",
+        "B": "Seleciona todos os descendentes.",
+        "C": "Seleciona o próximo irmão.",
+        "D": "Seleciona elementos com o mesmo pai."
+      },
+      "answer": "B",
+      "explanation": "O seletor 'aside p' (com espaço) seleciona todos os elementos <p> que são descendentes de <aside>, em qualquer nível de profundidade. Para selecionar apenas filhos diretos usa-se o combinador > (ex: aside > p)."
+    },
+    {
+      "id": 62,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que seleciona o seletor CSS 'div > p'?",
+      "options": {
+        "A": "Todos os <p> dentro de <div>.",
+        "B": "Apenas <p> filhos diretos de <div>.",
+        "C": "O <p> seguinte a um <div>.",
+        "D": "O <div> pai de qualquer <p>."
+      },
+      "answer": "B",
+      "explanation": "O combinador > seleciona filhos diretos. 'div > p' seleciona apenas os <p> que são filhos imediatos de um <div>, ignorando <p> que estejam em níveis mais profundos (ex: dentro de outro elemento dentro do div)."
+    },
+    {
+      "id": 63,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este HTML e CSS. Qual elemento ficará em negrito?\n\nCSS: .intro + p { font-weight: bold; }\nHTML: <p class=\"intro\">A</p> <p>B</p> <p>C</p>",
+      "options": {
+        "A": "O parágrafo A (class intro).",
+        "B": "O parágrafo B (após intro).",
+        "C": "Os parágrafos B e C.",
+        "D": "Todos os três parágrafos."
+      },
+      "answer": "B",
+      "explanation": "O combinador + seleciona o próximo irmão adjacente. '.intro + p' seleciona o <p> imediatamente a seguir a um elemento com class intro. Apenas o parágrafo B (o próximo irmão) é selecionado; C não é adjacente a .intro."
+    },
+    {
+      "id": 64,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que é uma pseudo-classe CSS?",
+      "options": {
+        "A": "Um seletor que cria elementos virtuais.",
+        "B": "Um seletor baseado no estado do elemento.",
+        "C": "Um estilo aplicado a classes inativas.",
+        "D": "Uma propriedade para animar elementos."
+      },
+      "answer": "B",
+      "explanation": "Pseudo-classes (com :) selecionam elementos com base no seu estado ou posição, como :hover (rato por cima), :focus (focado), :first-child (primeiro filho), :visited (link visitado). Diferem das pseudo-elements (com ::) que criam partes virtuais do elemento."
+    },
+    {
+      "id": 65,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que faz a pseudo-classe :hover?",
+      "options": {
+        "A": "Estiliza o elemento quando é clicado.",
+        "B": "Estiliza o elemento quando o rato está em cima.",
+        "C": "Estiliza o elemento quando está focado.",
+        "D": "Estiliza o elemento quando está oculto."
+      },
+      "answer": "B",
+      "explanation": ":hover aplica estilos quando o ponteiro do rato está posicionado sobre o elemento. É muito usado para efeitos de interatividade em links, botões e menus. Em dispositivos touch não existe rato, pelo que :hover pode ter comportamento inconsistente."
+    },
+    {
+      "id": 66,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que seleciona ':nth-child(2n+1)'?",
+      "options": {
+        "A": "Todos os elementos pares.",
+        "B": "O segundo filho de cada pai.",
+        "C": "Todos os elementos ímpares.",
+        "D": "O elemento com índice 2n+1."
+      },
+      "answer": "C",
+      "explanation": ":nth-child(2n+1) usa a fórmula an+b onde a=2 e b=1. Para n=0,1,2,3... resulta em 1,3,5,7... — os filhos ímpares. Equivale a :nth-child(odd). Para pares usa-se :nth-child(2n) ou :nth-child(even)."
+    },
+    {
+      "id": 67,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Qual a diferença entre um pseudo-element e uma pseudo-classe?",
+      "options": {
+        "A": "Pseudo-elements usam :: e criam partes virtuais.",
+        "B": "Pseudo-classes usam :: e pseudo-elements usam :.",
+        "C": "São equivalentes — apenas a sintaxe muda.",
+        "D": "Pseudo-elements só funcionam em imagens."
+      },
+      "answer": "A",
+      "explanation": "Pseudo-elements (::before, ::after, ::first-letter, ::first-line, ::selection) usam :: e permitem estilizar partes virtuais de um elemento ou inserir conteúdo. Pseudo-classes (:hover, :focus, :nth-child) usam : e selecionam elementos existentes com base no estado."
+    },
+    {
+      "id": 68,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este CSS. O que insere o pseudo-element?\n\ndiv::before {\n  content: \"★\";\n  color: gold;\n}",
+      "options": {
+        "A": "Estrela antes de cada elemento <div>.",
+        "B": "Estrela dentro do <div>, antes do texto.",
+        "C": "Substitui todo o conteúdo por estrela.",
+        "D": "Nada — ::before não suporta emojis."
+      },
+      "answer": "B",
+      "explanation": "::before insere um elemento virtual DENTRO do elemento, ANTES do seu conteúdo real. Não é inserido antes do elemento no DOM — é o primeiro filho virtual do elemento. A propriedade content é obrigatória (mesmo que seja string vazia) para o pseudo-element ser renderizado."
+    },
+    {
+      "id": 69,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que faz 'display: none'?",
+      "options": {
+        "A": "Torna o elemento invisível mas ocupa espaço.",
+        "B": "Remove o elemento do layout e torna-o invisível.",
+        "C": "Aplica transparência total ao elemento.",
+        "D": "Move o elemento para fora do viewport."
+      },
+      "answer": "B",
+      "explanation": "display: none remove o elemento completamente do fluxo do documento — não é renderizado e não ocupa espaço. Diferente de visibility: hidden, que oculta o elemento mas mantém o espaço que ocupava, e opacity: 0, que o torna transparente mas visível ao layout."
+    },
+    {
+      "id": 70,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Qual a diferença entre 'visibility: hidden' e 'opacity: 0'?",
+      "options": {
+        "A": "visibility:hidden ocupa espaço; opacity:0 não.",
+        "B": "Ambos ocultam o elemento mas mantêm o espaço.",
+        "C": "opacity:0 remove interatividade; visibility:hidden não.",
+        "D": "São equivalentes — produzem o mesmo resultado."
+      },
+      "answer": "B",
+      "explanation": "Tanto visibility:hidden como opacity:0 ocultam o elemento mas mantêm o espaço que ocupa. A diferença: com visibility:hidden o elemento não responde a eventos (como :hover, click). Com opacity:0 o elemento permanece interativo — cliques e eventos continuam a funcionar."
+    },
+    {
+      "id": 71,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que significa 'position: relative'?",
+      "options": {
+        "A": "Sai do fluxo normal do documento.",
+        "B": "Posicionado em relação ao viewport.",
+        "C": "Posicionado em relação à base normal.",
+        "D": "Posicionado em relação ao elemento pai."
+      },
+      "answer": "C",
+      "explanation": "position: relative mantém o elemento no fluxo normal do documento mas permite deslocá-lo com top/right/bottom/left em relação à sua posição original. O espaço original é preservado. Também cria um contexto de posicionamento para elementos absolutos filhos."
+    },
+    {
+      "id": 72,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz 'position: absolute'?",
+      "options": {
+        "A": "Fixa o elemento em relação ao viewport.",
+        "B": "Remove do fluxo e posiciona em relação ao pai posicionado.",
+        "C": "Mantém no fluxo mas permite deslocamento.",
+        "D": "Posiciona em relação ao elemento anterior."
+      },
+      "answer": "B",
+      "explanation": "position: absolute remove o elemento do fluxo normal (os outros elementos ignoram-no) e posiciona-o em relação ao ancestral posicionado mais próximo (que não seja static). Se não houver, é posicionado em relação ao <html>. Sem top/left, fica na sua posição natural."
+    },
+    {
+      "id": 73,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Qual é a diferença entre 'position: fixed' e 'position: sticky'?",
+      "options": {
+        "A": "fixed fica fixo no viewport; sticky só após scroll.",
+        "B": "sticky fica fixo no viewport; fixed só após scroll.",
+        "C": "Ambos fixam o elemento ao topo da página.",
+        "D": "fixed é para mobile; sticky é para desktop."
+      },
+      "answer": "A",
+      "explanation": "fixed posiciona o elemento em relação ao viewport — fica fixo mesmo ao fazer scroll. sticky comporta-se como relative até o utilizador fazer scroll até um limiar definido (ex: top: 0), altura em que passa a comportar-se como fixed dentro do seu container pai."
+    },
+    {
+      "id": 74,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que faz a propriedade z-index?",
+      "options": {
+        "A": "Define o zoom do elemento.",
+        "B": "Define a ordem de empilhamento dos elementos.",
+        "C": "Define a transparência do elemento.",
+        "D": "Define a distância ao elemento pai."
+      },
+      "answer": "B",
+      "explanation": "z-index controla a ordem de empilhamento (eixo Z, profundidade) de elementos posicionados (position != static). Valores maiores ficam por cima de valores menores. z-index só funciona em elementos com position definida (relative, absolute, fixed, sticky)."
+    },
+    {
+      "id": 75,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Qual é a diferença entre as unidades em e rem?",
+      "options": {
+        "A": "em relativo ao pai; rem relativo ao root (<html>).",
+        "B": "rem relativo ao pai; em relativo ao root.",
+        "C": "em é para texto; rem é para dimensões.",
+        "D": "Ambos são relativos ao elemento pai."
+      },
+      "answer": "A",
+      "explanation": "em é relativo ao font-size do elemento pai (ou do próprio elemento quando usado em font-size). rem é relativo ao font-size do elemento raiz (<html>), geralmente 16px por defeito. rem é mais previsível para layouts escaláveis porque não se acumula em elementos aninhados."
+    },
+    {
+      "id": 76,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este CSS. Qual é o font-size de <p>?\n\nhtml { font-size: 16px; }\nbody { font-size: 2em; }\np    { font-size: 1.5em; }",
+      "options": {
+        "A": "24px",
+        "B": "32px",
+        "C": "48px",
+        "D": "16px"
+      },
+      "answer": "C",
+      "explanation": "html: 16px. body: 2em = 2 × 16px = 32px. p: 1.5em = 1.5 × 32px (herda do body) = 48px. Em unidades em, o tamanho acumula-se em cascata. Se p usasse 1.5rem, seria 1.5 × 16px = 24px (relativo ao html, não ao body)."
+    },
+    {
+      "id": 77,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que representam as unidades vw e vh?",
+      "options": {
+        "A": "Pixéis de dispositivo em vertical e horizontal.",
+        "B": "Percentagem da largura e altura do viewport.",
+        "C": "Vetores CSS para largura e altura.",
+        "D": "Valores padrão de largura e altura."
+      },
+      "answer": "B",
+      "explanation": "1vw = 1% da largura do viewport. 1vh = 1% da altura do viewport. Portanto 100vw é a largura total visível e 100vh é a altura total visível. São úteis para layouts full-screen sem depender do elemento pai."
+    },
+    {
+      "id": 78,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que é Flexbox e qual propriedade o activa?",
+      "options": {
+        "A": "Um modelo de layout 2D; activa com 'layout: flex'.",
+        "B": "Um modelo de layout 1D; activa com 'display: flex'.",
+        "C": "Um sistema de grelha; activa com 'flex: 1'.",
+        "D": "Um tipo de animação; activa com 'flex-mode: on'."
+      },
+      "answer": "B",
+      "explanation": "Flexbox é um modelo de layout unidimensional (linha ou coluna) que distribui espaço e alinha itens. Activa-se com display: flex no container. Os filhos tornam-se flex items. Para layout bidimensional (linhas E colunas) usa-se CSS Grid."
+    },
+    {
+      "id": 79,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este CSS. Como ficam distribuídos os itens?\n\n.container {\n  display: flex;\n  justify-content: space-between;\n}",
+      "options": {
+        "A": "Todos os itens no centro do container.",
+        "B": "Itens comprimidos à esquerda do container.",
+        "C": "Primeiro item à esquerda, último à direita.",
+        "D": "Itens distribuídos com espaço igual entre eles."
+      },
+      "answer": "C",
+      "explanation": "space-between distribui os itens com o primeiro encostado ao início, o último ao fim, e espaço igual entre os restantes. Para espaço uniforme também nas extremidades usa-se space-around. Para espaço absolutamente igual entre todos (incluindo extremidades) usa-se space-evenly."
+    },
+    {
+      "id": 80,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz 'align-items: center' num flex container?",
+      "options": {
+        "A": "Centra os itens no eixo principal (horizontal).",
+        "B": "Centra os itens no eixo cruzado (perpendicular).",
+        "C": "Distribui os itens pelo centro do viewport.",
+        "D": "Aplica margin: auto a todos os flex items."
+      },
+      "answer": "B",
+      "explanation": "align-items controla o alinhamento no eixo cruzado (perpendicular ao eixo principal). Com flex-direction: row (padrão), o eixo cruzado é vertical — align-items: center centra os itens verticalmente. justify-content controla o eixo principal (horizontal neste caso)."
+    },
+    {
+      "id": 81,
+      "topic": "CSS",
+      "difficulty": "hard",
+      "question": "Analise este CSS Flexbox. Qual elemento ocupa mais espaço?\n\n.a { flex: 1; }\n.b { flex: 2; }\n.c { flex: 1; }",
+      "options": {
+        "A": "O elemento A (primeiro).",
+        "B": "O elemento B (flex: 2).",
+        "C": "O elemento C (último).",
+        "D": "Todos ocupam o mesmo espaço."
+      },
+      "answer": "B",
+      "explanation": "flex: N é shorthand para flex-grow: N. O espaço disponível é dividido proporcionalmente. Total de partes = 1+2+1 = 4. A e C ocupam 1/4 cada, B ocupa 2/4 (metade do espaço total). flex: 1 em todos daria partes iguais."
+    },
+    {
+      "id": 82,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que é CSS Grid e como se activa?",
+      "options": {
+        "A": "Layout 1D; activa com 'display: grid-flex'.",
+        "B": "Layout 2D (linhas e colunas); activa com 'display: grid'.",
+        "C": "Layout tabular; activa com 'display: table'.",
+        "D": "Layout 2D; activa com 'layout: grid-area'."
+      },
+      "answer": "B",
+      "explanation": "CSS Grid é um sistema de layout bidimensional que trabalha com linhas E colunas simultaneamente. Activa-se com display: grid no container. Define-se a estrutura com grid-template-columns e grid-template-rows. Complementa o Flexbox (1D) para layouts mais complexos."
+    },
+    {
+      "id": 83,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que define este CSS?\n\n.grid { display: grid; grid-template-columns: 1fr 2fr 1fr; }",
+      "options": {
+        "A": "Uma grelha de 3 colunas iguais.",
+        "B": "Uma grelha de 3 colunas: 1/4, 2/4, 1/4 do espaço.",
+        "C": "Três colunas com pixels definidos.",
+        "D": "Uma grelha de 3 linhas com frações."
+      },
+      "answer": "B",
+      "explanation": "A unidade fr (fração) divide o espaço disponível. Total = 1+2+1 = 4fr. A primeira coluna ocupa 1/4, a segunda 2/4 (metade), a terceira 1/4. Se o container tiver 800px, seriam 200px, 400px e 200px respectivamente."
+    },
+    {
+      "id": 84,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que é uma media query em CSS?",
+      "options": {
+        "A": "Uma query para buscar dados do servidor.",
+        "B": "Regras CSS aplicadas apenas em certas condições.",
+        "C": "Uma forma de incluir imagens responsivas.",
+        "D": "Um seletor para elementos de media (audio/video)."
+      },
+      "answer": "B",
+      "explanation": "Media queries permitem aplicar estilos CSS condicionalmente com base em características do dispositivo ou viewport, como largura (@media (max-width: 600px)), orientação ou tipo de media. São o alicerce do design responsivo."
+    },
+    {
+      "id": 85,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este CSS. Quando é aplicado o estilo?\n\n@media (max-width: 768px) {\n  .sidebar { display: none; }\n}",
+      "options": {
+        "A": "Quando o viewport tem pelo menos 768px.",
+        "B": "Quando o viewport tem no máximo 768px.",
+        "C": "Sempre que o ecrã seja mobile.",
+        "D": "Quando a imagem tem mais de 768px."
+      },
+      "answer": "B",
+      "explanation": "max-width: 768px aplica o estilo quando a largura do viewport é 768px ou menos. É uma abordagem desktop-first. O equivalente mobile-first usa min-width (ex: @media (min-width: 768px) aplica a viewports de 768px ou mais)."
+    },
+    {
+      "id": 86,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que faz 'font-weight: bold'?",
+      "options": {
+        "A": "Torna o texto itálico.",
+        "B": "Torna o texto negrito.",
+        "C": "Aumenta o tamanho do texto.",
+        "D": "Sublinha o texto."
+      },
+      "answer": "B",
+      "explanation": "font-weight controla a espessura do texto. O valor bold equivale a 700. Aceita keywords (normal=400, bold=700) ou valores numéricos de 100 a 900 em múltiplos de 100. A disponibilidade de cada peso depende da fonte usada."
+    },
+    {
+      "id": 87,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que faz 'text-decoration: none'?",
+      "options": {
+        "A": "Remove qualquer decoração de texto.",
+        "B": "Adiciona sublinhado ao texto.",
+        "C": "Define o espaço entre letras.",
+        "D": "Aplica uma sombra ao texto."
+      },
+      "answer": "A",
+      "explanation": "text-decoration: none remove decorações de texto como sublinhado, linha por cima ou linha a meio. É muito usado em links (que têm sublinhado por defeito) para os apresentar sem sublinhado. Outros valores: underline, overline, line-through."
+    },
+    {
+      "id": 88,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz 'margin: 0 auto' num elemento com largura definida?",
+      "options": {
+        "A": "Remove todas as margens do elemento.",
+        "B": "Centra o elemento horizontalmente no pai.",
+        "C": "Centra o elemento vertical e horizontalmente.",
+        "D": "Define a margem superior e inferior como automática."
+      },
+      "answer": "B",
+      "explanation": "margin: 0 auto define margin-top e margin-bottom a 0, e margin-left e margin-right a auto. Quando ambas as margens laterais são auto e o elemento tem largura definida (width), o browser distribui o espaço igualmente — centrando o elemento."
+    },
+    {
+      "id": 89,
+      "topic": "CSS",
+      "difficulty": "hard",
+      "question": "Analise este CSS. Que acontece com as margens dos parágrafos?\n\np { margin-top: 20px; margin-bottom: 30px; }",
+      "options": {
+        "A": "Entre dois <p>, o espaço total é 50px (20+30).",
+        "B": "Entre dois <p>, o espaço total é 30px (maior vence).",
+        "C": "Entre dois <p>, o espaço total é 20px (menor vence).",
+        "D": "Entre dois <p>, ambas as margens são aplicadas."
+      },
+      "answer": "B",
+      "explanation": "Margin collapse: quando margens verticais adjacentes de irmãos se encontram, colapsam numa única margem com o tamanho da maior. Entre dois <p>, a margin-bottom:30px do primeiro e a margin-top:20px do segundo colapsam para 30px (a maior). Este fenômeno só ocorre em margens verticais."
+    },
+    {
+      "id": 90,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Qual é a shorthand correcta para 'padding: 10px 20px 30px 40px'?",
+      "options": {
+        "A": "top=10, bottom=20, left=30, right=40",
+        "B": "top=10, right=20, bottom=30, left=40",
+        "C": "top=40, right=30, bottom=20, left=10",
+        "D": "left=10, right=20, top=30, bottom=40"
+      },
+      "answer": "B",
+      "explanation": "A shorthand de 4 valores segue a ordem dos ponteiros do relógio: top, right, bottom, left (TRBL — pense em 'TRouBLe'). Portanto: top=10px, right=20px, bottom=30px, left=40px. Com 2 valores: top/bottom e left/right."
+    },
+    {
+      "id": 91,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz 'overflow: hidden' num elemento?",
+      "options": {
+        "A": "Torna o elemento invisível.",
+        "B": "Esconde o conteúdo que ultrapassa os limites.",
+        "C": "Adiciona scrollbars automáticas.",
+        "D": "Move o conteúdo para dentro do elemento."
+      },
+      "answer": "B",
+      "explanation": "overflow: hidden corta e esconde o conteúdo que ultrapassa as dimensões do elemento. Outros valores: visible (padrão, conteúdo transborda), scroll (adiciona sempre scrollbars), auto (adiciona scrollbars apenas quando necessário)."
+    },
+    {
+      "id": 92,
+      "topic": "CSS",
+      "difficulty": "hard",
+      "question": "Analise este CSS. A regra !important está correcta?\n\np { color: blue !important; }\n#intro { color: red; }",
+      "options": {
+        "A": "Sim, o <p> com id intro fica azul.",
+        "B": "Não, o ID tem especificidade superior.",
+        "C": "Sim, mas apenas se o <p> não tiver outros estilos.",
+        "D": "Não, !important não existe em CSS moderno."
+      },
+      "answer": "A",
+      "explanation": "!important sobrepõe-se à especificidade normal. Mesmo que #intro (especificidade 100) seja mais específico que p (especificidade 1), a declaração color: blue !important prevalece. !important só é vencido por outra !important com maior especificidade."
+    },
+    {
+      "id": 93,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que é uma variável CSS (custom property)?",
+      "options": {
+        "A": "Uma variável JavaScript partilhada com CSS.",
+        "B": "Uma propriedade definida pelo utilizador com '--'.",
+        "C": "Uma propriedade CSS experimental não suportada.",
+        "D": "Um valor calculado com a função calc()."
+      },
+      "answer": "B",
+      "explanation": "Custom properties são definidas com dois hífens (--nome: valor) e lidas com var(--nome). São em cascata e herdam como qualquer propriedade CSS. Permitem temas consistentes: definir uma cor uma vez em :root e reutilizá-la em todo o documento."
+    },
+    {
+      "id": 94,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Analise este CSS. Qual é a cor de fundo do botão?\n\n:root { --cor: blue; }\n.btn { background: var(--cor, red); }",
+      "options": {
+        "A": "Vermelho (red é o valor padrão).",
+        "B": "Azul (--cor está definida como blue).",
+        "C": "A mistura de azul e vermelho.",
+        "D": "Transparente (var() não tem valor)."
+      },
+      "answer": "B",
+      "explanation": "var(--cor, red) usa o segundo argumento como fallback apenas se --cor não estiver definida. Como --cor está definida em :root como blue, o fundo do botão é azul. O fallback red seria usado se --cor não existisse ou fosse inválida."
+    },
+    {
+      "id": 95,
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que faz 'border-radius: 50%' num elemento quadrado?",
+      "options": {
+        "A": "Cria um elemento triangular.",
+        "B": "Cria um elemento circular.",
+        "C": "Arredonda apenas os cantos superiores.",
+        "D": "Escala o elemento para 50% do tamanho."
+      },
+      "answer": "B",
+      "explanation": "border-radius: 50% num elemento quadrado (width == height) cria um círculo perfeito. Em percentagem, o raio é relativo às dimensões do elemento. Para elementos rectangulares, 50% cria uma elipse. É a técnica mais comum para avatares circulares."
+    },
+    {
+      "id": 96,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz a propriedade 'transition' em CSS?",
+      "options": {
+        "A": "Define uma animação de keyframes.",
+        "B": "Anima a mudança de propriedades suavemente.",
+        "C": "Aplica transformações 3D ao elemento.",
+        "D": "Transfere estilos de um elemento para outro."
+      },
+      "answer": "B",
+      "explanation": "transition anima a mudança de uma propriedade de um valor para outro ao longo do tempo. Ex: transition: color 0.3s ease. Quando color muda (ex: via :hover), a mudança é gradual em 0.3s. Não pode animar de display:none para display:block."
+    },
+    {
+      "id": 97,
+      "topic": "CSS",
+      "difficulty": "hard",
+      "question": "Analise este CSS. Qual propriedade é herdada pelos filhos por omissão?\n\ndiv {\n  color: red;\n  border: 1px solid;\n  padding: 10px;\n  font-size: 18px;\n}",
+      "options": {
+        "A": "border e padding",
+        "B": "color e font-size",
+        "C": "padding e font-size",
+        "D": "Todas as propriedades são herdadas."
+      },
+      "answer": "B",
+      "explanation": "Em CSS, as propriedades relacionadas com texto (color, font-size, font-family, font-weight, line-height, etc.) são herdadas por padrão. Propriedades de layout e caixa (border, padding, margin, width, background) NÃO são herdadas. Qualquer propriedade pode ser forçada a herdar com o valor inherit."
+    },
+    {
+      "id": 98,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que é o seletor universal (*) em CSS?",
+      "options": {
+        "A": "Seleciona todos os elementos HTML.",
+        "B": "Seleciona apenas elementos sem classe.",
+        "C": "Seleciona apenas elementos de bloco.",
+        "D": "Seleciona o elemento raiz do documento."
+      },
+      "answer": "A",
+      "explanation": "O seletor * seleciona absolutamente todos os elementos HTML. É usado para resets CSS (ex: * { box-sizing: border-box; }). Tem especificidade 0, sendo sempre sobreposto por qualquer outro seletor. É lento em páginas com muitos elementos."
+    },
+    {
+      "id": 99,
+      "topic": "CSS",
+      "difficulty": "hard",
+      "question": "Analise este código. Por que razão o elemento .filho não centra verticalmente?\n\n.pai {\n  height: 200px;\n}\n.filho {\n  margin: auto;\n}",
+      "options": {
+        "A": "margin: auto exige display: flex no pai.",
+        "B": "Margin vertical auto falha no fluxo normal.",
+        "C": "Falta definir height no elemento .filho.",
+        "D": "O seletor .filho está escrito incorretamente."
+      },
+      "answer": "B",
+      "explanation": "margin: auto funciona horizontalmente em elementos de bloco com largura definida, mas margin-top e margin-bottom com auto resolvem para 0 no fluxo normal do documento. Para centrar verticalmente com margin, o contexto deve ser flexbox (align-items:center) ou grid."
+    },
+    {
+      "id": 100,
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "O que faz 'flex-wrap: wrap' num flex container?",
+      "options": {
+        "A": "Empilha todos os itens em coluna.",
+        "B": "Permite que itens passem para a próxima linha.",
+        "C": "Limita os itens a uma única linha.",
+        "D": "Enrola o texto dentro dos flex items."
+      },
+      "answer": "B",
+      "explanation": "Por defeito, flex-wrap: nowrap força todos os flex items a caber numa só linha (podendo encolher). Com flex-wrap: wrap, quando os itens não cabem na linha, passam para a linha seguinte. Essencial para layouts responsivos com Flexbox."
     }
   ]
 }
