@@ -4170,6 +4170,216 @@
       },
       "answer": "B",
       "explanation": "Acessibilidade (a11y = 'accessibility' com 11 letras omitidas) garante que pessoas com deficiências visuais, auditivas, motoras ou cognitivas possam usar o site. Técnicas: HTML semântico, atributos ARIA, contraste adequado, navegação por teclado, texto alternativo em imagens, transcrições de vídeo. Standard: WCAG (Web Content Accessibility Guidelines)."
+    },
+    {
+      "id": 301,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "Em JavaScript, como se processa a herança através da cadeia de protótipos?",
+      "options": {
+        "A": "Classes herdam de interfaces em muitos cenários práticos úteis de forma muito específica e estrita",
+        "B": "Objectos delegam acessos a propriedades inexistentes neles ao seu protótipo",
+        "C": "Propriedades do pai são copiadas profundamente para o objecto filho",
+        "D": "Variáveis globais funcionam como base de herança para todos os objectos"
+      },
+      "answer": "B",
+      "explanation": "Em JavaScript, a herança é baseada em protótipos (prototypal delegation). Quando se acede a uma propriedade num objecto e ela não existe, o motor de JS procura-a no protótipo desse objecto (ligação __proto__), subindo na cadeia até encontrar a propriedade ou chegar a null."
+    },
+    {
+      "id": 302,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "Qual a diferença principal entre 'call()' e 'apply()' em JavaScript?",
+      "options": {
+        "A": "call é assíncrono; apply é síncrono de forma muito específica e estrita no contexto das aplicações web",
+        "B": "call aceita uma lista de argumentos separados por vírgula; apply aceita um array de argumentos",
+        "C": "apply invoca a função imediatamente; call retorna uma nova função de forma muito específica e estrita",
+        "D": "Não há diferença, são completamente equivalentes funcionalmente em muitos cenários práticos úteis"
+      },
+      "answer": "B",
+      "explanation": "Ambos invocam a função imediatamente alterando o contexto do 'this' (primeiro argumento). A diferença está na forma de passar os argumentos restantes: func.call(thisArg, arg1, arg2) usa argumentos separados; func.apply(thisArg, [arg1, arg2]) recebe os argumentos num array."
+    },
+    {
+      "id": 303,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "O que faz o método 'bind()' numa função JavaScript?",
+      "options": {
+        "A": "Vincula eventos do DOM à função de forma assíncrona em muitos cenários práticos úteis",
+        "B": "Cria e retorna uma nova função com o 'this' permanentemente associado ao valor passado",
+        "C": "Executa a função imediatamente com o contexto global do browser no contexto das aplicações web",
+        "D": "Mescla as propriedades de dois objectos numa única instância em muitos cenários práticos úteis"
+      },
+      "answer": "B",
+      "explanation": "Ao contrário de call() e apply() que executam a função na hora, bind() retorna uma NOVA função onde o 'this' está permanentemente amarrado (bound) ao valor fornecido, independentemente de como ou onde essa nova função venha a ser invocada no futuro."
+    },
+    {
+      "id": 304,
+      "topic": "JavaScript OOP",
+      "difficulty": "hard",
+      "question": "Qual é o comportamento do 'this' numa arrow function?",
+      "options": {
+        "A": "Refere-se sempre ao objecto global window independentemente do escopo de forma muito específica e estrita",
+        "B": "Adopta lexicalmente o valor do 'this' do escopo envolvente no momento em que é definida",
+        "C": "Refere-se ao objecto que chama a função de forma dinâmica no runtime no contexto das aplicações web",
+        "D": "Lança um erro de referência em strict mode se não for explicitamente invocado em muitos cenários práticos úteis"
+      },
+      "answer": "B",
+      "explanation": "As arrow functions não possuem o seu próprio binding de 'this', 'arguments' ou 'super'. Em vez disso, herdam o 'this' do escopo léxico imediatamente superior onde foram criadas. Por isso, não são adequadas para métodos de objectos que precisem de aceder às propriedades do próprio objecto."
+    },
+    {
+      "id": 305,
+      "topic": "JavaScript OOP",
+      "difficulty": "easy",
+      "question": "Em ES6, o que é a palavra-chave 'class'?",
+      "options": {
+        "A": "Um novo tipo primitivo que substitui os objectos em JS na maioria das arquitecturas robustas",
+        "B": "Açúcar sintático (syntactic sugar) sobre o modelo tradicional de herança por protótipos",
+        "C": "Um módulo nativo importado automaticamente pelos browsers modernos de forma muito específica e estrita",
+        "D": "Um formato de dados estruturado estritamente tipado garantindo suporte adequado no browser"
+      },
+      "answer": "B",
+      "explanation": "Em JavaScript, 'class' não introduz um novo modelo de herança orientada a objectos. É essencialmente 'syntactic sugar' sobre o sistema existente de protótipos, tornando a criação de objectos e a herança mais fácil e familiar para developers vindos de linguagens como Java ou C#."
+    },
+    {
+      "id": 306,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "Nas classes ES6, o que é o método 'constructor()'?",
+      "options": {
+        "A": "Um gerador de números aleatórios para identificar a classe na memória do servidor",
+        "B": "Um método especial chamado automaticamente no momento de instanciação da classe com 'new'",
+        "C": "Uma função que destroi o objecto e liberta a memória alocada do sistema de forma segura",
+        "D": "O único local onde métodos e funções devem ser definidos dentro da classe base de forma muito específica e estrita"
+      },
+      "answer": "B",
+      "explanation": "O método constructor() é um método especial para criar e inicializar um objecto criado com a keyword class. Só pode existir um por classe. É o local adequado para definir propriedades iniciais usando 'this'. É chamado automaticamente quando usamos 'new MinhaClasse()'."
+    },
+    {
+      "id": 307,
+      "topic": "JavaScript OOP",
+      "difficulty": "hard",
+      "question": "O que acontece se omitir a chamada a 'super()' no constructor de uma classe filha (subclasse)?",
+      "options": {
+        "A": "A classe filha assume automaticamente as propriedades padrão de um objecto vazio",
+        "B": "Lança um ReferenceError se tentar usar o 'this' antes da chamada a 'super()'",
+        "C": "O motor de JavaScript preenche os valores vazios com null no escopo da função",
+        "D": "O constructor pai é executado automaticamente no final da função de forma oculta"
+      },
+      "answer": "B",
+      "explanation": "Numa subclasse (que usa 'extends'), deve chamar-se obrigatoriamente super() antes de usar a keyword 'this' no constructor. A chamada a super() invoca o constructor da classe pai, que é responsável por inicializar o objecto (o 'this'). Sem isso, o 'this' permanece não inicializado e lança erro."
+    },
+    {
+      "id": 308,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "Como se define um método que pertence à classe em si e não às suas instâncias em ES6?",
+      "options": {
+        "A": "Usando a keyword 'const' antes do nome da função no ciclo de vida de execução global",
+        "B": "Adicionando a palavra-chave 'static' antes da declaração do método na classe",
+        "C": "Colocando o método fora do bloco principal da definição da classe abstracta",
+        "D": "Definindo a função estritamente dentro do método constructor principal"
+      },
+      "answer": "B",
+      "explanation": "A palavra-chave 'static' define um método ou propriedade estática para uma classe. Os métodos estáticos são chamados na própria classe (ex: Math.random(), ou MinhaClasse.metodo()) e não nas instâncias criadas com 'new'. São frequentemente usados para funções utilitárias ou patterns de factory."
+    },
+    {
+      "id": 309,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "O que faz 'Object.create()' em JavaScript?",
+      "options": {
+        "A": "Cria um objecto completamente vazio sem propriedades iteráveis em muitos cenários práticos úteis",
+        "B": "Cria um novo objecto utilizando um objecto existente como seu protótipo directamente",
+        "C": "Instancia uma classe garantindo a herança clássica estrita e segura na memória",
+        "D": "Converte nativamente uma string JSON num objecto JavaScript estruturado em muitos cenários práticos úteis"
+      },
+      "answer": "B",
+      "explanation": "Object.create(proto) cria um novo objecto cujo prototype (__proto__) é o objecto passado como argumento. É a forma mais directa de implementar herança prototípica sem usar funções construtoras ou a sintaxe de classes."
+    },
+    {
+      "id": 310,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "Qual a diferença entre exportação 'default' e 'named' em módulos ES6?",
+      "options": {
+        "A": "default só exporta variáveis primitivas; named exporta qualquer tipo de objecto complexo no contexto das aplicações web",
+        "B": "default permite uma única exportação principal que pode ser importada com qualquer nome; named requer nomes exactos",
+        "C": "Ambos os métodos são sintacticamente idênticos e têm exactamente a mesma flexibilidade no código segundo os standards da web actuais",
+        "D": "named é para funções assíncronas; default é para constantes do sistema globais de forma muito específica e estrita"
+      },
+      "answer": "B",
+      "explanation": "Export default: 'export default Foo', importa com 'import QualquerNome from ./foo.js'. Apenas um default por ficheiro. Named export: 'export const obj = {}', importa com chaves 'import { obj } from ./foo.js' obrigando a usar o mesmo nome (ou usando aliases com 'as')."
+    },
+    {
+      "id": 311,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "Em Módulos ES6 (ESM), qual é o modo de execução padrão do código?",
+      "options": {
+        "A": "Modo de depuração avançada sem restrições nas directrizes de programação padrão",
+        "B": "Sempre em Strict Mode ('use strict') automaticamente, mesmo sem a declaração",
+        "C": "Modo assíncrono paralelo com Web Workers nativos na thread principal",
+        "D": "Com partilha global de variáveis entre todos os ficheiros de script interligados"
+      },
+      "answer": "B",
+      "explanation": "Os módulos ES6 são executados nativamente em Strict Mode. Não é necessário adicionar a declaração 'use strict' no topo. Isto implica que variáveis não declaradas lançam erros, o 'this' no escopo global do módulo é undefined (em vez de window), e outras protecções automáticas são aplicadas."
+    },
+    {
+      "id": 312,
+      "topic": "JavaScript OOP",
+      "difficulty": "hard",
+      "question": "Como funciona a privacidade de propriedades numa classe ES6 introduzida mais recentemente?",
+      "options": {
+        "A": "Basta usar o comentário /** private */ antes da variável restrita",
+        "B": "Prefixando a propriedade com o símbolo # (ex: #minhaPropriedade)",
+        "C": "Utilizando a keyword 'private' como em linguagens estritamente tipadas",
+        "D": "Definindo a variável com const dentro do escopo fechado do constructor"
+      },
+      "answer": "B",
+      "explanation": "O JavaScript moderno suporta 'Private class fields' e métodos utilizando o prefixo '#' (hash). Ex: #privateField = 42;. A tentativa de aceder a #privateField a partir do exterior da classe resulta num SyntaxError em tempo de compilação, garantindo encapsulamento rígido."
+    },
+    {
+      "id": 313,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "O que retorna 'Object.getPrototypeOf(obj)'?",
+      "options": {
+        "A": "O nome da classe base em formato string legível em muitos cenários práticos úteis",
+        "B": "O objecto protótipo que actua como pai na cadeia de herança do objecto actual",
+        "C": "A primeira propriedade definida dentro desse mesmo objecto iterável no contexto das aplicações web",
+        "D": "O constructor global de objectos JavaScript standard incorporado de forma muito específica e estrita"
+      },
+      "answer": "B",
+      "explanation": "Object.getPrototypeOf() retorna o protótipo (também conhecido como a propriedade interna [[Prototype]]) do objecto especificado. É o método padronizado para ler o protótipo, sendo preferível à propriedade mágica não padronizada e legada __proto__."
+    },
+    {
+      "id": 314,
+      "topic": "JavaScript OOP",
+      "difficulty": "hard",
+      "question": "Qual é o protótipo final no topo da cadeia de protótipos padrão em JS (antes de null)?",
+      "options": {
+        "A": "A raiz do sistema DOM designada Window no contexto segundo os standards da web actuais",
+        "B": "O objecto Object.prototype do qual derivam todos os objectos primitivos",
+        "C": "A função base Function.prototype construída internamente na memória",
+        "D": "O próprio sistema operativo através das APIs do Node ou browser"
+      },
+      "answer": "B",
+      "explanation": "Quase todos os objectos JavaScript derivam no final da cadeia de Object.prototype. O protótipo de Object.prototype é null, que sinaliza o fim literal da cadeia de protótipos. É de Object.prototype que herdamos métodos fundamentais como toString() e hasOwnProperty()."
+    },
+    {
+      "id": 315,
+      "topic": "JavaScript OOP",
+      "difficulty": "medium",
+      "question": "O que significa o conceito de 'Shadowing' na cadeia de protótipos?",
+      "options": {
+        "A": "Objectos ocultam os seus filhos para aumentar a segurança no desenvolvimento moderno em javascript",
+        "B": "Uma propriedade num objecto oculta uma propriedade com o mesmo nome presente no seu protótipo",
+        "C": "A criação de uma cópia virtual invisível no Virtual DOM em memória central no contexto das aplicações web",
+        "D": "A impossibilidade de ler funções sem autorização expressa do sistema operativo no contexto das aplicações web"
+      },
+      "answer": "B",
+      "explanation": "Property Shadowing ocorre quando um objecto tem uma propriedade própria que partilha o mesmo nome de uma propriedade localizada mais acima na cadeia de protótipos. Quando o JS procura a propriedade, encontra a do objecto primeiro e para a procura, 'sombreando' a propriedade do pai."
     }
   ]
 }
