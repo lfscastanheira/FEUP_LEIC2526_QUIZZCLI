@@ -74,6 +74,7 @@ BANNER = f"""
 SCRIPT_DIR   = Path(__file__).parent
 SUBJECTS_DIR = SCRIPT_DIR / "subjects"
 HISTORY_FILE = SCRIPT_DIR / "quiz_history.json"
+ANSWERED_FILE = SCRIPT_DIR / "answered_questions.json"
 
 # ─── Discover question banks ─────────────────────────────────────────────────
 
@@ -164,7 +165,8 @@ def load_bank(path):
 # ─── Quiz session ────────────────────────────────────────────────────────────
 
 def run_quiz(subject_name, all_questions, n_questions,
-             topics_filter=None, fixed_order=False):
+             topics_filter=None, fixed_order=False,
+             unanswered_only=False, answered_ids=None):
     """
     Run one quiz session.
 
@@ -182,9 +184,11 @@ def run_quiz(subject_name, all_questions, n_questions,
     pool = all_questions
     if topics_filter:
         pool = [q for q in pool if q.get("topic", "") in topics_filter]
+    if unanswered_only and answered_ids is not None:
+        pool = [q for q in pool if str(q.get("id")) not in answered_ids]
     if not pool:
-        print(c("  No questions match the selected topic(s).", RED))
-        return 0, 0, []
+        print(c("  No questions available matching the criteria.", RED))
+        return 0, 0, [], []
 
     if fixed_order:
         sample = pool[:n_questions]
@@ -194,6 +198,7 @@ def run_quiz(subject_name, all_questions, n_questions,
     total = len(sample)
     score = 0
     wrong = []
+    answered_this_session = []
 
     clear()
     print(BANNER)
@@ -237,8 +242,9 @@ def run_quiz(subject_name, all_questions, n_questions,
                 ans = input(c("  Your answer (A/B/C/D): ", CYAN)).strip().upper()
             except (EOFError, KeyboardInterrupt):
                 print()
-                return score, idx - 1, wrong
+                return score, idx - 1, wrong, answered_this_session
             if ans in valid:
+                answered_this_session.append(str(q.get("id")))
                 break
             print(c("  ✗  Please enter one of: " + "/".join(sorted(valid)), RED))
 
@@ -261,7 +267,7 @@ def run_quiz(subject_name, all_questions, n_questions,
         hr(char="·", color=DIM)
         print()
 
-    return score, total, wrong
+    return score, total, wrong, answered_this_session
 
 # ─── Results screen ──────────────────────────────────────────────────────────
 
@@ -298,7 +304,29 @@ def show_results(score, total, wrong, subject_name):
 
 # ─── Score history ───────────────────────────────────────────────────────────
 
+def get_answered_questions():
+    if not ANSWERED_FILE.exists():
+        return {}
+    try:
+        import json
+        with open(ANSWERED_FILE, encoding='utf-8') as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+def save_answered_questions(slug, new_answered_ids):
+    if not new_answered_ids:
+        return
+    data = get_answered_questions()
+    if slug not in data:
+        data[slug] = []
+    # Union of existing and new
+    data[slug] = list(set(data[slug] + new_answered_ids))
+    with open(ANSWERED_FILE, "w", encoding='utf-8') as f:
+        json.dump(data, f, indent=2)
+
 def save_history(subject, score, total):
+
     """Append a quiz result to the persistent history file."""
     history = []
     if HISTORY_FILE.exists():
@@ -317,7 +345,19 @@ def save_history(subject, score, total):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=2)
 
-def show_history():
+def show_history(subjects=None):
+    if subjects:
+        answered_data = get_answered_questions()
+        print(c("\n  📊  Subject Coverage\n", BOLD + WHITE))
+        hr(char="─")
+        for slug, info in subjects.items():
+            _, _, qs = load_bank(info["path"])
+            total_qs = len(qs)
+            ans_count = len(set(answered_data.get(slug, [])) & set(str(q.get("id")) for q in qs if "id" in q))
+            cov = round(ans_count / total_qs * 100) if total_qs else 0
+            print(f"  {info['name']:<40} {ans_count}/{total_qs:<8} {cov}%")
+        hr()
+
     if not HISTORY_FILE.exists():
         print(c("  No history yet.", DIM))
         return
@@ -364,7 +404,7 @@ def choose_topics(topics):
 
 # ─── Exam simulation sub-menu ─────────────────────────────────────────────────
 
-def exam_simulation_menu(exams):
+def exam_simulation_menu(exams, slug):
     """
     Display past-exam simulations for a subject and run the selected one.
 
@@ -405,7 +445,7 @@ def exam_simulation_menu(exams):
                 continue
 
             # Exam simulations: fixed question order, shuffle option letters only
-            score, total, wrong = run_quiz(
+            score, total, wrong, answered_this_session = run_quiz(
                 subject_name=f"{subject_name} \u2013 {title}",
                 all_questions=all_qs,
                 n_questions=len(all_qs),
@@ -414,6 +454,8 @@ def exam_simulation_menu(exams):
             show_results(score, total, wrong, f"{subject_name} \u2013 {title}")
             if total > 0:
                 save_history(f"{subject_name} \u2013 {title}", score, total)
+            if answered_this_session:
+                save_answered_questions(slug, answered_this_session)
             input(c("\n  Press Enter to continue...", DIM))
 
 # ─── Subject menu ─────────────────────────────────────────────────────────────
@@ -446,13 +488,14 @@ def subject_menu(slug, subject_info):
         print()
         print(c("  1.", YELLOW), "Start practice quiz (default exam size)")
         print(c("  2.", YELLOW), "Start practice quiz (custom number of questions)")
-        print(c("  3.", YELLOW), "Filter practice by topic")
-        print(c("  4.", YELLOW), "View score history")
+        print(c("  3.", YELLOW), "Start practice quiz (unanswered questions only)")
+        print(c("  4.", YELLOW), "Filter practice by topic")
+        print(c("  5.", YELLOW), "View score history")
         if exams:
-            print(c("  5.", YELLOW), "📝  Exam Simulations (past papers)")
-            print(c("  6.", YELLOW), "Back to main menu")
+            print(c("  6.", YELLOW), "📝  Exam Simulations (past papers)")
+            print(c("  7.", YELLOW), "Back to main menu")
         else:
-            print(c("  5.", YELLOW), "Back to main menu")
+            print(c("  6.", YELLOW), "Back to main menu")
         print()
 
         try:
@@ -460,13 +503,15 @@ def subject_menu(slug, subject_info):
         except (EOFError, KeyboardInterrupt):
             return
 
-        back_option = "6" if exams else "5"
+        back_option = "7" if exams else "6"
 
         if choice == "1":
-            score, total, wrong = run_quiz(subject_name, all_qs, default_n)
+            score, total, wrong, answered_this_session = run_quiz(subject_name, all_qs, default_n)
             show_results(score, total, wrong, subject_name)
             if total > 0:
                 save_history(subject_name, score, total)
+            if answered_this_session:
+                save_answered_questions(slug, answered_this_session)
             input(c("\n  Press Enter to continue...", DIM))
 
         elif choice == "2":
@@ -475,28 +520,46 @@ def subject_menu(slug, subject_info):
                 n = max(1, min(n, len(all_qs)))
             except (ValueError, EOFError):
                 n = default_n
-            score, total, wrong = run_quiz(subject_name, all_qs, n)
+            score, total, wrong, answered_this_session = run_quiz(subject_name, all_qs, n)
             show_results(score, total, wrong, subject_name)
             if total > 0:
                 save_history(subject_name, score, total)
+            if answered_this_session:
+                save_answered_questions(slug, answered_this_session)
             input(c("\n  Press Enter to continue...", DIM))
 
         elif choice == "3":
+            answered_data = get_answered_questions()
+            answered_ids = set(answered_data.get(slug, []))
+            score, total, wrong, answered_this_session = run_quiz(
+                subject_name, all_qs, default_n,
+                unanswered_only=True, answered_ids=answered_ids
+            )
+            show_results(score, total, wrong, subject_name)
+            if total > 0:
+                save_history(subject_name, score, total)
+            if answered_this_session:
+                save_answered_questions(slug, answered_this_session)
+            input(c("\n  Press Enter to continue...", DIM))
+
+        elif choice == "4":
             selected = choose_topics(topics)
-            score, total, wrong = run_quiz(subject_name, all_qs, default_n,
+            score, total, wrong, answered_this_session = run_quiz(subject_name, all_qs, default_n,
                                            topics_filter=selected)
             show_results(score, total, wrong, subject_name)
             if total > 0:
                 save_history(subject_name, score, total)
+            if answered_this_session:
+                save_answered_questions(slug, answered_this_session)
             input(c("\n  Press Enter to continue...", DIM))
 
-        elif choice == "4":
+        elif choice == "5":
             clear()
-            show_history()
+            show_history({slug: subject_info})
             input(c("\n  Press Enter to continue...", DIM))
 
-        elif choice == "5" and exams:
-            exam_simulation_menu(exams)
+        elif choice == "6" and exams:
+            exam_simulation_menu(exams, slug)
 
         elif choice == back_option:
             return
@@ -557,7 +620,7 @@ def main():
                 subject_menu(slug, info)
             elif n == len(items) + 1:
                 clear()
-                show_history()
+                show_history(subjects)
                 input(c("\n  Press Enter to continue...", DIM))
             elif n == len(items) + 2:
                 print(c("\n  Goodbye! 👋\n", CYAN))
