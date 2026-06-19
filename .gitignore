@@ -25,3 +25,4 @@ Thumbs.db
 
 # Quiz application runtime data
 quiz_history.json
+answered_questions.json
