@@ -5430,6 +5430,482 @@
       "answer": "B",
       "explanation": "Conceito essencial da Web.",
       "id": 787
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "easy",
+      "answer": "B",
+      "question": "O que acontece aos espaços em branco no código HTML?",
+      "options": {
+        "A": "Atiram erros            ",
+        "B": "São colapsados num só   ",
+        "C": "São ignorados totalmente",
+        "D": "Aparecem todos          "
+      },
+      "explanation": "No HTML, múltiplos espaços ou quebras de linha são colapsados num único espaço, exceto dentro de <pre> ou <textarea>.",
+      "id": 788
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "easy",
+      "answer": "C",
+      "question": "Qual a tag ideal para um conteúdo que faz sentido isoladamente (ex: notícia)?",
+      "options": {
+        "A": "<div>    ",
+        "B": "<section>",
+        "C": "<article>",
+        "D": "<aside>  "
+      },
+      "explanation": "Um <article> é usado para blocos independentes (como um post de blog) que têm significado fora do contexto da página.",
+      "id": 789
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "medium",
+      "answer": "A",
+      "question": "Num <input type=\"radio\">, o que faz os botões pertencerem ao mesmo grupo?",
+      "options": {
+        "A": "Partilharem o atributo name",
+        "B": "Partilharem o id           ",
+        "C": "Estarem na mesma div       ",
+        "D": "O atributo class           "
+      },
+      "explanation": "Para que apenas um radio button possa ser selecionado por grupo, todos têm de ter o mesmo valor no atributo 'name'.",
+      "id": 790
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "medium",
+      "answer": "D",
+      "question": "Como agrupar visualmente um conjunto de inputs num formulário HTML?",
+      "options": {
+        "A": "Usar <div>                ",
+        "B": "Usar <group>              ",
+        "C": "Usar <form-group>         ",
+        "D": "Usar <fieldset> e <legend>"
+      },
+      "explanation": "<fieldset> desenha uma caixa em redor dos campos, e <legend> dá-lhe o título semântico.",
+      "id": 791
+    },
+    {
+      "topic": "CSS",
+      "difficulty": "medium",
+      "answer": "C",
+      "question": "Para que serve a regra box-sizing: border-box?",
+      "options": {
+        "A": "Cria uma borda arredondada                      ",
+        "B": "Esconde o padding                               ",
+        "C": "Faz com que padding e borda não aumentem o width",
+        "D": "Centra a caixa                                  "
+      },
+      "explanation": "Previne o comportamento nativo de somar o padding à largura total da caixa.",
+      "id": 792
+    },
+    {
+      "topic": "CSS",
+      "difficulty": "easy",
+      "answer": "B",
+      "question": "O que indica o uso do seletor h1 ~ p ?",
+      "options": {
+        "A": "Irmão adjacente (imediatamente a seguir)",
+        "B": "Irmãos seguintes gerais                 ",
+        "C": "Filho direto                            ",
+        "D": "Descendente de qualquer nível           "
+      },
+      "explanation": "O tilde (~) seleciona todos os <p> que sejam irmãos posteriores do h1, não tendo de ser colados.",
+      "id": 793
+    },
+    {
+      "topic": "PHP",
+      "difficulty": "easy",
+      "answer": "A",
+      "question": "O que faz a instrução require_once?",
+      "options": {
+        "A": "Impede re-declarações caso já tenha sido incluído",
+        "B": "É mais rápida que require                        ",
+        "C": "Ignora erros fatais                              ",
+        "D": "Faz loop uma vez                                 "
+      },
+      "explanation": "O _once garante que ficheiros como bibliotecas não são importados múltiplas vezes, evitando erros de Funções Re-declaradas.",
+      "id": 794
+    },
+    {
+      "topic": "PHP",
+      "difficulty": "medium",
+      "answer": "C",
+      "question": "Como se diz ao PHP que não devolvemos HTML, mas sim JSON?",
+      "options": {
+        "A": "echo 'JSON';                             ",
+        "B": "Type: application/json                   ",
+        "C": "header('Content-Type: application/json');",
+        "D": "JSON_ENCODE()                            "
+      },
+      "explanation": "Mudando o Content-Type nos cabeçalhos, o cliente/browser sabe que não deve tentar desenhar HTML.",
+      "id": 795
+    },
+    {
+      "topic": "JavaScript DOM e Eventos",
+      "difficulty": "hard",
+      "answer": "B",
+      "question": "O que é o Shadow DOM?",
+      "options": {
+        "A": "DOM escondido via display:none                        ",
+        "B": "Um mini-DOM encapsulado que não colide com CSS externo",
+        "C": "O DOM do Node.js                                      ",
+        "D": "Modo noturno                                          "
+      },
+      "explanation": "O Shadow DOM encerra o HTML/CSS de forma isolada, fundamental para construir Web Components robustos.",
+      "id": 796
+    },
+    {
+      "topic": "Desenvolvimento Web Avançado",
+      "difficulty": "medium",
+      "answer": "A",
+      "question": "Para que serve o IndexedDB?",
+      "options": {
+        "A": "Base de dados transacional massiva no browser",
+        "B": "Substituir o MySQL do servidor               ",
+        "C": "Guardar passwords                            ",
+        "D": "Tornar o site indexável no Google            "
+      },
+      "explanation": "Ao contrário de LocalStorage (limitado e lento), IndexedDB aguenta muita informação offline e funciona com querys transacionais.",
+      "id": 797
+    },
+    {
+      "topic": "Desenvolvimento Web Avançado",
+      "difficulty": "hard",
+      "answer": "C",
+      "question": "O que distingue um Web Worker de um Service Worker?",
+      "options": {
+        "A": "Nenhuma diferença                                 ",
+        "B": "O Service Worker manipula a UI                    ",
+        "C": "O Service Worker atua como Proxy de rede invisível",
+        "D": "O Web Worker corre no servidor                    "
+      },
+      "explanation": "Enquanto os Web Workers servem para cálculos pesados multithread, os Service Workers intercetam requisições HTTP para gerir caches offline e PWAs.",
+      "id": 798
+    },
+    {
+      "topic": "Desenvolvimento Web Avançado",
+      "difficulty": "medium",
+      "answer": "B",
+      "question": "Qual a principal diferença visual para o utilizador entre SSR e CSR?",
+      "options": {
+        "A": "CSR não usa CSS                                                           ",
+        "B": "SSR entrega a página pronta (HTML montado), CSR desenha as tags localmente",
+        "C": "SSR usa Java                                                              ",
+        "D": "CSR não funciona em telemóveis                                            "
+      },
+      "explanation": "Server-Side Rendering monta a UI no servidor e manda o HTML limpo. Client-Side Rendering manda JSON e o Javascript constrói as DOM tags no cliente.",
+      "id": 799
+    },
+    {
+      "topic": "JavaScript",
+      "difficulty": "easy",
+      "answer": "D",
+      "question": "Qual a função do array.reduce()?",
+      "options": {
+        "A": "Esconder os dados                          ",
+        "B": "Filtrar por tamanho                        ",
+        "C": "Cortar os elementos finais                 ",
+        "D": "Acumular todo o array num único valor final"
+      },
+      "explanation": "Pega na lista inteira e consolida a um valor (ex: somatório de preços).",
+      "id": 800
+    },
+    {
+      "topic": "JavaScript",
+      "difficulty": "easy",
+      "answer": "B",
+      "question": "A diferença entre let e var?",
+      "options": {
+        "A": "var é para números, let é para strings              ",
+        "B": "let respeita block-scope ({}), var tem scope confuso",
+        "C": "var não pode ser alterado                           ",
+        "D": "let só se usa em loops                              "
+      },
+      "explanation": "let (e const) morrem dentro da bracket que os criou. var é obsoleto por vazar para o escopo global facilmente.",
+      "id": 801
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "No HTML, o atributo id pode ser repetido em vários elementos da página?",
+      "options": {
+        "A": "Sim                  ",
+        "B": "Não, tem de ser único",
+        "C": "Apenas em divs       ",
+        "D": "Depende do CSS       "
+      },
+      "answer": "B",
+      "explanation": "O id é o identificador absoluto e único de um nó na página. O class é que pode ser repetido.",
+      "id": 802
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Qual a principal vantagem da tag <label> num formulário?",
+      "options": {
+        "A": "Muda a cor                        ",
+        "B": "Dá estilo à caixa                 ",
+        "C": "Ao clicar nela, o input ganha foco",
+        "D": "Faz submit automático             "
+      },
+      "answer": "C",
+      "explanation": "Para além da acessibilidade (SEO/Invisuais), clicar numa label ativa automaticamente o input que ela envolve ou referencia.",
+      "id": 803
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "medium",
+      "question": "Por que devemos validar o HTML no W3C Validator se a página já corre bem no browser?",
+      "options": {
+        "A": "Os browsers corrigem e ignoram erros silenciosamente",
+        "B": "Para ser mais rápido                                ",
+        "C": "É obrigatório por lei                               ",
+        "D": "Para ativar o PHP                                   "
+      },
+      "answer": "A",
+      "explanation": "Os browsers modernos são lenientes e engolem muito HTML malformado. Validar no W3C garante a rigorosa aderência à norma semântica.",
+      "id": 804
+    },
+    {
+      "topic": "HTML",
+      "difficulty": "easy",
+      "question": "Num <input type=\"checkbox\">, quando é que o seu valor é enviado no submit?",
+      "options": {
+        "A": "Sempre                                          ",
+        "B": "Nunca                                           ",
+        "C": "Apenas quando a caixa está selecionada (checked)",
+        "D": "Se tiver a classe 'active'                      "
+      },
+      "answer": "C",
+      "explanation": "Formulários HTTP apenas enviam dados de checkboxes marcadas. As desmarcadas são simplesmente ignoradas pelo browser.",
+      "id": 805
+    },
+    {
+      "topic": "CSS",
+      "difficulty": "easy",
+      "question": "O que indica o seletor `div > p`?",
+      "options": {
+        "A": "Todos os <p> da página                           ",
+        "B": "Apenas os <p> que são filhos diretos de uma <div>",
+        "C": "Os <p> adjacentes                                ",
+        "D": "Apenas os <p> flutuantes                         "
+      },
+      "answer": "B",
+      "explanation": "O sinal de maior (>) restringe a seleção a descendentes de primeiro nível (filhos imediatos) e não aos netos.",
+      "id": 806
+    },
+    {
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Para que serve a regra CSS !important?",
+      "options": {
+        "A": "Faz o código correr 2x mais rápido                              ",
+        "B": "Quebra as regras naturais de especificidade/cascata (má prática)",
+        "C": "É a única forma de mudar o body                                 ",
+        "D": "Ignora ficheiros externos                                       "
+      },
+      "answer": "B",
+      "explanation": "A diretiva !important impõe aquela regra à força bruta sobre qualquer outra no documento, desfazendo o poder da cascata CSS.",
+      "id": 807
+    },
+    {
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Qual a diferença base entre transition e transform no CSS?",
+      "options": {
+        "A": "O transform anima no tempo; transition deforma o objeto                               ",
+        "B": "São a mesma coisa                                                                     ",
+        "C": "O transform altera geometria (rotação/escala); transition controla a animação no tempo",
+        "D": "Ambos usam Javascript                                                                 "
+      },
+      "answer": "C",
+      "explanation": "O transform (ex: rotate) muda a forma física instantaneamente. O transition diz ao CSS para aplicar as mudanças de forma suave ao longo de x segundos.",
+      "id": 808
+    },
+    {
+      "topic": "CSS",
+      "difficulty": "medium",
+      "question": "Como invocas a variável `--cor-principal` no teu CSS?",
+      "options": {
+        "A": "color: $cor-principal;      ",
+        "B": "color: var(--cor-principal);",
+        "C": "color: get(--cor-principal);",
+        "D": "color: --cor-principal;     "
+      },
+      "answer": "B",
+      "explanation": "As variáveis nativas de CSS (Custom Properties) são sempre convocadas através da função nativa `var()`.",
+      "id": 809
+    },
+    {
+      "topic": "PHP",
+      "difficulty": "hard",
+      "question": "O que acontece ao código PHP `echo 5 + '10 batatas';` (Type Juggling)?",
+      "options": {
+        "A": "Crash (Error 500)                            ",
+        "B": "Ignora o texto, aproveita o '10' e imprime 15",
+        "C": "Imprime '510 batatas'                        ",
+        "D": "Imprime 5                                    "
+      },
+      "answer": "B",
+      "explanation": "O motor livre do PHP 7 e anteriores extrai a parte numérica de uma string quando forçado matematicamente (apesar de atirar um warning).",
+      "id": 810
+    },
+    {
+      "topic": "PHP",
+      "difficulty": "easy",
+      "question": "Se não usarmos chaves explicitas (ex: `$x = [1, 2];`), como são criadas no PHP?",
+      "options": {
+        "A": "Em Letras (a, b)                          ",
+        "B": "Hashes únicas                             ",
+        "C": "Índices numéricos ordenados iniciados em 0",
+        "D": "Tornam-se null                            "
+      },
+      "answer": "C",
+      "explanation": "Como em todas as linguagens C-based, a indexação implícita num array é sempre um índice inteiro a começar no zero.",
+      "id": 811
+    },
+    {
+      "topic": "JavaScript",
+      "difficulty": "medium",
+      "question": "A declaração `const x = []; x.push(1);` atira erro?",
+      "options": {
+        "A": "Sim, x é const                                        ",
+        "B": "Não, o conteúdo de um array const pode sofrer mutações",
+        "C": "Só em strict mode                                     ",
+        "D": "Atira TypeError global                                "
+      },
+      "answer": "B",
+      "explanation": "No JS, `const` apenas impede a reatribuição total da variável. Adicionar elementos ao array que ela aponta é perfeitamente legal.",
+      "id": 812
+    },
+    {
+      "topic": "JavaScript",
+      "difficulty": "medium",
+      "question": "Qual dos seguintes valores é considerado TRUTHY (verdadeiro) num if em JS?",
+      "options": {
+        "A": "0                  ",
+        "B": "NaN                ",
+        "C": "Uma array vazia [] ",
+        "D": "Uma string vazia \"\""
+      },
+      "answer": "C",
+      "explanation": "Os 6 valores falsy originais do JS são 0, NaN, \"\", false, undefined e null. Todo o resto, incluindo objetos e arrays vazios, é true.",
+      "id": 813
+    },
+    {
+      "topic": "JavaScript",
+      "difficulty": "easy",
+      "question": "O que significa dizer que as funções no JS são First-class citizens?",
+      "options": {
+        "A": "Aceleram o CPU                                          ",
+        "B": "Podem ser guardadas em vars ou passadas a outras funções",
+        "C": "Estão bloqueadas                                        ",
+        "D": "Vieram do C++                                           "
+      },
+      "answer": "B",
+      "explanation": "No JS, as funções comportam-se como objetos normais. Podes passá-las como callbacks ou retorná-las.",
+      "id": 814
+    },
+    {
+      "topic": "JavaScript",
+      "difficulty": "medium",
+      "question": "Como acedes ao valor '15' de `<div data-id=\"15\">` via JavaScript?",
+      "options": {
+        "A": "div.id               ",
+        "B": "div.data             ",
+        "C": "div.dataset.id       ",
+        "D": "div.getAttribute.id()"
+      },
+      "answer": "C",
+      "explanation": "A API do DOM expõe de imediato todos os atributos HTML5 'data-*' na maravilhosa propriedade nativa `.dataset`.",
+      "id": 815
+    },
+    {
+      "topic": "Segurança Web",
+      "difficulty": "medium",
+      "question": "Por que razão a função Bcrypt é superior a MD5 no hashing de passwords?",
+      "options": {
+        "A": "Ocupa menos bytes na BD                                        ",
+        "B": "Não precisa do PHP                                             ",
+        "C": "Bcrypt é intencionalmente mais lento para impedir a força-bruta",
+        "D": "É aprovado pela Google                                         "
+      },
+      "answer": "C",
+      "explanation": "O MD5 gera milhões de hashes por segundo, permitindo rebentar tabelas em segundos. O Bcrypt usa ciclos pesados de CPU para as proteger.",
+      "id": 816
+    },
+    {
+      "topic": "Web & HTTP",
+      "difficulty": "medium",
+      "question": "O que indica o cabeçalho Cache-Control?",
+      "options": {
+        "A": "Limpa o disco do cliente                                      ",
+        "B": "Injeta os cookies de sessão                                   ",
+        "C": "Gere se o browser pode memorizar a resposta e por quanto tempo",
+        "D": "Altera o CSS                                                  "
+      },
+      "answer": "C",
+      "explanation": "É a espinha dorsal de performance na Web, controlando minuciosamente quanto tempo um asset pode viver na RAM do cliente.",
+      "id": 817
+    },
+    {
+      "topic": "Web & HTTP",
+      "difficulty": "easy",
+      "question": "O código HTTP 301 indica:",
+      "options": {
+        "A": "Sucesso                                        ",
+        "B": "Moved Permanently (Redirecionamento definitivo)",
+        "C": "Erro do Cliente                                ",
+        "D": "Erro Interno                                   "
+      },
+      "answer": "B",
+      "explanation": "A família dos códigos 300 sinaliza redirecionamento, sendo o 301 utilizado para mover o link permanentemente para outra direção.",
+      "id": 818
+    },
+    {
+      "topic": "Web & HTTP",
+      "difficulty": "medium",
+      "question": "O que é cURL?",
+      "options": {
+        "A": "Ferramenta CLI nativa para fazer pedidos HTTP via terminal",
+        "B": "Um motor de render CSS                                    ",
+        "C": "Linguagem PHP                                             ",
+        "D": "Extensão do browser                                       "
+      },
+      "answer": "A",
+      "explanation": "O cURL é o canivete suíço da Web, existindo em quase todos os terminais para simular browsers e testar pedidos e respostas HTTP/HTTPS.",
+      "id": 819
+    },
+    {
+      "topic": "Expressões Regulares",
+      "difficulty": "medium",
+      "question": "Numa Regex, o que faz a syntax \\d ?",
+      "options": {
+        "A": "Corresponde ao fim da string          ",
+        "B": "Corresponde a qualquer dígito numérico",
+        "C": "Apaga um espaço                       ",
+        "D": "Nega a pesquisa                       "
+      },
+      "answer": "B",
+      "explanation": "O d deriva de Digit. Equivale exatamente à classe mais lenta [0-9].",
+      "id": 820
+    },
+    {
+      "topic": "Expressões Regulares",
+      "difficulty": "hard",
+      "question": "Por defeito, o quantificador .* é 'Greedy' (Guloso). O que é que isto causa?",
+      "options": {
+        "A": "Ignora o final da frase                        ",
+        "B": "Limpa todas as tags de HTML                    ",
+        "C": "Tenta capturar a string a mais extensa possível",
+        "D": "Acelera a RAM do PC                            "
+      },
+      "answer": "C",
+      "explanation": "Um motor Regex guloso consome os carateres mais que pode até bater no último limite válido. Pode ser anulado ativando o Lazy state com um .*?.",
+      "id": 821
     }
   ]
 }
