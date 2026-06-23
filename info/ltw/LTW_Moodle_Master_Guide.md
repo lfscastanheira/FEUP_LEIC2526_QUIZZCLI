@@ -13,6 +13,7 @@
 | [3](#tipo-3-especificidade-css-e-cascata) | Especificidade CSS + Cascata | CSS | ⭐⭐⭐⭐ |
 | [4](#tipo-4-semântica-html) | Semântica HTML | HTML | ⭐ |
 | [5](#tipo-5-código-php---funções-de-output) | Código PHP — funções de output | PHP | ⭐⭐⭐ |
+| [6](#tipo-6-código-javascript) | Código JavaScript | JavaScript | ⭐⭐⭐⭐ |
 
 ---
 
@@ -628,6 +629,400 @@ function drawAuthor($author) { ?>
 
 ---
 
+## TIPO 6: Código JavaScript
+
+### O que é?
+
+Perguntas que pedem para **escrever uma função JavaScript** que manipula o DOM, faz pedidos AJAX/Fetch, ou implementa uma classe. O enunciado descreve o comportamento esperado e muitas vezes fornece HTML de contexto.
+
+### Como identificar?
+
+> *"Write a JavaScript function named `X` that…"*
+> *"Given the following HTML, write a function that adds/removes/changes…"*
+> *"Implement a class `X` with the following behaviour…"*
+> *"Using the Fetch API, write code that…"*
+
+### Estratégia de Resolução (5 passos)
+
+```
+1. Ler o HTML de contexto e identificar os seletores relevantes
+2. Perceber O QUE a função recebe (parâmetros) e O QUE deve fazer
+3. Identificar o subtipo: DOM | Eventos | AJAX | Classe | Array
+4. Escrever o esqueleto primeiro (function + parâmetros + return)
+5. Preencher com as operações corretas
+```
+
+---
+
+### Subtipo A — Manipulação do DOM
+
+**Padrão:** Função que recebe dados e cria/modifica elementos HTML na página.
+
+**Exemplo de enunciado:**
+> *Write a function `addProduct(container, product)` that, given a container element and an object `{ name, price, inStock }`, appends a `<div class="product">` to the container containing an `<h3>` with the name, a `<p>` with the price formatted as "Price: €X.XX", and a `<span>` with the text "In Stock" or "Out of Stock" depending on `inStock`.*
+
+**Raciocínio:**
+```
+Input:  container (elemento DOM), product (objeto JS)
+Output: elemento <div class="product"> adicionado ao container
+
+Mapeamento:
+  product.name    → <h3>…</h3>
+  product.price   → <p>Price: €X.XX</p>
+  product.inStock → <span>In Stock</span> ou <span>Out of Stock</span>
+```
+
+**Resposta:**
+```javascript
+function addProduct(container, product) {
+  // 1. Criar o elemento raiz
+  const div = document.createElement('div');
+  div.classList.add('product');
+
+  // 2. Elemento simples
+  const h3 = document.createElement('h3');
+  h3.textContent = product.name;   // textContent é seguro (escapa HTML)
+  div.appendChild(h3);
+
+  // 3. Elemento com texto formatado
+  const p = document.createElement('p');
+  p.textContent = `Price: €${product.price.toFixed(2)}`;
+  div.appendChild(p);
+
+  // 4. Elemento condicional
+  const span = document.createElement('span');
+  span.textContent = product.inStock ? 'In Stock' : 'Out of Stock';
+  div.appendChild(span);
+
+  // 5. Inserir no DOM
+  container.appendChild(div);
+}
+```
+
+**Variantes comuns:**
+```javascript
+// Criar e inserir com innerHTML (cuidado com XSS!)
+div.innerHTML = `<h3>${product.name}</h3>`;
+// Só seguro se product.name vier de fonte confiável
+
+// Inserir antes de um elemento existente
+container.insertBefore(div, container.firstChild); // no início
+
+// Remover um elemento
+elemento.remove();
+
+// Encontrar elementos dentro de um container
+const items = container.querySelectorAll('.item');
+```
+
+---
+
+### Subtipo B — Eventos e Listeners
+
+**Padrão:** Função que regista event listeners e reage a interações do utilizador.
+
+**Exemplo de enunciado:**
+> *Write a function `setupCounter(button, display)` that, every time the button is clicked, increments an internal counter and updates the text content of display with the current count. Clicking the button while holding Shift should reset the counter to 0.*
+
+**Raciocínio:**
+```
+Estado interno: counter (variável no closure)
+Evento: 'click' no button
+Condição: event.shiftKey → reset
+Efeito:   display.textContent = counter
+```
+
+**Resposta:**
+```javascript
+function setupCounter(button, display) {
+  let counter = 0;                       // estado interno (closure)
+
+  button.addEventListener('click', function(event) {
+    if (event.shiftKey) {
+      counter = 0;                       // reset com Shift
+    } else {
+      counter++;                         // incrementar
+    }
+    display.textContent = counter;       // atualizar DOM
+  });
+}
+```
+
+**Propriedades do evento mais testadas:**
+```javascript
+event.target          // elemento que foi clicado
+event.currentTarget   // elemento onde o listener está
+event.preventDefault()// cancela comportamento padrão (ex: link, submit)
+event.stopPropagation()// para o bubbling
+event.shiftKey        // Shift pressionado?
+event.ctrlKey         // Ctrl pressionado?
+event.key             // tecla (em keydown/keyup): 'Enter', 'Escape', …
+event.clientX/Y       // posição do rato
+```
+
+**Event Delegation — listener no pai em vez de cada filho:**
+```javascript
+function setupList(ul) {
+  ul.addEventListener('click', function(event) {
+    // Verificar se o alvo é um <li>
+    if (event.target.matches('li')) {
+      event.target.classList.toggle('selected');
+    }
+  });
+}
+```
+
+---
+
+### Subtipo C — AJAX com Fetch API
+
+**Padrão:** Função que faz um pedido HTTP e processa a resposta.
+
+**Exemplo de enunciado:**
+> *Write an async function `loadUsers(containerId)` that fetches data from `/api/users` (which returns a JSON array of `{ id, name, email }` objects), and for each user creates a `<p>` element with the text "Name — Email" and appends it to the element with the given id. If the request fails, show an alert with the message "Error loading users".*
+
+**Raciocínio:**
+```
+1. fetch('/api/users')  →  Promise<Response>
+2. response.json()      →  Promise<Array>
+3. forEach user         →  criar <p> e inserir
+4. catch               →  alert de erro
+```
+
+**Resposta:**
+```javascript
+async function loadUsers(containerId) {
+  const container = document.getElementById(containerId);
+
+  try {
+    // 1. Fazer o pedido
+    const response = await fetch('/api/users');
+
+    // 2. Verificar se correu bem (fetch só rejeita em erro de rede)
+    if (!response.ok) {
+      throw new Error(`HTTP error: ${response.status}`);
+    }
+
+    // 3. Parsear o JSON
+    const users = await response.json();
+
+    // 4. Para cada utilizador, criar elemento
+    users.forEach(user => {
+      const p = document.createElement('p');
+      p.textContent = `${user.name} — ${user.email}`;
+      container.appendChild(p);
+    });
+
+  } catch (error) {
+    alert('Error loading users');
+  }
+}
+```
+
+**Variante — POST com dados:**
+```javascript
+async function saveUser(userData) {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userData)
+  });
+
+  if (!response.ok) throw new Error('Failed to save');
+  return await response.json();   // retorna o utilizador criado
+}
+```
+
+**Variante — POST com FormData (para formulários):**
+```javascript
+async function submitForm(form) {
+  const data = new FormData(form);   // extrai os campos do formulário
+  const response = await fetch(form.action, {
+    method: 'POST',
+    body: data                        // Content-Type definido automaticamente
+  });
+  return response.ok;
+}
+```
+
+---
+
+### Subtipo D — Classes e OOP
+
+**Padrão:** Implementar uma classe com campos, construtor, métodos e herança.
+
+**Exemplo de enunciado:**
+> *Implement a class `ShoppingCart` that:*
+> - *Has a private array `#items` (initially empty)*
+> - *Has a method `add(product, quantity)` that adds `{ product, quantity }` to the list*
+> - *Has a method `remove(productName)` that removes all entries with that product name*
+> - *Has a getter `total` that returns the sum of `product.price × quantity` for all items*
+> - *Has a method `render(container)` that clears the container and appends one `<li>` per item with text "Name × qty = €total"*
+
+**Resposta:**
+```javascript
+class ShoppingCart {
+  #items = [];                        // campo privado
+
+  add(product, quantity) {
+    this.#items.push({ product, quantity });
+  }
+
+  remove(productName) {
+    this.#items = this.#items.filter(
+      item => item.product.name !== productName
+    );
+  }
+
+  get total() {
+    return this.#items.reduce(
+      (sum, item) => sum + item.product.price * item.quantity,
+      0
+    );
+  }
+
+  render(container) {
+    container.innerHTML = '';           // limpar container
+
+    this.#items.forEach(({ product, quantity }) => {
+      const li = document.createElement('li');
+      const lineTotal = (product.price * quantity).toFixed(2);
+      li.textContent = `${product.name} × ${quantity} = €${lineTotal}`;
+      container.appendChild(li);
+    });
+  }
+}
+
+// Uso:
+const cart = new ShoppingCart();
+cart.add({ name: 'Shirt', price: 19.99 }, 2);
+cart.add({ name: 'Shoes', price: 59.99 }, 1);
+console.log(cart.total);             // 99.97
+cart.render(document.querySelector('#cart'));
+```
+
+**Herança:**
+```javascript
+class DiscountedCart extends ShoppingCart {
+  #discount;                          // campo privado
+
+  constructor(discount) {
+    super();                           // OBRIGATÓRIO antes de usar this
+    this.#discount = discount;         // ex: 0.1 = 10% de desconto
+  }
+
+  get total() {
+    return super.total * (1 - this.#discount);  // override com super
+  }
+}
+```
+
+---
+
+### Subtipo E — Manipulação de Arrays (Métodos de Alta Ordem)
+
+**Padrão:** Transformar, filtrar ou agregar dados de um array.
+
+**Exemplo de enunciado:**
+> *Given an array of student objects `{ name, grade }`, write a function `getTopStudents(students, threshold)` that returns an array of names (sorted alphabetically) of students whose grade is greater than or equal to the threshold.*
+
+**Resposta:**
+```javascript
+function getTopStudents(students, threshold) {
+  return students
+    .filter(s => s.grade >= threshold)   // filtrar por nota
+    .map(s => s.name)                    // extrair só o nome
+    .sort();                             // ordenar alfabeticamente
+}
+
+// Uso:
+const alunos = [
+  { name: 'Ana', grade: 18 },
+  { name: 'Bruno', grade: 12 },
+  { name: 'Carla', grade: 19 }
+];
+getTopStudents(alunos, 15);  // ['Ana', 'Carla']
+```
+
+**Referência rápida dos métodos mais testados:**
+```javascript
+// filter → novo array só com os que passam no teste
+arr.filter(x => x.age >= 18)
+
+// map → novo array transformado (1 para 1)
+arr.map(x => x.name)
+arr.map(x => ({ ...x, score: x.grade * 10 })) // objeto modificado
+
+// reduce → colapsar para um único valor
+arr.reduce((acc, x) => acc + x.price, 0)  // soma
+arr.reduce((acc, x) => Math.max(acc, x), -Infinity) // máximo
+
+// find / findIndex → primeiro elemento que satisfaz
+arr.find(x => x.id === 5)         // o objeto ou undefined
+arr.findIndex(x => x.id === 5)   // índice ou -1
+
+// every / some → testar condição
+arr.every(x => x.approved)   // todos aprovados?
+arr.some(x => x.grade > 19)  // algum com mais de 19?
+
+// sort → ordenar (MUTA o array original!)
+arr.sort((a, b) => a.grade - b.grade)          // numérico crescente
+arr.sort((a, b) => b.grade - a.grade)          // numérico decrescente
+arr.sort((a, b) => a.name.localeCompare(b.name)) // alfabético
+
+// flat / flatMap → arrays aninhados
+[[1,2],[3,4]].flat()                   // [1,2,3,4]
+arr.flatMap(x => x.tags)              // expandir arrays internos
+```
+
+---
+
+### Template de Resposta Rápida por Subtipo
+
+```
+╔════════════════════════════════════════════════════════════════╗
+║  DOM: createElement → textContent/classList → appendChild     ║
+║  Eventos: addEventListener → event.target → modificar DOM     ║
+║  Fetch: async/await → fetch → .ok → .json() → try/catch      ║
+║  Classes: class X { #campo; constructor; método; get prop }   ║
+║  Arrays: .filter().map().reduce() — não muta o original       ║
+╚════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+### Padrões de Código JS que o exame valoriza
+
+```javascript
+// ✅ textContent em vez de innerHTML (segurança)
+el.textContent = userInput;       // seguro
+el.innerHTML = userInput;         // PERIGOSO (XSS)
+
+// ✅ const por padrão, let só se precisar reatribuir
+const div = document.createElement('div');
+let counter = 0;
+
+// ✅ Arrow functions para callbacks
+arr.map(x => x.name);
+btn.addEventListener('click', e => { ... });
+
+// ✅ Template literals em vez de concatenação
+p.textContent = `${user.name} — ${user.email}`; // ✅
+p.textContent = user.name + ' — ' + user.email;  // ✅ mas mais verboso
+
+// ✅ Destructuring para clareza
+const { name, price } = product;
+const [first, ...rest] = array;
+
+// ✅ Encadeamento de métodos
+const nomes = estudantes
+  .filter(e => e.nota >= 10)
+  .map(e => e.nome)
+  .sort();
+```
+
+---
+
 ## 🔑 Resumo Final — O que saber de cada tipo
 
 ### Tipo 1 (Regex CONTAINS)
@@ -659,6 +1054,13 @@ function drawAuthor($author) { ?>
 - Arrays → `foreach` loop
 - `htmlspecialchars()` em todo o output (segurança + boa prática)
 - Sintaxe: `echo "<tag>" . $var . "</tag>";`
+
+### Tipo 6 (JavaScript)
+- **DOM:** `createElement` → `textContent` → `appendChild`
+- **Eventos:** `addEventListener` → `event.target` → modificar DOM
+- **Fetch:** `async/await` → verificar `response.ok` → `.json()` → `try/catch`
+- **Classes:** `#campo` privado · `constructor` · `get` · `extends` + `super()`
+- **Arrays:** encadear `.filter().map().reduce()` sem mutar o original
 
 ---
 
